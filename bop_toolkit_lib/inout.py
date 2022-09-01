@@ -217,6 +217,24 @@ def save_scene_gt(path, scene_gt):
         gt['obj_bb'] = [int(x) for x in gt['obj_bb']]
   save_json(path, scene_gt)
 
+def save_scene_gt_list(path, scene_gt):
+  """Saves ground-truth annotations to a JSON file.
+
+  See docs/bop_datasets_format.md for details.
+
+  :param path: Path to the output JSON file.
+  :param scene_gt: Dictionary to save to the JSON file.
+  """
+  for im_id in sorted(scene_gt.keys()):
+    im_gts = scene_gt[im_id]
+    for gt in im_gts:
+      if 'cam_R_m2c' in gt.keys():
+        gt['cam_R_m2c'] = gt['cam_R_m2c']
+      if 'cam_t_m2c' in gt.keys():
+        gt['cam_t_m2c'] = gt['cam_t_m2c']
+      if 'obj_bb' in gt.keys():
+        gt['obj_bb'] = [int(x) for x in gt['obj_bb']]
+  save_json(path, scene_gt)
 
 def load_bop_results(path, version='bop19'):
   """Loads 6D object pose estimates from a file.
