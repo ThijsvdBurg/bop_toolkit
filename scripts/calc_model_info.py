@@ -6,16 +6,17 @@ from bop_toolkit_lib import config
 from bop_toolkit_lib import dataset_params
 from bop_toolkit_lib import inout
 from bop_toolkit_lib import misc
-
+from pybop_lib.debug_tools import printdebug
 
 # PARAMETERS.
 ################################################################################
 p = {
   # See dataset_params.py for options.
-  'dataset': 'lm',
+  'dataset': config.dataset_name,
 
   # Type of input object models.
-  'model_type': None,
+  # 'model_type': None,
+  'model_type': eval,
 
   # Folder containing the BOP datasets.
   'datasets_path': config.datasets_path,
@@ -34,14 +35,20 @@ for obj_id in dp_model['obj_ids']:
     model = inout.load_ply(dp_model['model_tpath'].format(obj_id=obj_id))
 
     # Calculate 3D bounding box.
-    ref_pt = map(float, model['pts'].min(axis=0).flatten())
-    size = map(float, (model['pts'].max(axis=0) - ref_pt).flatten())
+    ref_pt_array_min = model['pts'].min(axis=0).flatten()
+    ref_pt_map_min   = map( float, ref_pt_array_min)
+    ref_pt_list = list(ref_pt_map_min)
+
+    #size = map(float, (model['pts'].max(axis=0) - ref_pt).flatten())
+    ref_pt_array_max = model['pts'].max(axis=0).flatten()
+    #ref_pt_map_max   = map( float, ref_pt_map_max)
+    size             = ref_pt_array_max - ref_pt_array_min
 
     # Calculated diameter.
     diameter = misc.calc_pts_diameter(model['pts'])
 
     models_info[obj_id] = {
-        'min_x': ref_pt[0], 'min_y': ref_pt[1], 'min_z': ref_pt[2],
+        'min_x': ref_pt_list[0], 'min_y': ref_pt_list[1], 'min_z': ref_pt_list[2],
         'size_x': size[0], 'size_y': size[1], 'size_z': size[2],
         'diameter': diameter
     }

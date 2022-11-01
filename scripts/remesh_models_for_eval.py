@@ -18,7 +18,7 @@ from bop_toolkit_lib import misc
 ################################################################################
 p = {
   # See dataset_params.py for options.
-  'dataset': 'lm',
+  'dataset': config.dataset_name,
 
   # Type of input object models.
   # None = default model type.
@@ -37,7 +37,7 @@ p = {
   # Path to scripts/meshlab_scripts/remesh_for_eval.mlx.
   'meshlab_script_path': os.path.join(
     os.path.dirname(os.path.realpath(__file__)), 'meshlab_scripts',
-    r'remesh_for_eval_cell=0.25.mlx'),
+    r'remesh_for_eval_cell_edit=0.25.mlx'),
 }
 ################################################################################
 
@@ -58,7 +58,7 @@ for obj_id in dp_model_in['obj_ids']:
 
   model_in_path = dp_model_in['model_tpath'].format(obj_id=obj_id)
   model_out_path = dp_model_out['model_tpath'].format(obj_id=obj_id)
-
+  print('model_out_path',model_out_path)
   misc.ensure_dir(os.path.dirname(model_out_path))
 
   misc.run_meshlab_script(p['meshlab_server_path'], p['meshlab_script_path'],

@@ -13,15 +13,15 @@ from bop_toolkit_lib import misc
 from bop_toolkit_lib import renderer
 from bop_toolkit_lib import visibility
 
-
+from pybop_lib import debug_tools
 # PARAMETERS.
 ################################################################################
 p = {
   # See dataset_params.py for options.
-  'dataset': 'lm',
+  'dataset': config.dataset_name,
 
   # Dataset split. Options: 'train', 'val', 'test'.
-  'dataset_split': 'test',
+  'dataset_split': config.dataset_split,
 
   # Dataset split type. None = default. See dataset_params.py for options.
   'dataset_split_type': None,
@@ -99,6 +99,11 @@ for scene_id in scene_ids:
       scene_id=scene_id, im_id=im_id)
     depth_im = inout.load_depth(depth_path)
     depth_im *= scene_camera[im_id]['depth_scale']  # to [mm]
+
+    debug_tools.printMaxMin(depth_im)
+
+    depth_im[depth_im < 0.0001] = 0.3745*depth_im.max()
+
     dist_im = misc.depth_im_to_dist_im_fast(depth_im, K)
 
     for gt_id, gt in enumerate(scene_gt[im_id]):
