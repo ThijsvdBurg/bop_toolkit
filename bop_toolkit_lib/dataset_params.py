@@ -86,6 +86,8 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
     'hb': list(range(1, 34)),  # Full HB dataset.
     'ycbv': list(range(1, 22)),
     'hope': list(range(1, 29)),
+    'husky':[1],
+    'husky_devel':[1],
   }[dataset_name]
 
   # ID's of objects with ambiguous views evaluated using the ADI pose error
@@ -104,6 +106,8 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
     'hb': [6, 10, 11, 12, 13, 14, 18, 24, 29],
     'ycbv': [1, 13, 14, 16, 18, 19, 20, 21],
     'hope': None,  # Not defined yet.
+    'husky':[],
+    #'husky_devel':[1],
   }[dataset_name]
 
   # T-LESS includes two types of object models, CAD and reconstructed.
@@ -148,6 +152,7 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None):
   :param split: Name of the dataset split ('train', 'val', 'test').
   :param split_type: Name of the split type (e.g. for T-LESS, possible types of
     the 'train' split are: 'primesense', 'render_reconst').
+  :param sync_delay: microseconds time delay for optitrack datastream
   :return: Dictionary with parameters for the specified dataset split.
   """
   p = {
@@ -372,6 +377,17 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None):
       p['depth_range'] = None  # Not calculated yet.
       p['azimuth_range'] = None  # Not calculated yet.
       p['elev_range'] = None  # Not calculated yet.
+  elif dataset_name == 'husky' or dataset_name== 'husky_devel':
+    p['scene_ids'] = {
+      'train': list(range(1,70)),
+      'test': list(range(70,108))
+    }[split]
+    p['im_size'] = (1280, 720)
+
+    if split == 'test':
+      p['depth_range'] = None  # Not calculated yet.
+      p['azimuth_range'] = None  # Not calculated yet.
+      p['elev_range'] = None  # Not calculated yet.
 
   else:
     raise ValueError('Unknown BOP dataset ({}).'.format(dataset_name))
@@ -391,6 +407,10 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None):
     'scene_camera_tpath': join(
       split_path, '{scene_id:06d}', 'scene_camera.json'),
 
+    # Path template to the unfiltered file with per-image camera parameters.
+    'scene_camera_unfilt_tpath': join(
+      split_path, '{scene_id:06d}', 'scene_camera_unfiltered.json'),
+
     # Path template to a file with GT annotations.
     'scene_gt_tpath': join(
       split_path, '{scene_id:06d}', 'scene_gt.json'),
@@ -398,7 +418,7 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None):
     # Path template to a file with meta information about the GT annotations.
     'scene_gt_info_tpath': join(
       split_path, '{scene_id:06d}', 'scene_gt_info.json'),
-    
+
     # Path template to a file with the coco GT annotations.
     'scene_gt_coco_tpath': join(
       split_path, '{scene_id:06d}', 'scene_gt_coco.json'),
