@@ -155,7 +155,8 @@ for error_dir_path in p['error_dir_paths']:
   method = result_info[0]
   dataset_info = result_info[1].split('-')
   dataset = dataset_info[0]
-  split = dataset_info[1]
+  # TODO FIX BELOW
+  split = 'test' #dataset_info[1]
   split_type = dataset_info[2] if len(dataset_info) > 2 else None
 
   # Evaluation signature.

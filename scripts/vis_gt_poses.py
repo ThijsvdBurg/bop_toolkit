@@ -18,10 +18,10 @@ from bop_toolkit_lib import visualization
 ################################################################################
 p = {
   # See dataset_params.py for options.
-  'dataset': 'lm',
+  'dataset': config.dataset_name,
 
   # Dataset split. Options: 'train', 'val', 'test'.
-  'dataset_split': 'test',
+  'dataset_split': config.dataset_split,
 
   # Dataset split type. None = default. See dataset_params.py for options.
   'dataset_split_type': None,
@@ -41,17 +41,20 @@ p = {
   # Indicates whether to render RGB images.
   'vis_rgb': True,
 
+  # Whether to use the original model color.
+  #'vis_orig_color': False,
+  'vis_orig_color': True,
+
   # Indicates whether to resolve visibility in the rendered RGB images (using
   # depth renderings). If True, only the part of object surface, which is not
   # occluded by any other modeled object, is visible. If False, RGB renderings
   # of individual objects are blended together.
   'vis_rgb_resolve_visib': True,
+  #'vis_rgb_resolve_visib': False,
 
   # Indicates whether to save images of depth differences.
   'vis_depth_diff': True,
-
-  # Whether to use the original model color.
-  'vis_orig_color': False,
+  #'vis_depth_diff': False,
 
   # Type of the renderer (used for the VSD pose error function).
   'renderer_type': 'vispy',  # Options: 'vispy', 'cpp', 'python'.
@@ -68,6 +71,10 @@ p = {
   'vis_depth_diff_tpath': os.path.join(
     '{vis_path}', '{dataset}', '{split}', '{scene_id:06d}',
     '{im_id:06d}_depth_diff.jpg'),
+  'vis_depth_diff_tpath_debug': os.path.join(
+    '{vis_path}', '{dataset}', '{split}', '{scene_id:06d}',
+    '{im_id:06d}_depth_diff_debug.jpg'),
+  'sync_delay': 6001,
 }
 ################################################################################
 
@@ -76,7 +83,7 @@ p = {
 dp_split = dataset_params.get_split_params(
   p['datasets_path'], p['dataset'], p['dataset_split'], p['dataset_split_type'])
 
-model_type = 'eval'  # None = default.
+model_type = None #'eval'  # None = default.
 dp_model = dataset_params.get_model_params(
   p['datasets_path'], p['dataset'], model_type)
 
@@ -200,11 +207,14 @@ for scene_id in scene_ids:
       vis_depth_diff_path = p['vis_depth_diff_tpath'].format(
         vis_path=p['vis_path'], dataset=p['dataset'], split=p['dataset_split'],
         scene_id=scene_id, im_id=im_id)
+      vis_depth_diff_path_debug = p['vis_depth_diff_tpath_debug'].format(
+        vis_path=p['vis_path'], dataset=p['dataset'], split=p['dataset_split'],
+        scene_id=scene_id, im_id=im_id)
 
     # Visualization.
     visualization.vis_object_poses(
       poses=gt_poses, K=K, renderer=ren, rgb=rgb, depth=depth,
-      vis_rgb_path=vis_rgb_path, vis_depth_diff_path=vis_depth_diff_path,
+      vis_rgb_path=vis_rgb_path, vis_depth_diff_path=vis_depth_diff_path, vis_depth_diff_path_debug=vis_depth_diff_path_debug,
       vis_rgb_resolve_visib=p['vis_rgb_resolve_visib'])
 
 misc.log('Done.')

@@ -15,8 +15,8 @@ p = {
   'dataset': config.dataset_name,
 
   # Type of input object models.
-  # 'model_type': None,
-  'model_type': eval,
+   #'model_type': None,
+   'model_type': 'eval',
 
   # Folder containing the BOP datasets.
   'datasets_path': config.datasets_path,

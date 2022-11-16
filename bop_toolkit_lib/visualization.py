@@ -10,7 +10,9 @@ from PIL import Image, ImageDraw, ImageFont
 
 from bop_toolkit_lib import inout
 from bop_toolkit_lib import misc
-
+from pybop_lib.debug_tools import printdebug
+from pybop_lib.debug_tools import printMaxMin
+from pybop_lib.manipulate_depth import vis_depth
 
 def draw_rect(im, rect, color=(1.0, 1.0, 1.0)):
   """Draws a rectangle on an image.
@@ -89,7 +91,7 @@ def depth_for_vis(depth, valid_start=0.2, valid_end=1.0):
 
 def vis_object_poses(
       poses, K, renderer, rgb=None, depth=None, vis_rgb_path=None,
-      vis_depth_diff_path=None, vis_rgb_resolve_visib=False):
+      vis_depth_diff_path=None, vis_depth_diff_path_debug=None, vis_rgb_resolve_visib=False):
   """Visualizes 3D object models in specified poses in a single image.
 
   Two visualizations are created:

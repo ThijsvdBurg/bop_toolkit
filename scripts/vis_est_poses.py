@@ -48,7 +48,10 @@ p = {
   # of the format. Example results can be found at:
   # https://bop.felk.cvut.cz/media/data/bop_sample_results/bop_challenge_2019/
   'result_filenames': [
-    '/path/to/csv/with/results',
+    #'/home/pmvanderburg/6dof_pose_experiments/pose_result_bop/husky/zebrapose_husky_test.csv',
+    #'/home/pmvanderburg/6dof_pose_experiments/husky_test_20221105_11_44/pose_result_bop/zebrapose_husky_test_20221105_11_44.csv',
+    '/home/pmvanderburg/6dof_pose_experiments/husky_test_obj03_20221108_09_22/pose_result_bop/zebrapose_husky_test_obj03.csv',
+    #'/home/pmvanderburg/6dof_pose_experiments/pose_result_bop/tudl/zebrapose_tudl_test.csv',
   ],
 
   # Folder containing the BOP datasets.
@@ -81,7 +84,7 @@ for result_fname in p['result_filenames']:
   method = result_info[0]
   dataset_info = result_info[1].split('-')
   dataset = dataset_info[0]
-  split = dataset_info[1]
+  split = 'test' #dataset_info[1]
   split_type = dataset_info[2] if len(dataset_info) > 2 else None
 
   # Load dataset parameters.

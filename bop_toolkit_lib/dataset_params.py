@@ -86,7 +86,8 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
     'hb': list(range(1, 34)),  # Full HB dataset.
     'ycbv': list(range(1, 22)),
     'hope': list(range(1, 29)),
-    'husky':[1],
+    #'husky':[3,4],
+    'husky':[5,6,7],
     'husky_devel':[1],
   }[dataset_name]
 
@@ -126,7 +127,7 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
 
   # Path to the folder with object models.
   models_path = join(datasets_path, dataset_name, models_folder_name)
-
+  
   p = {
     # ID's of all objects included in the dataset.
     'obj_ids': obj_ids,
@@ -140,7 +141,7 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
     # Path to a file with meta information about the object models.
     'models_info_path': join(models_path, 'models_info.json')
   }
-
+  print(p)
   return p
 
 

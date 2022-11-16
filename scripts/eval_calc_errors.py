@@ -43,6 +43,7 @@ p = {
     'tyol': 15,
     'ycbv': 15,
     'hope': 15,
+    'husky': 15,
   },
   'vsd_taus': list(np.arange(0.05, 0.51, 0.05)),
   'vsd_normalized_by_diameter': True,
@@ -61,7 +62,8 @@ p = {
   # description of the format. Example results can be found at:
   # https://bop.felk.cvut.cz/media/data/bop_sample_results/bop_challenge_2019/
   'result_filenames': [
-    '/path/to/csv/with/results',
+    #'/home/pmvanderburg/6dof_pose_experiments/husky_test_obj03_20221108_09_22/pose_result_bop/zebrapose_husky_test_obj03.csv',
+    'zebrapose_husky_test_obj03_20221108_09_22.csv',
   ],
 
   # Folder with results to be evaluated.
@@ -146,9 +148,15 @@ for result_filename in p['result_filenames']:
   method = str(result_info[0])
   dataset_info = result_info[1].split('-')
   dataset = str(dataset_info[0])
-  split = str(dataset_info[1])
+  split = 'test' #str(dataset_info[1])
   split_type = str(dataset_info[2]) if len(dataset_info) > 2 else None
   split_type_str = ' - ' + split_type if split_type is not None else ''
+  ### PMB DEBUG TODO HIER NOG NAAR KIJKEN, ER GAAT IETS MIS ###
+  print('dataset',dataset)
+  print('result_info[0]',result_info[0])
+  print('result_info[1]',result_info[1])
+  print('dataset_info',dataset_info)
+  ######
 
   # Load dataset parameters.
   dp_split = dataset_params.get_split_params(
