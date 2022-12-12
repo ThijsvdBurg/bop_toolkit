@@ -37,7 +37,6 @@ p = {
 }
 ################################################################################
 
-
 # Load dataset parameters.
 dp_split = dataset_params.get_split_params(
   p['datasets_path'], p['dataset'], p['dataset_split'], p['dataset_split_type'])
@@ -100,9 +99,11 @@ for scene_id in scene_ids:
     depth_im = inout.load_depth(depth_path)
     depth_im *= scene_camera[im_id]['depth_scale']  # to [mm]
 
-    debug_tools.printMaxMin(depth_im)
-
-    depth_im[depth_im < 0.0001] = 0.3745*depth_im.max()
+    ### PMB edit for husky dataset with makeshift depth images ###
+    if p['dataset'] == 'husky':
+      #debug_tools.printMaxMin(depth_im)
+      depth_im[depth_im < 0.0001] = 0.3745*depth_im.max()
+    ##############################################################
 
     dist_im = misc.depth_im_to_dist_im_fast(depth_im, K)
 
@@ -125,8 +126,10 @@ for scene_id in scene_ids:
       # Save the calculated masks.
       mask_path = dp_split['mask_tpath'].format(
         scene_id=scene_id, im_id=im_id, gt_id=gt_id)
-      inout.save_im(mask_path, 255 * mask.astype(np.uint8))
+      if not os.path.exists(mask_path):
+        inout.save_im(mask_path, 255 * mask.astype(np.uint8))
 
       mask_visib_path = dp_split['mask_visib_tpath'].format(
         scene_id=scene_id, im_id=im_id, gt_id=gt_id)
-      inout.save_im(mask_visib_path, 255 * mask_visib.astype(np.uint8))
+      if not os.path.exists(mask_visib_path):
+        inout.save_im(mask_visib_path, 255 * mask_visib.astype(np.uint8))

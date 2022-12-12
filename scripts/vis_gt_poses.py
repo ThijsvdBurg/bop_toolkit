@@ -53,8 +53,8 @@ p = {
   #'vis_rgb_resolve_visib': False,
 
   # Indicates whether to save images of depth differences.
-  'vis_depth_diff': True,
-  #'vis_depth_diff': False,
+  #'vis_depth_diff': True,
+  'vis_depth_diff': False,
 
   # Type of the renderer (used for the VSD pose error function).
   'renderer_type': 'vispy',  # Options: 'vispy', 'cpp', 'python'.
@@ -74,7 +74,9 @@ p = {
   'vis_depth_diff_tpath_debug': os.path.join(
     '{vis_path}', '{dataset}', '{split}', '{scene_id:06d}',
     '{im_id:06d}_depth_diff_debug.jpg'),
-  'sync_delay': 6001,
+
+  # Whether to overwrite GT pose if the path already exists
+  'force_rewrite': False,
 }
 ################################################################################
 
@@ -156,6 +158,7 @@ for scene_id in scene_ids:
           p['dataset'], scene_id, im_counter, len(im_ids)))
 
     K = scene_camera[im_id]['cam_K']
+    vis_depth_diff_path = None
 
     # List of considered ground-truth poses.
     gt_ids_curr = range(len(scene_gt[im_id]))
@@ -203,6 +206,7 @@ for scene_id in scene_ids:
 
     # Path to the output depth difference visualization.
     vis_depth_diff_path = None
+    vis_depth_diff_path_debug = None
     if p['vis_depth_diff']:
       vis_depth_diff_path = p['vis_depth_diff_tpath'].format(
         vis_path=p['vis_path'], dataset=p['dataset'], split=p['dataset_split'],
@@ -212,9 +216,25 @@ for scene_id in scene_ids:
         scene_id=scene_id, im_id=im_id)
 
     # Visualization.
-    visualization.vis_object_poses(
-      poses=gt_poses, K=K, renderer=ren, rgb=rgb, depth=depth,
-      vis_rgb_path=vis_rgb_path, vis_depth_diff_path=vis_depth_diff_path, vis_depth_diff_path_debug=vis_depth_diff_path_debug,
-      vis_rgb_resolve_visib=p['vis_rgb_resolve_visib'])
+
+    ### PMB DEBUG ###
+    if p['vis_depth_diff']:
+        print('vis_depth_diff_path is', vis_depth_diff_path)
+        if(os.path.exists(vis_depth_diff_path) and not p['force_rewrite']):
+            continue
+        else:
+            visualization.vis_object_poses(
+              poses=gt_poses, K=K, renderer=ren, rgb=rgb, depth=depth,
+              vis_rgb_path=vis_rgb_path, vis_depth_diff_path=vis_depth_diff_path, vis_depth_diff_path_debug=vis_depth_diff_path_debug,
+              vis_rgb_resolve_visib=p['vis_rgb_resolve_visib'])
+    else:
+        if(os.path.exists(vis_rgb_path) and not p['force_rewrite']):
+            continue
+        else:
+            visualization.vis_object_poses(
+              poses=gt_poses, K=K, renderer=ren, rgb=rgb, depth=depth,
+              vis_rgb_path=vis_rgb_path, vis_depth_diff_path=vis_depth_diff_path, vis_depth_diff_path_debug=vis_depth_diff_path_debug,
+              vis_rgb_resolve_visib=p['vis_rgb_resolve_visib'])
+    #################
 
 misc.log('Done.')

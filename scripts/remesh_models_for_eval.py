@@ -54,6 +54,8 @@ attrs_to_save = []
 
 ### PMB DEBUG ###
 dp_model_in['obj_ids'] = [5,6,7]
+
+
 # Process models of all objects in the selected dataset.
 for obj_id in dp_model_in['obj_ids']:
   misc.log('\n\n\nProcessing model of object {}...\n'.format(obj_id))
