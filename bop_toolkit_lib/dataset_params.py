@@ -376,52 +376,12 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None):
       p['depth_range'] = None  # Not calculated yet.
       p['azimuth_range'] = None  # Not calculated yet.
       p['elev_range'] = None  # Not calculated yet.
+
+
   elif dataset_name == 'husky' or dataset_name== 'husky_devel':
     p['scene_ids'] = {
-      'train': list(range(1,70)),
-      'train_tmp': list(range(1,70)),
-      'train_tmp_9000': list(range(1,70)),
-      'train_tmp_8999': list(range(1,70)),
-      'train_tmp_8998': list(range(1,70)),
-      'train_tmp_10008': list(range(1,70)),
-      'train_tmp_12008': list(range(1,70)),
-      'train_tmp_8007': list(range(1,70)),
-      'train_tmp_10007': list(range(1,70)),
-      'train_tmp_12007': list(range(1,70)),
-      'train_tmp_8006': list(range(1,70)),
-      'train_tmp_10006': list(range(1,70)),
-      'train_tmp_12006': list(range(1,70)),
-      'train_tmp_14006': list(range(1,70)),
-      'train_tmp_16006': list(range(1,70)),
-      'train_tmp_20006': list(range(1,70)),
-      'train_tmp_1001': list(range(1,70)),
-      'train_tmp_2001': list(range(1,70)),
-      'train_tmp_4001': list(range(1,70)),
-      'train_tmp_30001': list(range(1,70)),
-      'train_tmp_100001': list(range(1,70)),
-      'train_tmp_1002': list(range(1,70)),
-      'train_tmp_2002': list(range(1,70)),
-      'train_tmp_4002': list(range(1,70)),
-      'train_tmp_30002': list(range(1,70)),
-      'train_tmp_100002': list(range(1,70)),
-      'train_tmp_4003': list(range(1,70)),
-      'train_tmp_8003': list(range(1,70)),
-      'train_tmp_16003': list(range(1,70)),
-      'train_tmp_30003': list(range(1,70)),
-      'train_tmp_50004': list(range(1,70)),
-      'train_tmp_30004': list(range(1,70)),
-      'train_tmp_70004': list(range(1,70)),
-      'train_tmp_60005': list(range(1,70)),
-      'train_tmp_70005': list(range(1,70)),
-      'train_tmp_80005': list(range(1,70)),
-      'train_tmp_90005': list(range(1,70)),
-      'train_tmp_65000': list(range(1,70)),
-      'train_tmp_60006': list(range(1,70)),
-      'train_tmp_70006': list(range(1,70)),
-      'train_tmp_80006': list(range(1,70)),
-      'train_tmp_90006': list(range(1,70)),
-
-      'test': list(range(70,108))
+      'train': None,  # Use function get_present_scene_ids().
+      'test': None,  # Use function get_present_scene_ids().
     }[split]
     p['im_size'] = (1280, 720)
 
