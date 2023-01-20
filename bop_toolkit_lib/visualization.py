@@ -14,6 +14,8 @@ from pybop_lib.debug_tools import printdebug
 from pybop_lib.debug_tools import printMaxMin
 from pybop_lib.manipulate_depth import vis_depth
 
+import matplotlib.pyplot as plt
+
 def draw_rect(im, rect, color=(1.0, 1.0, 1.0)):
   """Draws a rectangle on an image.
 
@@ -235,3 +237,82 @@ def vis_object_poses(
     ]
     depth_diff_vis = write_text_on_image(depth_diff_vis, depth_info)
     inout.save_im(vis_depth_diff_path, depth_diff_vis)
+
+def AUC_graph(cumulative_auc, res, th):
+  """
+  ==========
+  plot(x, y)
+  ==========
+
+  See `~matplotlib.axes.Axes.plot`.
+  """
+
+  import numpy as np
+
+  # plt.style.use('_mpl-gallery')
+  #print('linspace',linspace)
+  print('cumulative auc',cumulative_auc)
+  # make data
+  x = np.linspace(0.1*th, th, num=res)
+  y = cumulative_auc
+
+  # plot
+  fig, ax = plt.subplots()
+
+  ax.plot(x, y, linewidth=2.0)
+
+  ax.set(xlim=(0, th+.0005),
+        ylim=(0, 1))
+
+  plt.show()
+
+
+#def visualise_tensor(tensor_gpu, ch=0, allkernels=False, nrows=8, ncols=8):
+def visualise_tensor(tensor, ch=0, allkernels=False, nrows=4, ncols=4):
+    """
+    # 1. The function visualise_tensor() takes the following arguments:
+
+    # tensor_gpu: the tensor to be visualised
+    # ch: the channel to be visualised, if ch=0, all channels are visualised
+    # allkernels: if True, all kernels are visualised
+    # nrows: number of rows of subplots to be used
+    # ncols: number of columns of subplots to be used
+
+    """
+    #tensorcopy=tensor.copy()
+    #tensor_cpu = tensor_gpu.detach().cpu()
+    # tensor=tensor_cpu.permute(1,0,2,3)
+    #tensor=tensor_cpu.numpy()
+    print('tensor t type and shape', type(tensor),tensor.shape)
+    if allkernels: 
+      tensor = tensor.view((1,-1) + tensor.shape[-2:])
+    elif ch >= 0: 
+      tensor_chan = tensor[:,ch,:,:]
+    elif ch < 0:
+        c = int(tensor.shape[1] / abs(ch))
+        row = int(c / nrows) if (c % nrows == 0) else int(c / nrows) + 1
+        col = min(ncols, c) if (c < ncols) else c % ncols
+        print('row={}, col={}'.format(row, col))     # debug only !!!
+
+    # print('tensor t type and shape', type(tensor),tensor.shape)
+    # for kernel in tensor:
+        # print(kernel)
+    kernels = np.array([kernel for kernel in tensor_chan])
+    print('kernels[0].shape',kernels[0].shape, len(kernels))
+    fig = plt.figure(figsize=(ncols, nrows)) #    fig = plt.figure()
+    row = col = 1
+    ax1 = fig.add_subplot(1, 1 , 1 )   # add subplot to figure with index i+1 and size row x column !!!
+    ax1.imshow((kernels[0]).reshape((32 , 32)), cmap='gray')   # show image on subplot with index i+1 and size row x column !!!
+    # for i in range((row * col)):   # number of subplots to show all kernels/filters of a layer !!!
+
+    #     ax1 = fig.add_subplot(row, col , i+1 )   # add subplot to figure with index i+1 and size row x column !!!
+
+    #     ax1.imshow((kernels[i]).reshape((32 , 32)), cmap='gray')   # show image on subplot with index i+1 and size row x column !!!
+
+    #     ax1.axis('off')   # remove axis from the plot/subplot with index i+1 and size row x column !!!
+
+    #     ax1.set_xticklabels([])   # remove tick labels from the plot/subplot with index i+! and size row x column !!!
+
+    #     ax1.set_yticklabels([])   # remove tick labels from the plot/subplot with index i+! and size row x column !!!
+
+    # plt.tight_layout()      ## adjust spacing between subplots to minimize the overlaps !!
