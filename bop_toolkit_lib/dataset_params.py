@@ -86,7 +86,7 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
     'ycbv': list(range(1, 22)),
     'hope': list(range(1, 29)),
     #'husky':[3,4],
-    'husky':[5], #,6,7,8],
+    'husky':[7],
     'husky_devel':[1],
   }[dataset_name]
   
@@ -143,7 +143,7 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
   return p
 
 
-def get_split_params(datasets_path, dataset_name, split, split_type=None):
+def get_split_params(datasets_path, dataset_name, split, split_type=None, predictor='ZP'):
   """Returns parameters (camera params, paths etc.) for the specified dataset.
 
   :param datasets_path: Path to a folder with datasets.
@@ -382,6 +382,29 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None):
     p['scene_ids'] = {
       'train': None,  # Use function get_present_scene_ids().
       'test': None,  # Use function get_present_scene_ids().
+      'test_small': None,  # Use function get_present_scene_ids().
+      'train_obj06': None, # Use function get_present_scene_ids().
+      'train_obj07': None, # Use function get_present_scene_ids().
+      'experiment': None,  # Use function get_present_scene_ids().
+      'experiment0': None,  # Use function get_present_scene_ids().
+      'experiment00': None,  # Use function get_present_scene_ids().
+      'experiment01': None,  # Use function get_present_scene_ids().
+      'experiment02': None,  # Use function get_present_scene_ids().
+      'experiment03': None,  # Use function get_present_scene_ids().
+      'experiment04': None,  # Use function get_present_scene_ids().
+      'experiment05': None,  # Use function get_present_scene_ids().
+      'experiment06': None,  # Use function get_present_scene_ids().
+      'experiment07': None,  # Use function get_present_scene_ids().
+      'experiment08': None,  # Use function get_present_scene_ids().
+      'experiment10': None,  # Use function get_present_scene_ids().
+      'experiment11': None,  # Use function get_present_scene_ids().
+      'experiment12': None,  # Use function get_present_scene_ids().
+      'experiment13': None,  # Use function get_present_scene_ids().
+      'experiment14': None,  # Use function get_present_scene_ids().
+      'experiment15': None,  # Use function get_present_scene_ids().
+      'experiment16': None,  # Use function get_present_scene_ids().
+      'experiment17': None,  # Use function get_present_scene_ids().
+      'experiment18': None,  # Use function get_present_scene_ids().
     }[split]
     p['im_size'] = (1280, 720)
 
@@ -394,7 +417,8 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None):
     raise ValueError('Unknown BOP dataset ({}).'.format(dataset_name))
 
   base_path = join(datasets_path, dataset_name)
-  split_path = join(base_path, split)
+  split_path = join(base_path, split, predictor)
+  # print('split path is:',split_path)
   if split_type is not None:
     if split_type == 'pbr':
       p['scene_ids'] = list(range(50))
@@ -404,6 +428,10 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None):
     # Path to the split directory.
     'split_path': split_path,
 
+    # Path template to a file with per-image camera parameters.
+    'scene_path': join(
+      split_path, '{scene_id:06d}'),
+    
     # Path template to a file with per-image camera parameters.
     'scene_camera_tpath': join(
       split_path, '{scene_id:06d}', 'scene_camera.json'),
@@ -423,6 +451,18 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None):
     # Path template to a file with the coco GT annotations.
     'scene_gt_coco_tpath': join(
       split_path, '{scene_id:06d}', 'scene_gt_coco.json'),
+
+    # Path template to the gray dir.
+    'gray_path': join(
+      split_path, '{scene_id:06d}', 'gray'), 
+
+    # Path template to an RGB image.
+    'rgb_path': join(
+      split_path, '{scene_id:06d}', 'rgb'),
+
+    # Path template to a depth image.
+    'depth_path': join(
+      split_path, '{scene_id:06d}', 'depth'),
 
     # Path template to a gray image.
     'gray_tpath': join(
@@ -457,6 +497,8 @@ def get_present_scene_ids(dp_split):
   """
   scene_dirs = [d for d in glob.glob(os.path.join(dp_split['split_path'], '*'))
                 if os.path.isdir(d)]
+  print('scene_dirs',scene_dirs)
   scene_ids = [int(os.path.basename(scene_dir)) for scene_dir in scene_dirs]
   scene_ids = sorted(scene_ids)
+  print('get_present_scene_ids',scene_ids)
   return scene_ids

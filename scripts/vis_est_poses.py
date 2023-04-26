@@ -50,7 +50,8 @@ p = {
   'result_filenames': [
     #'/home/pmvanderburg/6dof_pose_experiments/pose_result_bop/husky/zebrapose_husky_test.csv',
     #'/home/pmvanderburg/6dof_pose_experiments/husky_test_20221105_11_44/pose_result_bop/zebrapose_husky_test_20221105_11_44.csv',
-    '/home/pmvanderburg/6dof_pose_experiments/husky_test_obj03_20221108_09_22/pose_result_bop/zebrapose_husky_test_obj03.csv',
+    #'/home/pmvanderburg/6dof_pose_experiments/husky_test_obj03_20221108_09_22/pose_result_bop/zebrapose_husky_test_obj03.csv',
+    'zebrapose_husky_experiment0_obj07_18-29_20230420.csv'
     #'/home/pmvanderburg/6dof_pose_experiments/pose_result_bop/tudl/zebrapose_tudl_test.csv',
   ],
 
@@ -84,7 +85,7 @@ for result_fname in p['result_filenames']:
   method = result_info[0]
   dataset_info = result_info[1].split('-')
   dataset = dataset_info[0]
-  split = 'test' #dataset_info[1]
+  split = result_info[2] # 'test' #dataset_info[1]
   split_type = dataset_info[2] if len(dataset_info) > 2 else None
 
   # Load dataset parameters.
@@ -121,7 +122,7 @@ for result_fname in p['result_filenames']:
   # Load pose estimates.
   misc.log('Loading pose estimates...')
   ests = inout.load_bop_results(
-    os.path.join(config.results_path, result_fname))
+    os.path.join(config.results_path, result_fname), version='husky23')
 
   # Organize the pose estimates by scene, image and object.
   misc.log('Organizing pose estimates...')

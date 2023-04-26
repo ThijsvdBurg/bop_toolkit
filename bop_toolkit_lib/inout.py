@@ -82,35 +82,59 @@ def load_json(path, keys_to_int=False):
   return content
 
 
-def save_json(path, content):
+def save_json(path, content, overwrite=True):
   """Saves the provided content to a JSON file.
 
   :param path: Path to the output JSON file.
   :param content: Dictionary/list to save.
   """
-  with open(path, 'w') as f:
+  if overwrite:
+    with open(path, 'w') as f:
 
-    if isinstance(content, dict):
-      f.write('{\n')
-      content_sorted = sorted(content.items(), key=lambda x: x[0])
-      for elem_id, (k, v) in enumerate(content_sorted):
-        f.write('  \"{}\": {}'.format(k, json.dumps(v, sort_keys=True)))
-        if elem_id != len(content) - 1:
-          f.write(',')
-        f.write('\n')
-      f.write('}')
+      if isinstance(content, dict):
+        f.write('{\n')
+        content_sorted = sorted(content.items(), key=lambda x: x[0])
+        for elem_id, (k, v) in enumerate(content_sorted):
+          f.write('  \"{}\": {}'.format(k, json.dumps(v, sort_keys=True)))
+          if elem_id != len(content) - 1:
+            f.write(',')
+          f.write('\n')
+        f.write('}')
 
-    elif isinstance(content, list):
-      f.write('[\n')
-      for elem_id, elem in enumerate(content):
-        f.write('  {}'.format(json.dumps(elem, sort_keys=True)))
-        if elem_id != len(content) - 1:
-          f.write(',')
-        f.write('\n')
-      f.write(']')
+      elif isinstance(content, list):
+        f.write('[\n')
+        for elem_id, elem in enumerate(content):
+          f.write('  {}'.format(json.dumps(elem, sort_keys=True)))
+          if elem_id != len(content) - 1:
+            f.write(',')
+          f.write('\n')
+        f.write(']')
 
-    else:
-      json.dump(content, f, sort_keys=True)
+      else:
+        json.dump(content, f, sort_keys=True)
+  else:
+    with open(path, 'a') as f:
+      if isinstance(content, dict):
+        f.write('{\n')
+        content_sorted = sorted(content.items(), key=lambda x: x[0])
+        for elem_id, (k, v) in enumerate(content_sorted):
+          f.write('  \"{}\": {}'.format(k, json.dumps(v, sort_keys=True)))
+          if elem_id != len(content) - 1:
+            f.write(',')
+          f.write('\n')
+        f.write('}')
+
+      elif isinstance(content, list):
+        f.write('[\n')
+        for elem_id, elem in enumerate(content):
+          f.write('  {}'.format(json.dumps(elem, sort_keys=True)))
+          if elem_id != len(content) - 1:
+            f.write(',')
+          f.write('\n')
+        f.write(']')
+
+      else:
+        json.dump(content, f, sort_keys=True)
 
 
 def load_cam_params(path):
@@ -271,6 +295,89 @@ def load_bop_results(path, version='bop19'):
               list(map(float, elems[5].split())), np.float).reshape((3, 1)),
             'time': float(elems[6])
           }
+
+          results.append(result)
+  # See docs/husky_bop_2023.md for details.
+  elif version == 'husky23':
+    # header = 'scene_id,obj_id,pnp_init,pnpiters,im_id,gt_stamp,pred_stamp,img_stamp,score,R,t,azimuth,altitude,bbox,bbox_stamp,time'
+    # header = '\ufeffscene_id,obj_id,pnp_init,pnpiters,im_id,gt_stamp,pred_stamp,img_stamp,score,R,t,azimuth,altitude,bbox,bbox_stamp,time,Unnamed: 16\n'
+    header = 'scene_id,obj_id,pnp_init,pnpiters,im_id,gt_stamp,pred_stamp,img_stamp,score,R,t,azimuth,altitude,bbox,bbox_stamp,time,Unnamed: 16\n'
+    with open(path, 'r') as f:
+      line_id = 0
+      for line in f:
+        line_id += 1
+        if line_id == 1 and header in line:
+          continue
+        else:
+          elems = line.split(',')
+          if len(elems) != 17:
+            raise ValueError(
+              'A line does not have 14 comma-sep. elements: {}'.format(line))
+
+          result = {
+            'scene_id': int(elems[0]),
+            'obj_id': int(elems[1]),
+            'pnp_init': str(elems[2]),
+            'pnp_iters': int(elems[3]),
+            'im_id': int(elems[4]),
+            'score': float(elems[8]),
+            'R': np.array(
+              list(map(float, elems[9].split())), np.float).reshape((3, 3)),
+            't': np.array(
+              list(map(float, elems[10].split())), np.float).reshape((3, 1)),
+            'azimuth': float(elems[11]),
+            'altitude': float(elems[12]),
+            'gt_stamp': str(elems[5]),
+            'pred_stamp': str(elems[6]),
+            'image_stamp': str(elems[7]),
+            'bbox_stamp': str(elems[14]),
+            'bbox': np.array(
+              list(map(float, elems[13].split())), np.float),
+              # list(map(float, elems[8].split())), np.float).reshape((4, 1)),
+            'time': np.array(
+              list(map(float, elems[15].split())), np.float).reshape((3, 1)),
+               #float(elems[15])
+            }
+
+          # print(result['bbox'].shape)
+
+          results.append(result)
+  elif version == 'mppi23':
+    header = 'scene_id,obj_id,im_id,gt_stamp,pred_stamp,score,R,t,time'
+    with open(path, 'r') as f:
+      line_id = 0
+      for line in f:
+        line_id += 1
+        if line_id == 1 and header in line:
+          continue
+        else:
+          elems = line.split(',')
+          if len(elems) != 15:
+            raise ValueError(
+              'A line does not have 14 comma-sep. elements: {}'.format(line))
+
+          result = {
+            'scene_id': int(elems[0]),
+            'obj_id': int(elems[1]),
+            'im_id': int(elems[2]),
+            'score': float(elems[6]),
+            'R': np.array(
+              list(map(float, elems[7].split())), np.float).reshape((3, 3)),
+            't': np.array(
+              list(map(float, elems[8].split())), np.float).reshape((3, 1)),
+            'azimuth': float(elems[9]),
+            'altitude': float(elems[10]),
+            'gt_stamp': str(elems[3]),
+            'pred_stamp': str(elems[4]),
+            'image_stamp': str(elems[5]),
+            'bbox_stamp': str(elems[12]),
+            'bbox': np.array(
+              list(map(float, elems[11].split())), np.float),
+              # list(map(float, elems[8].split())), np.float).reshape((4, 1)),
+            'time': str(elems[13])
+            }
+
+          # print(result['bbox'].shape)
 
           results.append(result)
   else:

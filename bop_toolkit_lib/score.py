@@ -99,15 +99,49 @@ def calc_localization_scores(scene_ids, obj_ids, matches, n_top, do_print=True):
       obj_tars[obj_id] += count
       scene_tars[scene_id] += count
 
+  scene_errs = obj_insts.copy()
+  for scene_id, scene_insts in obj_insts.items():
+    print('scene_id',scene_id)
+    errorcount = 0
+    for i in range(0,len(obj_insts[scene_id])):
+      scene_errs[scene_id][errorcount] = 1000
+      errorcount+=1
+    # if errorcount==len(obj_insts[scene_id]):
+      # errorcount=0
+
+
   # Count the number of true positives.
   tps = 0  # Total number of true positives.
   obj_tps = {i: 0 for i in obj_ids}  # True positives per object.
   scene_tps = {i: 0 for i in scene_ids}  # True positives per scene.
+  obj_scores = []
+  obj_iou = []
+  # m_count = 0
   for m in matches:
+    # print(m_count)
     if m['valid'] and m['est_id'] != -1:
       tps += 1
       obj_tps[m['obj_id']] += 1
       scene_tps[m['scene_id']] += 1
+      obj_scores.append(m['score'])
+      scene_errs[m['scene_id']][m['im_id']] = m['score']
+      obj_iou.append(m['IoU'])
+      # scene_errs[m['scene_id']][m['im_id'],1] = m['IoU']
+      # scene_errs[m['scene_id']][m['im_id'],2] = m['score']
+      # [m['obj_id']][m_count] = 
+      # azimuths[idx]
+      # altitudes
+    # m_count+=1
+
+  mean_scene_errors = {}
+  for i in scene_ids:
+    mean_scene_errors[i] = float(np.mean(list(scene_errs[i].values())).squeeze())
+
+  mIoU = float(np.mean(obj_iou))
+  print(mIoU)
+  mean_score = float(np.mean(obj_scores))
+
+  print('mean_scene_errors',mean_scene_errors, mean_score)
 
   # Total recall.
   recall = calc_recall(tps, tars)
@@ -124,6 +158,14 @@ def calc_localization_scores(scene_ids, obj_ids, matches, n_top, do_print=True):
     scene_recalls[i] = float(calc_recall(scene_tps[i], scene_tars[i]))
   mean_scene_recall = float(np.mean(list(scene_recalls.values())).squeeze())
 
+  # IoU per scene
+
+
+  scene_IoUs = {}
+  for i in scene_ids:
+    scene_IoUs[i] = float(calc_recall(scene_tps[i], scene_tars[i]))
+  mean_scene_recall = float(np.mean(list(scene_recalls.values())).squeeze())
+
   # Final scores.
   scores = {
     'recall': float(recall),
@@ -134,6 +176,8 @@ def calc_localization_scores(scene_ids, obj_ids, matches, n_top, do_print=True):
     'gt_count': len(matches),
     'targets_count': int(tars),
     'tp_count': int(tps),
+    '2D bbox IoU': float(mIoU),
+    'mean abs score': float(mean_score)
   }
 
   if do_print:
@@ -148,10 +192,13 @@ def calc_localization_scores(scene_ids, obj_ids, matches, n_top, do_print=True):
     misc.log('Target count:       {:d}'.format(scores['targets_count']))
     misc.log('TP count:           {:d}'.format(scores['tp_count']))
     misc.log('Recall:             {:.4f}'.format(scores['recall']))
-    misc.log('Mean object recall: {:.4f}'.format(scores['mean_obj_recall']))
-    misc.log('Mean scene recall:  {:.4f}'.format(scores['mean_scene_recall']))
-    misc.log('Object recalls:\n{}'.format(obj_recalls_str))
-    misc.log('Scene recalls:\n{}'.format(scene_recalls_str))
+    misc.log('mean IoU:           {:.4f}'.format(scores['2D bbox IoU']))
+    misc.log('mean ADD score:     {:.4f}'.format(scores['mean abs score']))
+    
+    # misc.log('Mean object recall: {:.4f}'.format(scores['mean_obj_recall']))
+    # misc.log('Mean scene recall:  {:.4f}'.format(scores['mean_scene_recall']))
+    # misc.log('Object recalls:\n{}'.format(obj_recalls_str))
+    # misc.log('Scene recalls:\n{}'.format(scene_recalls_str))
     misc.log('')
 
   return scores

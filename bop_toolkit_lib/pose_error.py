@@ -328,3 +328,29 @@ def cou_bb_proj(R_est, t_est, R_gt, t_gt, K, renderer, obj_id):
 
   e = 1.0 - misc.iou(bb_est, bb_gt)
   return e
+
+
+def intersection_over_union(bbox_gt, bbox_est):
+    ax1 = bbox_gt[0]
+    ay1 = bbox_gt[1]
+    aw = bbox_gt[2]
+    ah = bbox_gt[3]
+    ax2 = ax1 + aw
+    ay2 = ay1 + ah
+
+    bx1 = bbox_est[0]
+    by1 = bbox_est[1]
+    bw = bbox_est[2]
+    bh = bbox_est[3]
+    bx2 = bx1 + bw
+    by2 = by1 + bh
+
+    delta_x = max(ax1, bx1) - min(ax2, bx2)
+    delta_y = max(ay1, by1) - min(ay2, by2)
+
+    overlap = delta_x * delta_y
+    union = aw * ah + bw * bh - overlap
+
+    # print(overlap, union)
+
+    return overlap / union

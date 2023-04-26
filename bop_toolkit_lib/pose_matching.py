@@ -84,7 +84,12 @@ def match_poses(errs, error_ths, max_ests_count=0, gt_valid_mask=None):
         'gt_id': best_gt_id,
         'score': e['score'],
         'error': best_error,
-        'error_norm': best_errors_normed
+        'error_norm': best_errors_normed,
+        'IoU': errs_sorted[best_gt_id]['IoU'][best_gt_id],
+        'azimuth':errs_sorted[best_gt_id]['azimuth'],
+        'altitude':errs_sorted[best_gt_id]['altitude'],
+        'pnp_init':errs_sorted[best_gt_id]['pnp_init'],
+        'pnp_iters':errs_sorted[best_gt_id]['pnp_iters']
       })
 
   return matches
@@ -129,10 +134,16 @@ def match_poses_scene(scene_id, scene_gt, scene_gt_valid, scene_errs,
         'im_id': im_id,
         'obj_id': gt['obj_id'],
         'gt_id': gt_id,
-        'est_id': -1,
-        'score': -1,
-        'error': -1,
-        'error_norm': -1,
+        'est_id':       -1,
+        'score':        -1,
+        'error':        -1,
+        'error_norm':   -1,
+        'IoU':          -1,
+        'azimuth':      0,
+        'altitude':     0,
+        'pnp_init':     -1,
+        'pnp_iters':    -1,
+          
         'valid': scene_gt_valid[im_id][gt_id],
       })
 
@@ -154,6 +165,12 @@ def match_poses_scene(scene_id, scene_gt, scene_gt_valid, scene_errs,
           g['score'] = m['score']
           g['error'] = m['error']
           g['error_norm'] = m['error_norm']
+          g['IoU'] = m['IoU'],
+          g['azimuth'] = m['azimuth'],
+          g['altitude'] = m['altitude'],
+          g['pnp_init'] = m['pnp_init'],
+          g['pnp_iters'] = m['pnp_iters']
+              
 
     scene_matches += im_matches
 

@@ -26,6 +26,7 @@ p = {
   # See dataset_params.py for options.
   #'dataset': 'lm',
   'dataset': config.dataset_name,
+  'predictor': config.predictor,
 
   # Dataset split. Options: 'train', 'val', 'test'.
   #'dataset_split': 'test',
@@ -35,8 +36,8 @@ p = {
   'dataset_split_type': None,
 
   # Whether to save visualizations of visibility masks.
-  #'vis_visibility_masks': False,
-  'vis_visibility_masks': True,
+  'vis_visibility_masks': False,
+  # 'vis_visibility_masks': True,
 
   # Tolerance used in the visibility test [mm].
   'delta': 15,
@@ -56,17 +57,23 @@ p = {
 
   # debug mode on/off.
   'DEBUG': 1,
+  # Custom Path template for custom output images with object masks.
+  'vis_mask_visib_custom_tpath': os.path.join(
+    config.output_path,
+    #'vis_gt_visib_delta={delta}',
+    'vis_gt_visib_delta={delta}', '{dataset}', '{split}', '{scene_id:06d}',
+    '{im_id:06d}_{gt_id:06d}_custom.jpg'),
 }
 ################################################################################
 
 
-if p['vis_visibility_masks']:
-  from bop_toolkit_lib import visualization
-#from bop_toolkit_lib import visualization
+# if p['vis_visibility_masks']:
+  # from bop_toolkit_lib import visualization
+from bop_toolkit_lib import visualization
 
 # Load dataset parameters.
 dp_split = dataset_params.get_split_params(
-  p['datasets_path'], p['dataset'], p['dataset_split'], p['dataset_split_type'])
+  p['datasets_path'], p['dataset'], p['dataset_split'], p['dataset_split_type'], predictor=p['predictor'])
 
 model_type = None
 if p['dataset'] == 'tless':
@@ -100,7 +107,7 @@ for scene_id in scene_ids:
   scene_gt_info = {}
   im_ids = sorted(scene_gt.keys())
   for im_counter, im_id in enumerate(im_ids):
-    if im_counter % 100 == 0:
+    if im_counter % 20 == 0:
       misc.log(
         'Calculating GT info - dataset: {} ({}, {}), scene: {}, im: {}'.format(
           p['dataset'], p['dataset_split'], p['dataset_split_type'], scene_id,
@@ -113,9 +120,9 @@ for scene_id in scene_ids:
     depth = inout.load_depth(depth_fpath)
     depth *= scene_camera[im_id]['depth_scale']  # Convert to [mm].
 
-    #rgb = inout.load_im(dp_split['rgb_tpath'].format(
-    #      scene_id=scene_id, im_id=im_id))[:, :, :3]
-    #im_size = (im_width, im_height)
+    # rgb = inout.load_im(dp_split['rgb_tpath'].format(
+        #  scene_id=scene_id, im_id=im_id))[:, :, :3]
+    # im_size = (im_width, im_height)
     im_size = (depth.shape[1], depth.shape[0])
 
     K = scene_camera[im_id]['cam_K']
@@ -141,26 +148,30 @@ for scene_id in scene_ids:
       # Estimation of the visibility mask.
       visib_gt = visibility.estimate_visib_mask_gt(
         dist_im, dist_gt, p['delta'], visib_mode='bop19')
-
+      
+      
+      ################################
       ##### custom visualisation #####
-      depth_im_vis = visualization.depth_for_vis(depth_gt, 0.2, 1.0)
-      depth_im_vis = np.dstack([depth_im_vis] * 3)
+      # depth_im_vis = visualization.depth_for_vis(depth_gt, 0.2, 1.0)
+      # depth_im_vis = np.dstack([depth_im_vis] * 3)
 
       #visib_gt_vis = visib_gt.astype(np.float)
       #zero_ch = np.zeros(visib_gt_vis.shape)
       #visib_gt_vis = np.dstack([zero_ch, visib_gt_vis, zero_ch])
 
       #vis = 0.5 * depth_im_vis + 0.5 * visib_gt_vis
-      vis = 1 * depth_im_vis # + 0 * visib_gt_vis
+      # vis_custom = 1 * depth_im_vis # + 0 * visib_gt_vis
       #printdebug('vis1',vis)
-      vis[vis > 1] = 1
-
-      vis_path = p['vis_mask_visib_tpath'].format(
-        delta=p['delta'], dataset=p['dataset'], split=p['dataset_split'],
-        scene_id=scene_id, im_id=im_id, gt_id=gt_id)
-      print('vis_path:',vis_path)
-      misc.ensure_dir(os.path.dirname(vis_path))
-      inout.save_im(vis_path, vis)
+      # vis_custom[vis_custom > 1] = 1
+      # vis_custom = vis_custom.astype(np.uint8)
+      
+      # vis_path_custom = p['vis_mask_visib_custom_tpath'].format(
+        # delta=p['delta'], dataset=p['dataset'], split=p['dataset_split'],
+        # scene_id=scene_id, im_id=im_id, gt_id=gt_id)
+      # print('vis_path_custom:',vis_path_custom)
+      # misc.ensure_dir(os.path.dirname(vis_path_custom))
+      # inout.save_im(vis_path_custom, vis_custom)
+      ################################
 
 
 
@@ -218,7 +229,7 @@ for scene_id in scene_ids:
 
         #printdebug('depth_im_vis1',depth_im_vis)
 
-        visib_gt_vis = visib_gt.astype(np.float)
+        visib_gt_vis = visib_gt.astype(float)
         zero_ch = np.zeros(visib_gt_vis.shape)
         visib_gt_vis = np.dstack([zero_ch, visib_gt_vis, zero_ch])
 
@@ -227,7 +238,8 @@ for scene_id in scene_ids:
         vis = 0.5 * depth_im_vis + 0.5 * visib_gt_vis
         #printdebug('vis2',visib_gt_vis)
         vis[vis > 1] = 1
-
+        # vis = vis.astype(np.uint8)
+        
         vis_path = p['vis_mask_visib_tpath'].format(
           delta=p['delta'], dataset=p['dataset'], split=p['dataset_split'],
           scene_id=scene_id, im_id=im_id, gt_id=gt_id)
