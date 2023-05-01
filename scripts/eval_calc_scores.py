@@ -65,7 +65,8 @@ p = {
   # using eval_calc_errors.py.
   # Example: 'hodan-iros15_lm-test/error=vsd_ntop=1_delta=15_tau=20_cost=step'
   'error_dir_paths': [
-    r'/path/to/calculated/errors',
+    # r'/path/to/calculated/errors',
+    r'zebrapose_husky_experiment_obj07_28_29/error=add_ntop=1',
   ],
 
   # Folder for the calculated pose errors and performance scores.
@@ -76,7 +77,7 @@ p = {
 
   # File with a list of estimation targets to consider. The file is assumed to
   # be stored in the dataset folder.
-  'targets_filename': 'test_targets_bop19.json',
+  'targets_filename': 'test_targets_bop19_WIP.json',
 
   # Template of path to the input file with calculated errors.
   'error_tpath': os.path.join(
@@ -91,6 +92,7 @@ p = {
 }
 ################################################################################
 
+print(p)
 
 # Command line arguments.
 # ------------------------------------------------------------------------------

@@ -71,9 +71,11 @@ p = {
   ],
   'error_dir_paths_ZP': [
     # r'/path/to/calculated/errors',
-    r'zebrapose_husky_experiment0_obj07_26-32_20230421_ZP/error=add_ntop=1',
+    # r'zebrapose_husky_experiment0_obj07_26-32_20230421_ZP/error=add_ntop=1',
     # r'zebrapose_husky_experiment08_obj07_33-38_20230425_ZP/error=add_ntop=1',
     # r'zebrapose_husky_experiment18_obj07_33-42_20230425_ZP/error=add_ntop=1',
+    # r'zebrapose_husky_{}_obj07_30-74_20230426_{}/error=add_ntop=1'.format(config.dataset_split,config.predictor)
+    r'zebrapose_husky_{}_obj07_30-91_20230426_{}/error=add_ntop=1'.format(config.dataset_split,config.predictor)
   ],
 
   # Folder for the calculated pose errors and performance scores.
@@ -89,11 +91,27 @@ p = {
     # 'test_targets_bop19_WIP_001828.json',
     # 'test_targets_bop19_WIP_001829.json',
     # 'test_targets_bop19_WIP_001830.json',
-    'test_targets_bop19_WIP_00{}33.json'.format(config.dataset_split_num),
-    'test_targets_bop19_WIP_00{}37.json'.format(config.dataset_split_num),
-    'test_targets_bop19_WIP_00{}38.json'.format(config.dataset_split_num),
-    'test_targets_bop19_WIP_00{}42.json'.format(config.dataset_split_num),
-    'test_targets_bop19_WIP_00{}43.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}33.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}37.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}38.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}42.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}43.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}55.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}56.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}57.json'.format(config.dataset_split_num),
+    'test_targets_bop19_WIP_00{}59.json'.format(config.dataset_split_num),
+    'test_targets_bop19_WIP_00{}60.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}61.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}62.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}66.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}67.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}68.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}73.json'.format(config.dataset_split_num),
+    # 'test_targets_bop19_WIP_00{}74.json'.format(config.dataset_split_num),
+    'test_targets_bop19_WIP_00{}79.json'.format(config.dataset_split_num),
+    'test_targets_bop19_WIP_00{}80.json'.format(config.dataset_split_num),
+    'test_targets_bop19_WIP_00{}88.json'.format(config.dataset_split_num),
+    'test_targets_bop19_WIP_00{}91.json'.format(config.dataset_split_num),
   ],
 
   'targets_filenames_ZP': [
@@ -147,9 +165,12 @@ parser.add_argument('--error_dir_paths', default=','.join(p['error_dir_paths_{}'
                     help='Comma-sep. paths to errors from eval_calc_errors.py.')
 parser.add_argument('--eval_path', default=p['eval_path'])
 parser.add_argument('--datasets_path', default=p['datasets_path'])
-parser.add_argument('--targets_filenames',
-                    default=','.join(p['targets_filenames_{}_{}'.format(config.predictor,config.dataset_split_num)]),
-                    help='Comma-separated names of files with results.')
+
+parser.add_argument('--split_num', default=config.dataset_split_num)
+
+# parser.add_argument('--targets_filenames',
+                    # default=','.join(p['targets_filenames_{}_{}'.format(config.predictor,config.dataset_split_num)]),
+                    # help='Comma-separated names of files with results.')
 parser.add_argument('--error_tpath', default=p['error_tpath'])
 parser.add_argument('--out_matches_tpath', default=p['out_matches_tpath'])
 parser.add_argument('--out_scores_tpath', default=p['out_scores_tpath'])
@@ -168,10 +189,31 @@ p['error_dir_paths'] = args.error_dir_paths.split(',')
 p['eval_path'] = str(args.eval_path)
 p['datasets_path'] = str(args.datasets_path)
 # p['targets_filename'] = str(args.targets_filename)
-p['targets_filenames'] = str(args.targets_filenames).split(',')
+# p['targets_filenames'] = str(args.targets_filenames).split(',')
 p['error_tpath'] = str(args.error_tpath)
 p['out_matches_tpath'] = str(args.out_matches_tpath)
 p['out_scores_tpath'] = str(args.out_scores_tpath)
+
+p['targets_filenames'] = [
+    'test_targets_bop19_WIP_00{}55.json'.format(args.split_num),
+    'test_targets_bop19_WIP_00{}56.json'.format(args.split_num),
+    'test_targets_bop19_WIP_00{}57.json'.format(args.split_num),
+    'test_targets_bop19_WIP_00{}59.json'.format(args.split_num),
+    'test_targets_bop19_WIP_00{}60.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}61.json'.format(args.split_num),
+    'test_targets_bop19_WIP_00{}62.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}66.json'.format(args.split_num),
+    'test_targets_bop19_WIP_00{}67.json'.format(args.split_num),
+    'test_targets_bop19_WIP_00{}68.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}73.json'.format(args.split_num),
+    'test_targets_bop19_WIP_00{}74.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}79.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}80.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}87.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}88.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}91.json'.format(args.split_num),
+  ]
+
 
 misc.log('-----------')
 misc.log('Parameters:')
@@ -195,7 +237,7 @@ for error_dir_path in p['error_dir_paths']:
   dataset_info = result_info[1].split('-')
   dataset = dataset_info[0]
   # TODO FIX BELOW
-  split = str(result_info[2]) # 'experiment' 
+  split = str(result_info[2]) + str(result_info[3]) # 'experiment' 
   split_type = dataset_info[2] if len(dataset_info) > 2 else None
 
   # Evaluation signature.
@@ -220,12 +262,14 @@ for error_dir_path in p['error_dir_paths']:
 
   # Load the estimation targets.
   targets = {}
+  scene_ids = []
   for targets_filename in p['targets_filenames']:
     print('target filename in targets_filenames',targets_filename)    
     scene_num = int(targets_filename.split('_')[4].split('.')[0])
     targets_per_scene = inout.load_json(
       os.path.join(dp_split['base_path'],'evaluation', targets_filename))
     targets[scene_num] = targets_per_scene
+    scene_ids.append(scene_num)
 
   # Load the estimation targets to consider.
   # targets = inout.load_json(
@@ -235,7 +279,8 @@ for error_dir_path in p['error_dir_paths']:
   # Organize the targets by scene, image and object.
   misc.log('Organizing estimation targets...')
   targets_org = {}
-  for scene_id in dp_split['scene_ids']:
+  # for scene_id in dp_split['scene_ids']:
+  for scene_id in targets:
     for target in targets[scene_id]:
       targets_org.setdefault(targets[scene_id][target][0]['scene_id'], {}).setdefault(
           targets[scene_id][target][0]['im_id'], {})[targets[scene_id][target][0]['obj_id']] = targets[scene_id][target][0]
@@ -324,7 +369,7 @@ for error_dir_path in p['error_dir_paths']:
   # ----------------------------------------------------------------------------
   # 6D object localization scores (SiSo if n_top = 1).
   scores = score.calc_localization_scores(
-    dp_split['scene_ids'], dp_model['obj_ids'], matches, n_top)
+    scene_ids, dp_model['obj_ids'], matches, n_top)
 
   # Save scores.
   scores_path = p['out_scores_tpath'].format(

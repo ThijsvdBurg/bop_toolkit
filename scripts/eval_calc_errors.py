@@ -63,7 +63,9 @@ p = {
   # https://bop.felk.cvut.cz/media/data/bop_sample_results/bop_challenge_2019/
   'result_filenames': [
     #'/home/pmvanderburg/6dof_pose_experiments/husky_test_obj03_20221108_09_22/pose_result_bop/zebrapose_husky_test_obj03.csv',
-    'zebrapose_husky_test_obj03_20221108_09_22.csv',
+    # 'zebrapose_husky_test_obj03_20221108_09_22.csv',
+    # 'husky_obj07.csv',
+    'zebrapose_husky_test_obj07_total.csv'
   ],
 
   # Folder with results to be evaluated.
@@ -77,7 +79,7 @@ p = {
 
   # File with a list of estimation targets to consider. The file is assumed to
   # be stored in the dataset folder.
-  'targets_filename': 'test_targets_bop19.json',
+  'targets_filename': 'test_targets_bop19_2.json',
 
   # Template of path to the output file with calculated errors.
   'out_errors_tpath': os.path.join(
@@ -193,10 +195,10 @@ for result_filename in p['result_filenames']:
   if p['error_type'] in ['vsd', 'cus']:
     misc.log('Initializing renderer...')
     width, height = dp_split['im_size']
-    ren = renderer.create_renderer(
-      width, height, p['renderer_type'], mode='depth')
-    for obj_id in dp_model['obj_ids']:
-      ren.add_object(obj_id, dp_model['model_tpath'].format(obj_id=obj_id))
+    # ren = renderer.create_renderer(
+      # width, height, p['renderer_type'], mode='depth')
+    # for obj_id in dp_model['obj_ids']:
+      # ren.add_object(obj_id, dp_model['model_tpath'].format(obj_id=obj_id))
 
   # Load the estimation targets.
   targets = inout.load_json(
@@ -211,8 +213,7 @@ for result_filename in p['result_filenames']:
 
   # Load pose estimates.
   misc.log('Loading pose estimates...')
-  ests = inout.load_bop_results(
-    os.path.join(p['results_path'], result_filename))
+  ests = inout.load_bop_results( os.path.join(p['results_path'], result_filename) )
 
   # Organize the pose estimates by scene, image and object.
   misc.log('Organizing pose estimates...')

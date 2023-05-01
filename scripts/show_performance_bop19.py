@@ -20,8 +20,8 @@ p = {
   # Errors to calculate.
   'errors': [
     {
-      'n_top': -1,
-      'type': 'vsd',
+      'n_top': 1,
+      'type': 'add',
       'vsd_deltas': {
         'hb': 15,
         'icbin': 15,
@@ -37,32 +37,33 @@ p = {
         'hope': 15,
       },
       'vsd_taus': list(np.arange(0.05, 0.51, 0.05)),
-      'correct_th': [[th] for th in np.arange(0.05, 0.51, 0.05)]
+      # 'correct_th': [[th] for th in np.arange(0.05, 0.51, 0.05)]
+      'correct_th': [[th] for th in np.arange(0.01, 0.100001, 0.01)]
     },
     {
-      'n_top': -1,
-      'type': 'mssd',
-      'correct_th': [[th] for th in np.arange(0.05, 0.51, 0.05)]
-    },
-    {
-      'n_top': -1,
-      'type': 'mspd',
-      'correct_th': [[th] for th in np.arange(5, 51, 5)]
+      'n_top': 1,
+      'type': 'add',
+      'correct_th': [[th] for th in np.arange(0.01, 0.100001, 0.01)]
     },
   ],
 
   # Minimum visible surface fraction of a valid GT pose.
-  'visib_gt_min': 0.1,
+  'visib_gt_min': -1,
 
   # Plot Recall curves
   'plot_recall_curves': True,
+
+  
 
   # Names of files with results for which to calculate the errors (assumed to be
   # stored in folder config.eval_path). See docs/bop_challenge_2019.md for a
   # description of the format. Example results can be found at:
   # https://bop.felk.cvut.cz/media/data/bop_sample_results/bop_challenge_2019/
   'result_filenames': [
-    '/path/to/csv/with/results',
+    # 'zebrapose_husky_{}_obj07_30-74_20230426_{}.csv'.format(config.dataset_split,config.predictor),
+    'zebrapose_husky_experiment13_obj07_30-74_20230426_ZP.csv',
+    'zebrapose_husky_experiment14_obj07_30-91_20230426_ZP.csv',
+    # 'zebrapose_husky_{}_obj07_30-74_20230426_{}.csv'.format(config.dataset_split,config.predictor),
   ],
 }
 ################################################################################

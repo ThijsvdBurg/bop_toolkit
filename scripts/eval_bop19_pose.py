@@ -39,8 +39,8 @@ p = {
       },
       'vsd_taus': list(np.arange(0.05, 0.51, 0.05)),
       'vsd_normalized_by_diameter': False,
-      # 'correct_th': [[th] for th in np.arange(0.01, 0.101, 0.01)]
-      'correct_th': [[th] for th in np.arange(0.05, 0.101, 0.025)]
+      'correct_th': [[th] for th in np.arange(0.01, 0.101, 0.01)]
+      # 'correct_th': [[th] for th in np.arange(0.05, 0.101, 0.025)]
     },
     # {
       # 'n_top': -1,
@@ -75,9 +75,14 @@ p = {
     # 'zebrapose_husky_experiment_obj07_28_29_20230419_2.csv',
     # 'zebrapose_husky_experiment0_obj07_26-32_20230421_{}.csv'.format(config.predictor)
     # 'zebrapose_husky_experiment08_obj07_33-38_20230425_{}.csv'.format(config.predictor),
-    'zebrapose_husky_experiment18_obj07_29-43_20230425_{}.csv'.format(config.predictor)
+    # 'zebrapose_husky_experiment18_obj07_29-43_20230425_{}.csv'.format(config.predictor)
+    # 'zebrapose_husky_{}_obj07_30-74_20230426_{}.csv'.format(config.dataset_split,config.predictor),
+    'zebrapose_husky_experiment_13_obj07_30-74_20230426_ZP.csv',
+    'zebrapose_husky_experiment_14_obj07_30-91_20230426_ZP.csv',
+    # 'zebrapose_husky_experiment13_obj07_30-74_20230426_ZP.csv'
   ],
 
+  'calc_errors': False,
 
   # Folder with results to be evaluated.
   'results_path': config.results_path,
@@ -136,7 +141,7 @@ for result_filename in p['result_filenames']:
   # Name of the result and the dataset.
   result_name = os.path.splitext(os.path.basename(result_filename))[0]
   dataset = str(result_name.split('_')[1].split('-')[0])
-
+  split_num = result_name.split('_')[3]
   # Calculate the average estimation time per image.
   # ests = inout.load_bop_results(
     # os.path.join(p['results_path'], result_filename), version='bop19')
@@ -202,6 +207,7 @@ for result_filename in p['result_filenames']:
       # '--targets_filenames={}'.format(targets_filename),
       '--max_sym_disc_step={}'.format(p['max_sym_disc_step']),
       '--skip_missing=1',
+      '--split_num={}'.format(split_num),
     ]
     if error['type'] == 'vsd':
       vsd_deltas_str = \
@@ -215,8 +221,9 @@ for result_filename in p['result_filenames']:
 
     misc.log('Running: ' + ' '.join(calc_errors_cmd))
 
-    # if subprocess.call(calc_errors_cmd) != 0:
-      # raise RuntimeError('Calculation of pose errors failed.')
+    if p['calc_errors']:
+      if subprocess.call(calc_errors_cmd) != 0:
+        raise RuntimeError('Calculation of pose errors failed.')
 
     # Paths (rel. to p['eval_path']) to folders with calculated pose errors.
     # For VSD, there is one path for each setting of tau. For the other pose
@@ -248,7 +255,7 @@ for result_filename in p['result_filenames']:
           '--error_dir_paths={}'.format(error_dir_path),
           '--eval_path={}'.format(p['eval_path']),
           '--targets_filename={}'.format(p['targets_filename']),
-          '--visib_gt_min={}'.format(p['visib_gt_min'])
+          '--visib_gt_min={}'.format(p['visib_gt_min']),
         ]
         '''
         calc_scores_cmd = [
@@ -257,7 +264,8 @@ for result_filename in p['result_filenames']:
           '--error_dir_paths={}'.format(error_dir_path),
           '--eval_path={}'.format(p['eval_path']),
           # '--targets_filenames={}'.format(p['targets_filenames']),
-          '--visib_gt_min={}'.format(p['visib_gt_min'])
+          '--visib_gt_min={}'.format(p['visib_gt_min']),
+          '--split_num={}'.format(split_num),
         ]
         calc_scores_cmd += ['--correct_th_{}={}'.format(
           error['type'], ','.join(map(str, correct_th)))]
@@ -294,7 +302,7 @@ for result_filename in p['result_filenames']:
 
   # Calculate the final scores.
   final_scores = {}
-  final_scores['__config_number__'] = config.dataset_split_num
+  final_scores['__config_number__'] = split_num
   for error in p['errors']:
     final_scores['bop19_average_recall_{}'.format(error['type'])] =\
       average_recalls[error['type']]

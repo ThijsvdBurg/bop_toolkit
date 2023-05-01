@@ -15,6 +15,7 @@ from pybop_lib.debug_tools import printMaxMin
 from pybop_lib.manipulate_depth import vis_depth
 
 import matplotlib.pyplot as plt
+import math
 
 def draw_rect(im, rect, color=(1.0, 1.0, 1.0)):
   """Draws a rectangle on an image.
@@ -267,52 +268,91 @@ def AUC_graph(cumulative_auc, res, th):
   plt.show()
 
 
-#def visualise_tensor(tensor_gpu, ch=0, allkernels=False, nrows=8, ncols=8):
-def visualise_tensor(tensor, ch=0, allkernels=False, nrows=4, ncols=4):
+def visualise_tensor(intensor, str_id, num_ch, batch_id=0, eval_output_path=os.getcwd):
+# def visualise_tensor(tensor, ch=0, allkernels=False, nrows=4, ncols=4):
     """
-    # 1. The function visualise_tensor() takes the following arguments:
+    The function visualise_tensor() takes the following arguments:
 
-    # tensor_gpu: the tensor to be visualised
-    # ch: the channel to be visualised, if ch=0, all channels are visualised
-    # allkernels: if True, all kernels are visualised
-    # nrows: number of rows of subplots to be used
-    # ncols: number of columns of subplots to be used
-
+    tensor_gpu: the tensor to be visualised
+    num_ch: the number of images in the tensor
+    batch_id: the index of the batch to save consecutive images
+    eval_output_path: path in which the resulting visualisations will be saved
+    
     """
-    #tensorcopy=tensor.copy()
-    #tensor_cpu = tensor_gpu.detach().cpu()
-    # tensor=tensor_cpu.permute(1,0,2,3)
-    #tensor=tensor_cpu.numpy()
-    print('tensor t type and shape', type(tensor),tensor.shape)
-    if allkernels: 
-      tensor = tensor.view((1,-1) + tensor.shape[-2:])
-    elif ch >= 0: 
-      tensor_chan = tensor[:,ch,:,:]
-    elif ch < 0:
-        c = int(tensor.shape[1] / abs(ch))
-        row = int(c / nrows) if (c % nrows == 0) else int(c / nrows) + 1
-        col = min(ncols, c) if (c < ncols) else c % ncols
-        print('row={}, col={}'.format(row, col))     # debug only !!!
+    misc.ensure_dir(eval_output_path)    
+    str_id=str_id+'_mppi_net_params'
+    tensortype = type(intensor)
+    # print(tensortype)
+    if str(tensortype) == "<class 'torch.Tensor'>":
+      print('input tensor is recognized as class torch.Tensor')
+      tensor_gpu = intensor
+      tensor_cpu = tensor_gpu.detach().cpu()
+      if tensor_cpu.ndim == 4:
+        tensor=tensor_cpu.permute(1,2,3,0)
+      elif tensor_cpu.ndim == 3:
+        tensor=tensor_cpu
+    
+    elif str(tensortype) == "<class 'numpy.ndarray'>":
+      tensor = intensor
+      # print('tensor ndim',tensor.ndim)
+      if tensor.ndim == 3:
+        print('dim of numpy array is 3', tensor.shape)
+        # tensor=tensor
+    else:
+      raise NotImplementedError(f"unknown tensor type: {tensortype}")
+    # tensor=tensor_cpu.numpy()
+    # print('tensor t type and shape', type(tensor),tensor.shape)
+    
+    # print('tensor[:,0,0,0]', type(tensor[:,0,0,0]),tensor[:,0,0,0])
+    # if allkernels: 
+    #   tensor = tensor.view((1,-1) + tensor.shape[-2:])
+    # elif ch >= 0: 
+    #   tensor_chan = tensor[:,ch,:,:]
+    # elif ch < 0:
+    #     c = int(tensor.shape[1] / abs(ch))
+    #     row = int(c / nrows) if (c % nrows == 0) else int(c / nrows) + 1
+    #     col = min(ncols, c) if (c < ncols) else c % ncols
+    #     print('row={}, col={}'.format(row, col))     # debug only !!!
 
     # print('tensor t type and shape', type(tensor),tensor.shape)
-    # for kernel in tensor:
-        # print(kernel)
-    kernels = np.array([kernel for kernel in tensor_chan])
-    print('kernels[0].shape',kernels[0].shape, len(kernels))
-    fig = plt.figure(figsize=(ncols, nrows)) #    fig = plt.figure()
-    row = col = 1
-    ax1 = fig.add_subplot(1, 1 , 1 )   # add subplot to figure with index i+1 and size row x column !!!
-    ax1.imshow((kernels[0]).reshape((32 , 32)), cmap='gray')   # show image on subplot with index i+1 and size row x column !!!
-    # for i in range((row * col)):   # number of subplots to show all kernels/filters of a layer !!!
+    # for index,kernel in enumerate(tensor):
+        # print(kernel.shape)
+        # print(index)
+    if num_ch == 0:
+      kernels = np.array(tensor)
+      print('numch=0 kernels.shape',kernels.shape)
 
-    #     ax1 = fig.add_subplot(row, col , i+1 )   # add subplot to figure with index i+1 and size row x column !!!
+      fig = plt.figure()
 
-    #     ax1.imshow((kernels[i]).reshape((32 , 32)), cmap='gray')   # show image on subplot with index i+1 and size row x column !!!
+      plt.imshow( kernels )   # show image on subplot with index i+1 and size row x column !!!
+      vis_path = os.path.join(eval_output_path, 'test_{}_{}.png'.format(str_id,batch_id))
+      fig.savefig(vis_path)
+    elif num_ch == 1:
+      kernels = np.array(tensor)
+      print('numch=1 kernels[0].shape',kernels[0].shape)
 
-    #     ax1.axis('off')   # remove axis from the plot/subplot with index i+1 and size row x column !!!
+      fig = plt.figure()
 
-    #     ax1.set_xticklabels([])   # remove tick labels from the plot/subplot with index i+! and size row x column !!!
+      plt.imshow( kernels[0].squeeze() )   # show image on subplot with index i+1 and size row x column !!!
+      vis_path = os.path.join(eval_output_path, 'test_{}_{}.png'.format(str_id,batch_id))
+      fig.savefig(vis_path)
 
-    #     ax1.set_yticklabels([])   # remove tick labels from the plot/subplot with index i+! and size row x column !!!
+    else:
+      tensor = np.array(tensor)
+      kernels = np.array([kernel for kernel in tensor])
 
-    # plt.tight_layout()      ## adjust spacing between subplots to minimize the overlaps !!
+      print('kernels shape', kernels.shape)
+      print( 'numch=16 kernels[0].shape',kernels[0].shape,num_ch )
+      nrows = ncols = int(math.sqrt(num_ch))
+      fig = plt.figure(figsize=(ncols, nrows)) #    fig = plt.figure()
+      for i in range((nrows * ncols)):   # number of subplots to show all kernels/filters of a layer !!!
+        ax1 = fig.add_subplot(nrows, ncols , i+1 )   # add subplot to figure with index i+1 and size row x column !!!
+        ax1.imshow( (kernels[i]).squeeze() )   # show image on subplot with index i+1 and size row x column !!!
+        ax1.axis('off')   # remove axis from the plot/subplot with index i+1 and size row x column !!!
+        ax1.set_xticklabels([])   # remove tick labels from the plot/subplot with index i+! and size row x column !!!
+        ax1.set_yticklabels([])   # remove tick labels from the plot/subplot with index i+! and size row x column !!!
+      plt.tight_layout()      ## adjust spacing between subplots to minimize the overlaps !!
+      vis_path = os.path.join(eval_output_path, 'test_{}_{}.png'.format(str_id,batch_id)) # vis_path = os.path.join( eval_output_path, "test_bin_{}.png".format(batch_id) )
+      fig.savefig(vis_path)
+
+    # plt.show() # !! debug only
