@@ -80,6 +80,13 @@ p = {
   # 'targets_filename': 'test_targets_bop19.json',
 }
 ################################################################################
+
+csv_path=r'/home/pmvanderburg/noetic-husky/bop_ros_ws/src/Husky_scripts/performance_metrics.csv'
+  # Load the CSV file into a pandas dataframe
+df = pd.read_csv(csv_path)
+
+
+i=0
 for result_filename in p['result_filenames']:
   # Name of the result and the dataset.
   result_name = os.path.splitext(os.path.basename(result_filename))[0]
@@ -92,17 +99,20 @@ for result_filename in p['result_filenames']:
     p['eval_path'], result_name, 'scores_bop19.json')
   final_scores=inout.load_json(final_scores_path)
 
-  csv_path=r'/home/pmvanderburg/noetic-husky/bop_ros_ws/src/Husky_scripts/performance_metrics.csv'
-  # Load the CSV file into a pandas dataframe
-  df = pd.read_csv(csv_path)
-
   # Calculate performance metrics and store in variables
+  config = final_scores['__config_number__']
   metric_1 = final_scores['bop19_average_recall']
   metric_2 = final_scores['bop19_average_time_per_image']
 
   # Add the performance metrics to the correct cells in the dataframe
-  df.loc[0, 'Average Recall'] = metric_1
-  df.loc[0, 'Inference Time'] = metric_2
-
+  df.loc[i, 'Method Configuration'] = config
+  df.loc[i, 'Average Recall'] = metric_1
+  df.loc[i, 'Inference Time'] = metric_2
+  # df.index = df.index+1
+  # df = df.sort_index()
+  # df.loc[i+3, 'Method Configuration'] = config
+  # df.loc[i+3, 'Average Recall'] = metric_1
+  # df.loc[i+3, 'Inference Time'] = metric_2
+  i+=1
   # Save the updated dataframe back to the original CSV file
-  df.to_csv('existing_file.csv', index=False)
+df.to_csv('existing_file.csv', index=False)
