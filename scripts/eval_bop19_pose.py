@@ -13,6 +13,8 @@ from bop_toolkit_lib import config
 from bop_toolkit_lib import inout
 from bop_toolkit_lib import misc
 
+from bop_toolkit_lib import split_to_config_name
+
 
 # PARAMETERS (some can be overwritten by the command line arguments below).
 ################################################################################
@@ -302,7 +304,7 @@ for result_filename in p['result_filenames']:
 
   # Calculate the final scores.
   final_scores = {}
-  final_scores['__config_number__'] = split_num
+  final_scores['__config_number__'] = split_to_config_name.convert(split_num)
   for error in p['errors']:
     final_scores['bop19_average_recall_{}'.format(error['type'])] =\
       average_recalls[error['type']]
