@@ -316,9 +316,10 @@ for result_filename in p['result_filenames']:
   final_scores['bop19_average_pnp_time_per_image'] = average_pnp_time_per_image
   final_scores['bop19_average_2D_detect_time_per_image'] = average_2ddet_time_per_image
 
-  final_scores['husky23_mean_score_config_{}'.format(config.dataset_split_num)] = average_score[error['type']]
-  final_scores['husky23_mean_IoU_config_{}'.format(config.dataset_split_num)] = average_IoU[error['type']]
-
+  # final_scores['husky23_mean_score_config_{}'.format(config.dataset_split_num)] = average_score[error['type']]
+  # final_scores['husky23_mean_IoU_config_{}'.format(config.dataset_split_num)] = average_IoU[error['type']]
+  final_scores['husky23_mean_score'] = average_score[error['type']]
+  final_scores['husky23_mean_IoU'] = average_IoU[error['type']]
 
   # Save the final scores.
   final_scores_path = os.path.join(
