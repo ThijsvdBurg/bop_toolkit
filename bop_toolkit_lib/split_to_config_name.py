@@ -4,7 +4,7 @@
 
 # import os
 
-def convert(config_encoding):
+def convert(config_encoding, exp_type):
   # num = 
   if int(config_encoding[1]) == 0:
     pnp_iters = 1
@@ -24,13 +24,24 @@ def convert(config_encoding):
     pnp_iters = 100
   elif int(config_encoding[1]) == 8:
     pnp_iters = 150
-
+  if exp_type == 0:
+    init_src='OptiTrack'
+    # bbox_src = 'GT'
+  elif exp_type == 1:
+    init_src='MPPI'
+    # bbox_src = 'MPPI '
+  elif exp_type == 2:
+    init_src='MPPI (based on ZP)'
+    # bbox_src = 'MPPI '
   if config_encoding[0] == '1':
     # pnp_init=1
-    config_name = 'Ours + initial MPPI pose + '+str(pnp_iters)+' RANSAC/PnP iterations'
+    # config_name = 'Ours + OptiTrack bbox + initial pose + 100 RPnP iterations'
+    # config_name = 'Ours + '+init_src+' bbox + initial pose + '+str(pnp_iters)+' RANSAC/PnP iterations'
+    config_name = 'Ours + ' + init_src + ' bbox + initial pose + '+str(pnp_iters) + ' RPnP'
   else:
     # pnp_init=0
-    config_name = 'Ours + random RANSAC/PnP initialization + '+str(pnp_iters)+' RANSAC/PnP iterations'
+    # config_name = 'Ours + 100 RANSAC/PnP iterations'
+    config_name = 'Ours + ' + str(pnp_iters) + ' RPnP'
 
   return config_name
 
