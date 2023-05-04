@@ -387,24 +387,24 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None, predic
       'train_obj07': None, # Use function get_present_scene_ids().
       'experiment': None,  # Use function get_present_scene_ids().
       'experiment0': None,  # Use function get_present_scene_ids().
-      'experiment00': None,  # Use function get_present_scene_ids().
-      'experiment01': None,  # Use function get_present_scene_ids().
-      'experiment02': None,  # Use function get_present_scene_ids().
-      'experiment03': None,  # Use function get_present_scene_ids().
-      'experiment04': None,  # Use function get_present_scene_ids().
-      'experiment05': None,  # Use function get_present_scene_ids().
-      'experiment06': None,  # Use function get_present_scene_ids().
-      'experiment07': None,  # Use function get_present_scene_ids().
-      'experiment08': None,  # Use function get_present_scene_ids().
-      'experiment10': None,  # Use function get_present_scene_ids().
-      'experiment11': None,  # Use function get_present_scene_ids().
-      'experiment12': None,  # Use function get_present_scene_ids().
-      'experiment13': None,  # Use function get_present_scene_ids().
-      'experiment14': None,  # Use function get_present_scene_ids().
-      'experiment15': None,  # Use function get_present_scene_ids().
-      'experiment16': None,  # Use function get_present_scene_ids().
-      'experiment17': None,  # Use function get_present_scene_ids().
-      'experiment18': None,  # Use function get_present_scene_ids().
+      'experiment_00': None,  # Use function get_present_scene_ids().
+      'experiment_01': None,  # Use function get_present_scene_ids().
+      'experiment_02': None,  # Use function get_present_scene_ids().
+      'experiment_03': None,  # Use function get_present_scene_ids().
+      'experiment_04': None,  # Use function get_present_scene_ids().
+      'experiment_05': None,  # Use function get_present_scene_ids().
+      'experiment_06': None,  # Use function get_present_scene_ids().
+      'experiment_07': None,  # Use function get_present_scene_ids().
+      'experiment_08': None,  # Use function get_present_scene_ids().
+      'experiment_10': None,  # Use function get_present_scene_ids().
+      'experiment_11': None,  # Use function get_present_scene_ids().
+      'experiment_12': None,  # Use function get_present_scene_ids().
+      'experiment_13': None,  # Use function get_present_scene_ids().
+      'experiment_14': None,  # Use function get_present_scene_ids().
+      'experiment_15': None,  # Use function get_present_scene_ids().
+      'experiment_16': None,  # Use function get_present_scene_ids().
+      'experiment_17': None,  # Use function get_present_scene_ids().
+      'experiment_18': None,  # Use function get_present_scene_ids().
     }[split]
     p['im_size'] = (1280, 720)
 
@@ -417,7 +417,7 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None, predic
     raise ValueError('Unknown BOP dataset ({}).'.format(dataset_name))
 
   base_path = join(datasets_path, dataset_name)
-  split_path = join(base_path, split, predictor)
+  split_path = join(base_path, split.replace('_',''), predictor)
   # print('split path is:',split_path)
   if split_type is not None:
     if split_type == 'pbr':

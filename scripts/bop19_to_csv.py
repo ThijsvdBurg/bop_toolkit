@@ -54,13 +54,24 @@ p = {
   'renderer_type': 'vispy',  # Options: 'vispy', 'cpp', 'python'.
 
   'predictor': config.predictor,
+
   # Names of files with results for which to calculate the errors (assumed to be
   # stored in folder p['results_path']). See docs/bop_challenge_2019.md for a
   # description of the format. Example results can be found at:
   # https://bop.felk.cvut.cz/media/data/bop_sample_results/bop_challenge_2019/
   'result_filenames': [
-    'zebrapose_husky_experiment_13_obj07_30-74_20230426_ZP.csv',
-    'zebrapose_husky_experiment_14_obj07_30-91_20230426_ZP.csv',
+    # 'zebrapose_husky_experiment_{:02d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_00_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_01_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_02_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_03_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    'zebrapose_husky_experiment_04_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    'zebrapose_husky_experiment_14_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    'zebrapose_husky_experiment_04_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    'zebrapose_husky_experiment_14_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_07_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_13_obj07_30-74_20230426_ZP.csv',
+    # 'zebrapose_husky_experiment_14_obj07_30-91_20230426_ZP.csv',
   ],
 
   'calc_errors': False,
@@ -92,6 +103,7 @@ for result_filename in p['result_filenames']:
   result_name = os.path.splitext(os.path.basename(result_filename))[0]
   dataset = str(result_name.split('_')[1].split('-')[0])
   split_num = result_name.split('_')[3]
+  exp_type = result_name.split('_')[5]
   
 
 # Save the final scores.
@@ -105,8 +117,8 @@ for result_filename in p['result_filenames']:
   metric_2 = final_scores['bop19_average_time_per_image']
 
   # Add the performance metrics to the correct cells in the dataframe
-  df.loc[i, 'Method Configuration'] = config
-  df.loc[i, 'Average Recall'] = metric_1
+  df.loc[i, 'Method Configuration'] = config+exp_type
+  df.loc[i, 'AUC of Average Recall'] = metric_1
   df.loc[i, 'Inference Time'] = metric_2
   # df.index = df.index+1
   # df = df.sort_index()

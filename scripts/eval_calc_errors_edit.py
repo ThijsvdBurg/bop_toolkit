@@ -61,19 +61,17 @@ p = {
   # stored in folder p['results_path']). See docs/bop_challenge_2019.md for a
   # description of the format. Example results can be found at:
   # https://bop.felk.cvut.cz/media/data/bop_sample_results/bop_challenge_2019/
-  'result_filenames_MPPI': [
+  # 'result_filenames_MPPI': [
     #'/home/pmvanderburg/6dof_pose_experiments/husky_test_obj03_20221108_09_22/pose_result_bop/zebrapose_husky_test_obj03.csv',
     # 'zebrapose_husky_pushing_dcsc_test_obj07_60_80.csv',
-    'zebrapose_husky_experiment0_obj07_26-32_20230421_MPPI.csv',
-  ],
-  'result_filenames_ZP': [
-    #'/home/pmvanderburg/6dof_pose_experiments/husky_test_obj03_20221108_09_22/pose_result_bop/zebrapose_husky_test_obj03.csv',
-    # 'zebrapose_husky_experiment0_obj07_26-32_20230421_ZP.csv',
-    # 'zebrapose_husky_experiment18_obj07_33-42_20230425_ZP.csv',
-    # 'zebrapose_husky_{}_obj07_30-74_20230426_{}.csv'.format(config.dataset_split,config.predictor),
-    'zebrapose_husky_experiment_13_obj07_30-74_20230426_ZP.csv',
-    # 'zebrapose_husky_experiment_14_obj07_30-91_20230426_ZP.csv',
-    
+    # 'zebrapose_husky_experiment0_obj07_26-32_20230421_MPPI.csv',
+  # ],
+  # 'result_filenames_ZP': [
+    # 'zebrapose_husky_experiment_{:02d}_obj07_exp2_ZP.csv'.format(config.dataset_split_num),    
+  # ],
+  'result_filenames': [
+    # 'zebrapose_husky_experiment_{:02d}_obj07_exp2_{}.csv'.format(config.dataset_split_num,config.predictor),    
+    'zebrapose_husky_experiment_{:02d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num+i,config.exp_type,config.predictor),    
   ],
 
   # Folder with results to be evaluated.
@@ -84,56 +82,10 @@ p = {
 
   # Folder containing the BOP datasets.
   'datasets_path': config.datasets_path,
-  'dataset_split': config.dataset_split,
-
-  # File with a list of estimation targets to consider. The file is assumed to
-  # be stored in the evaluation folder.
-  # 'targets_filenames_ZP_18': [
-  #   'test_targets_bop19_WIP_001826.json',
-  #   'test_targets_bop19_WIP_001828.json',
-  #   'test_targets_bop19_WIP_001829.json',
-  #   'test_targets_bop19_WIP_001830.json',
-  #   'test_targets_bop19_WIP_001831.json',
-  #   'test_targets_bop19_WIP_001832.json',
-  # ],
-  # 'targets_filenames_ZP_{}'.format(config.dataset_split_num): [
-    # 'test_targets_bop19_WIP_001826.json',
-    # 'test_targets_bop19_WIP_001828.json',
-    # 'test_targets_bop19_WIP_001829.json',
-    # 'test_targets_bop19_WIP_001830.json',
-    # 'test_targets_bop19_WIP_00{}33.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}37.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}38.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}42.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}43.json'.format(config.dataset_split_num),
-  # ],
-  # 'targets_filenames_ZP_{}'.format(config.dataset_split_num): [
-  #   # 'test_targets_bop19_WIP_001826.json',
-  #   # 'test_targets_bop19_WIP_001828.json',
-  #   # 'test_targets_bop19_WIP_001829.json',
-  #   # 'test_targets_bop19_WIP_001830.json',
-  #   # 'test_targets_bop19_WIP_00{}55.json'.format(config.dataset_split_num),
-  #   # 'test_targets_bop19_WIP_00{}56.json'.format(config.dataset_split_num),
-  #   # 'test_targets_bop19_WIP_00{}57.json'.format(config.dataset_split_num),
-  #   'test_targets_bop19_WIP_00{}59.json'.format(config.dataset_split_num),
-  #   'test_targets_bop19_WIP_00{}60.json'.format(config.dataset_split_num),
-  #   # 'test_targets_bop19_WIP_00{}61.json'.format(config.dataset_split_num),
-  #   # 'test_targets_bop19_WIP_00{}62.json'.format(config.dataset_split_num),
-  #   # 'test_targets_bop19_WIP_00{}66.json'.format(config.dataset_split_num),
-  #   # 'test_targets_bop19_WIP_00{}67.json'.format(config.dataset_split_num),
-  #   # 'test_targets_bop19_WIP_00{}68.json'.format(config.dataset_split_num),
-  #   # 'test_targets_bop19_WIP_00{}73.json'.format(config.dataset_split_num),
-  #   # 'test_targets_bop19_WIP_00{}74.json'.format(config.dataset_split_num),
-  #   'test_targets_bop19_WIP_00{}79.json'.format(config.dataset_split_num),
-  #   'test_targets_bop19_WIP_00{}80.json'.format(config.dataset_split_num),
-  #   'test_targets_bop19_WIP_00{}88.json'.format(config.dataset_split_num),
-  #   'test_targets_bop19_WIP_00{}91.json'.format(config.dataset_split_num),
-  # ],
-
-  'targets_filenames_ZP_{}'.format('13'): [
-  ],
-  'targets_filenames_ZP_{}'.format('14'): [
-  ],
+  'dataset_split': str('experiment_'+str(config.dataset_split_num+i)),
+  # 'predictor': config.predictor,
+  # 'exp_type': config.exp_type,
+  'targets_filenames_{}_{}'.format(config.predictor,config.exp_type): config.target_nums,
 
   'targets_filenames_MPPI': [
     'test_targets_bop19_WIP_010026.json',
@@ -143,10 +95,6 @@ p = {
     'test_targets_bop19_WIP_010032.json',
     'test_targets_bop19_WIP_010031.json',
   ], 
-
-
-  # 'targets_filename': 'test_targets_bop19.json',
-  # 'targets_filename': 'test_targets_bop19_WIP.json',
 
   # Template of path to the output file with calculated errors.
   'out_errors_tpath': os.path.join(
@@ -171,12 +119,16 @@ parser.add_argument('--max_sym_disc_step', default=p['max_sym_disc_step'])
 parser.add_argument('--skip_missing', default=p['skip_missing'])
 parser.add_argument('--renderer_type', default=p['renderer_type'])
 parser.add_argument('--result_filenames',
-                    default=','.join(p['result_filenames_{}'.format(config.predictor)]),
+                    # default=','.join(p['result_filenames_{}'.format(config.predictor)]),
+                    default=','.join(p['result_filenames']),
                     help='Comma-separated names of files with results.')
 parser.add_argument('--results_path', default=p['results_path'])
 parser.add_argument('--eval_path', default=p['eval_path'])
 parser.add_argument('--datasets_path', default=p['datasets_path'])
 # parser.add_argument('--targets_filename', default=p['targets_filename'])
+parser.add_argument('--targets_filenames',
+                    default=','.join(p['targets_filenames_{}_{}'.format(config.predictor,config.exp_type)]),
+                    help='Comma-separated names of files with results.')
 # parser.add_argument('--targets_filenames',
                     # default=','.join(p['targets_filenames_{}_{}'.format(config.predictor, config.dataset_split_num)]),
                     # help='Comma-separated names of files with results.')
@@ -188,7 +140,7 @@ args = parser.parse_args()
 p['n_top'] = int(args.n_top)
 p['error_type'] = str(args.error_type)
 p['vsd_deltas'] = {str(e.split(':')[0]): float(e.split(':')[1])
-                   for e in args.vsd_deltas.split(',')}
+                  for e in args.vsd_deltas.split(',')}
 p['vsd_taus'] = list(map(float, args.vsd_taus.split(',')))
 p['vsd_normalized_by_diameter'] = bool(args.vsd_normalized_by_diameter)
 p['max_sym_disc_step'] = float(args.max_sym_disc_step)
@@ -199,28 +151,62 @@ p['results_path'] = str(args.results_path)
 p['eval_path'] = str(args.eval_path)
 p['datasets_path'] = str(args.datasets_path)
 # p['targets_filename'] = str(args.targets_filename)
-# p['targets_filenames'] = str(args.targets_filenames).split(',')
+p['targets_filenames'] = str(args.targets_filenames).split(',')
 p['out_errors_tpath'] = str(args.out_errors_tpath)
 
-p['targets_filenames'] = [
+# p['targets_filenames'] = [
+    # experiment type 0
     # 'test_targets_bop19_WIP_00{}55.json'.format(args.split_num), # delete alltogether?
-    'test_targets_bop19_WIP_00{}56.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}56.json'.format(args.split_num),
     # 'test_targets_bop19_WIP_00{}57.json'.format(args.split_num), # delete alltogether?
-    'test_targets_bop19_WIP_00{}59.json'.format(args.split_num),
-    'test_targets_bop19_WIP_00{}60.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}59.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}60.json'.format(args.split_num),
     # 'test_targets_bop19_WIP_00{}61.json'.format(args.split_num),
     # 'test_targets_bop19_WIP_00{}62.json'.format(args.split_num),
     # 'test_targets_bop19_WIP_00{}66.json'.format(args.split_num),
-    'test_targets_bop19_WIP_00{}67.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}67.json'.format(args.split_num),
     # 'test_targets_bop19_WIP_00{}68.json'.format(args.split_num),
     # 'test_targets_bop19_WIP_00{}73.json'.format(args.split_num),
     # 'test_targets_bop19_WIP_00{}74.json'.format(args.split_num),
-    'test_targets_bop19_WIP_00{}79.json'.format(args.split_num),
-    'test_targets_bop19_WIP_00{}80.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}79.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}80.json'.format(args.split_num),
     # 'test_targets_bop19_WIP_00{}87.json'.format(args.split_num),
     # 'test_targets_bop19_WIP_00{}88.json'.format(args.split_num),
     # 'test_targets_bop19_WIP_00{}91.json'.format(args.split_num),
-  ]
+
+    # experiment type 1
+    # 'test_targets_bop19_WIP_00{}30.json'.format(args.split_num)
+    # 'test_targets_bop19_WIP_00{}31.json'.format(args.split_num)
+    # 'test_targets_bop19_WIP_00{}33.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}37.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}38.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}42.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}43.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}44.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}45.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}46.json'.format(args.split_num),
+    # 'test_targets_bop19_WIP_00{}48.json'.format(args.split_num),
+
+  #   # experiment type 2
+  #   'test_targets_bop19_WIP_00{}53.json'.format(args.split_num),
+  #   'test_targets_bop19_WIP_00{}54.json'.format(args.split_num),
+  #   # 'test_targets_bop19_WIP_00{}55.json'.format(args.split_num),
+  #   'test_targets_bop19_WIP_00{}56.json'.format(args.split_num),
+  #   # 'test_targets_bop19_WIP_00{}57.json'.format(args.split_num),
+  #   'test_targets_bop19_WIP_00{}59.json'.format(args.split_num),
+  #   'test_targets_bop19_WIP_00{}60.json'.format(args.split_num),
+  #   'test_targets_bop19_WIP_00{}61.json'.format(args.split_num),
+  #   'test_targets_bop19_WIP_00{}62.json'.format(args.split_num),
+  #   'test_targets_bop19_WIP_00{}66.json'.format(args.split_num),
+  #   'test_targets_bop19_WIP_00{}67.json'.format(args.split_num),
+  #   'test_targets_bop19_WIP_00{}68.json'.format(args.split_num),
+  #   # 'test_targets_bop19_WIP_00{}74.json'.format(args.split_num),
+  #   'test_targets_bop19_WIP_00{}79.json'.format(args.split_num),
+  #   'test_targets_bop19_WIP_00{}80.json'.format(args.split_num),
+  #   'test_targets_bop19_WIP_00{}87.json'.format(args.split_num),
+  #   'test_targets_bop19_WIP_00{}88.json'.format(args.split_num),
+  #   'test_targets_bop19_WIP_00{}91.json'.format(args.split_num),
+  # ]
 
 # targets['targets_filenames_ZP_{}'.format(args.split)]: ,
 
@@ -247,22 +233,17 @@ for result_filename in p['result_filenames']:
   method = str(result_info[0])
   dataset_info = result_info[1].split('_')
   dataset = str(dataset_info[0])
-  split = str(result_info[2]) + str (result_info[3]) # 'test' 
+  split = str(result_info[2]) +'_'+ str (result_info[3]) # 'test' 
 
   split_type = str(dataset_info[2]) if len(dataset_info) > 2 else None
   split_type_str = ' - ' + split_type if split_type is not None else ''
-  ### PMB DEBUG TODO HIER NOG NAAR KIJKEN, ER GAAT IETS MIS ###
+  ### PMB DEBUG ###
   print('dataset',dataset)
   print('result_info[0]',result_info[0])
   print('result_info[1]',result_info[1])
   print('dataset_info and split type',dataset_info,split_type)
   ######
-
   
-#   dataset = 'husky'
-#   split = 'test'
-#   split_type = 'test'
-
   # Load dataset parameters.
   model_type = 'eval'
   dp_split = dataset_params.get_split_params(

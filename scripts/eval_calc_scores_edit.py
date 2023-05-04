@@ -69,13 +69,16 @@ p = {
     # r'/path/to/calculated/errors',
     r'zebrapose_husky_experiment0_obj07_26-32_20230421_MPPI/error=add_ntop=1',
   ],
-  'error_dir_paths_ZP': [
+  'error_dir_paths': [
     # r'/path/to/calculated/errors',
     # r'zebrapose_husky_experiment0_obj07_26-32_20230421_ZP/error=add_ntop=1',
     # r'zebrapose_husky_experiment08_obj07_33-38_20230425_ZP/error=add_ntop=1',
     # r'zebrapose_husky_experiment18_obj07_33-42_20230425_ZP/error=add_ntop=1',
     # r'zebrapose_husky_{}_obj07_30-74_20230426_{}/error=add_ntop=1'.format(config.dataset_split,config.predictor)
-    r'zebrapose_husky_{}_obj07_30-91_20230426_{}/error=add_ntop=1'.format(config.dataset_split,config.predictor)
+    # r'zebrapose_husky_{}_obj07_30-91_20230426_{}/error=add_ntop=1'.format(config.dataset_split,config.predictor)
+    # r'zebrapose_husky_{}_obj07_exp0_{}/error=add_ntop=1'.format(config.dataset_split,config.predictor)
+    # r'zebrapose_husky_{}_obj07_exp1_{}/error=add_ntop=1'.format(config.dataset_split,config.predictor)
+    r'zebrapose_husky_{}_obj07_exp2_{}/error=add_ntop=1'.format(config.dataset_split,config.predictor)
   ],
 
   # Folder for the calculated pose errors and performance scores.
@@ -86,42 +89,7 @@ p = {
 
   # File with a list of estimation targets to consider. The file is assumed to
   # be stored in the dataset folder.
-  'targets_filenames_ZP_{}'.format(config.dataset_split_num): [
-    # 'test_targets_bop19_WIP_001826.json',
-    # 'test_targets_bop19_WIP_001828.json',
-    # 'test_targets_bop19_WIP_001829.json',
-    # 'test_targets_bop19_WIP_001830.json',
-    # 'test_targets_bop19_WIP_00{}33.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}37.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}38.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}42.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}43.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}55.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}56.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}57.json'.format(config.dataset_split_num),
-    'test_targets_bop19_WIP_00{}59.json'.format(config.dataset_split_num),
-    'test_targets_bop19_WIP_00{}60.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}61.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}62.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}66.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}67.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}68.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}73.json'.format(config.dataset_split_num),
-    # 'test_targets_bop19_WIP_00{}74.json'.format(config.dataset_split_num),
-    'test_targets_bop19_WIP_00{}79.json'.format(config.dataset_split_num),
-    'test_targets_bop19_WIP_00{}80.json'.format(config.dataset_split_num),
-    'test_targets_bop19_WIP_00{}88.json'.format(config.dataset_split_num),
-    'test_targets_bop19_WIP_00{}91.json'.format(config.dataset_split_num),
-  ],
-
-  'targets_filenames_ZP': [
-    'test_targets_bop19_WIP_001826.json',
-    'test_targets_bop19_WIP_001828.json',
-    'test_targets_bop19_WIP_001829.json',
-    'test_targets_bop19_WIP_001830.json',
-    'test_targets_bop19_WIP_001831.json',
-    'test_targets_bop19_WIP_001832.json',
-  ], 
+  'targets_filenames_{}_{}'.format(config.predictor,config.exp_type): config.target_nums,
   'targets_filenames_MPPI': [
     'test_targets_bop19_WIP_010026.json',
     'test_targets_bop19_WIP_010028.json',
@@ -161,16 +129,16 @@ parser.add_argument('--normalized_by_diameter',
 parser.add_argument('--normalized_by_im_width',
                     default=','.join(p['normalized_by_im_width']))
 parser.add_argument('--visib_gt_min', default=p['visib_gt_min'])
-parser.add_argument('--error_dir_paths', default=','.join(p['error_dir_paths_{}'.format(config.predictor)]),
+parser.add_argument('--error_dir_paths', default=','.join(p['error_dir_paths']),
                     help='Comma-sep. paths to errors from eval_calc_errors.py.')
 parser.add_argument('--eval_path', default=p['eval_path'])
 parser.add_argument('--datasets_path', default=p['datasets_path'])
 
 parser.add_argument('--split_num', default=config.dataset_split_num)
 
-# parser.add_argument('--targets_filenames',
-                    # default=','.join(p['targets_filenames_{}_{}'.format(config.predictor,config.dataset_split_num)]),
-                    # help='Comma-separated names of files with results.')
+parser.add_argument('--targets_filenames',
+                    default=','.join(p['targets_filenames_{}_{}'.format(config.predictor,config.exp_type)]),
+                    help='Comma-separated names of files with results.')
 parser.add_argument('--error_tpath', default=p['error_tpath'])
 parser.add_argument('--out_matches_tpath', default=p['out_matches_tpath'])
 parser.add_argument('--out_scores_tpath', default=p['out_scores_tpath'])
@@ -189,31 +157,10 @@ p['error_dir_paths'] = args.error_dir_paths.split(',')
 p['eval_path'] = str(args.eval_path)
 p['datasets_path'] = str(args.datasets_path)
 # p['targets_filename'] = str(args.targets_filename)
-# p['targets_filenames'] = str(args.targets_filenames).split(',')
+p['targets_filenames'] = str(args.targets_filenames).split(',')
 p['error_tpath'] = str(args.error_tpath)
 p['out_matches_tpath'] = str(args.out_matches_tpath)
 p['out_scores_tpath'] = str(args.out_scores_tpath)
-
-p['targets_filenames'] = [
-    'test_targets_bop19_WIP_00{}55.json'.format(args.split_num),
-    'test_targets_bop19_WIP_00{}56.json'.format(args.split_num),
-    'test_targets_bop19_WIP_00{}57.json'.format(args.split_num),
-    'test_targets_bop19_WIP_00{}59.json'.format(args.split_num),
-    'test_targets_bop19_WIP_00{}60.json'.format(args.split_num),
-    # 'test_targets_bop19_WIP_00{}61.json'.format(args.split_num),
-    'test_targets_bop19_WIP_00{}62.json'.format(args.split_num),
-    # 'test_targets_bop19_WIP_00{}66.json'.format(args.split_num),
-    'test_targets_bop19_WIP_00{}67.json'.format(args.split_num),
-    'test_targets_bop19_WIP_00{}68.json'.format(args.split_num),
-    # 'test_targets_bop19_WIP_00{}73.json'.format(args.split_num),
-    'test_targets_bop19_WIP_00{}74.json'.format(args.split_num),
-    # 'test_targets_bop19_WIP_00{}79.json'.format(args.split_num),
-    # 'test_targets_bop19_WIP_00{}80.json'.format(args.split_num),
-    # 'test_targets_bop19_WIP_00{}87.json'.format(args.split_num),
-    # 'test_targets_bop19_WIP_00{}88.json'.format(args.split_num),
-    # 'test_targets_bop19_WIP_00{}91.json'.format(args.split_num),
-  ]
-
 
 misc.log('-----------')
 misc.log('Parameters:')
@@ -237,7 +184,7 @@ for error_dir_path in p['error_dir_paths']:
   dataset_info = result_info[1].split('-')
   dataset = dataset_info[0]
   # TODO FIX BELOW
-  split = str(result_info[2]) + str(result_info[3]) # 'experiment' 
+  split = str(result_info[2]) +'_'+ str(result_info[3]) # 'experiment' 
   split_type = dataset_info[2] if len(dataset_info) > 2 else None
 
   # Evaluation signature.

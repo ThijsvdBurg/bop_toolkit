@@ -41,7 +41,7 @@ p = {
       },
       'vsd_taus': list(np.arange(0.05, 0.51, 0.05)),
       'vsd_normalized_by_diameter': False,
-      'correct_th': [[th] for th in np.arange(0.01, 0.101, 0.01)]
+      'correct_th': [[th] for th in np.arange(0.02, 0.101, 0.01)]
       # 'correct_th': [[th] for th in np.arange(0.05, 0.101, 0.025)]
     },
     # {
@@ -79,12 +79,23 @@ p = {
     # 'zebrapose_husky_experiment08_obj07_33-38_20230425_{}.csv'.format(config.predictor),
     # 'zebrapose_husky_experiment18_obj07_29-43_20230425_{}.csv'.format(config.predictor)
     # 'zebrapose_husky_{}_obj07_30-74_20230426_{}.csv'.format(config.dataset_split,config.predictor),
-    'zebrapose_husky_experiment_13_obj07_30-74_20230426_ZP.csv',
-    'zebrapose_husky_experiment_14_obj07_30-91_20230426_ZP.csv',
+    # 'zebrapose_husky_experiment_13_obj07_30-74_20230426_ZP.csv',
+    # 'zebrapose_husky_experiment_14_obj07_30-91_20230426_ZP.csv',
+    # 'zebrapose_husky_experiment_{:02d}_obj07_exp2_{}.csv'.format(config.dataset_split_num,config.predictor),    
+    'zebrapose_husky_experiment_{:02d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_{:02d}_obj07_exp0_{}.csv'.format(config.dataset_split_num,config.predictor),    
+    # 'zebrapose_husky_experiment_{:02d}_obj07_exp1_{}.csv'.format(config.dataset_split_num,config.predictor),
+    # 'zebrapose_husky_experiment_00_obj07_exp2_ZP.csv',
+    # 'zebrapose_husky_experiment_02_obj07_exp2_ZP.csv',
+    # 'zebrapose_husky_experiment_12_obj07_exp2_ZP.csv',
+    # 'zebrapose_husky_experiment_03_obj07_exp2_ZP.csv',
+    # 'zebrapose_husky_experiment_13_obj07_exp2_ZP.csv',
+    
     # 'zebrapose_husky_experiment13_obj07_30-74_20230426_ZP.csv'
   ],
 
-  'calc_errors': False,
+  # 'calc_errors': False,
+  'calc_errors': True,
 
   # Folder with results to be evaluated.
   'results_path': config.results_path,
@@ -159,7 +170,10 @@ for result_filename in p['result_filenames']:
     if int(est['time'][2]) < 0:
       # All estimation times must be provided.
       times_available = False
-      break
+      # break
+      raise ValueError(
+          'The running time for scene {} and image {} is not the same for '
+          'all estimates.'.format(est['scene_id'], est['im_id']))
     elif result_key in times_total:
       if abs(times_total[result_key] - est['time'][2]) > 0.001:
         raise ValueError(

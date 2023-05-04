@@ -94,3 +94,4 @@ scripts_internal/
 bop_toolkit_lib/config_internal.py
 .DS_Store
 bop_toolkit.code-workspace
+existing_file.csv

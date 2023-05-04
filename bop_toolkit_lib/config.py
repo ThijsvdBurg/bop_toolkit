@@ -25,15 +25,70 @@ meshlab_server_path = r'/usr/bin/meshlabserver'
 dataset_name = 'husky'
 #dataset_name = 'lmo'
 #dataset_name = 'husky_devel'
-#dataset_split = 'test'
-#dataset_split = 'train'
-#dataset_split = 'train_tmp_8999'
 # dataset_split = 'test' # os.environ['split_type']
-# dataset_split = 'experiment0'  #'experiment'
-dataset_split_num = '13'
-dataset_split = 'experiment'+dataset_split_num  #'experiment'
+# exp_type = 0
+exp_type = 1
+# exp_type = 2
+dataset_split_num = 0
+# dataset_split_num = 14
+
+dataset_split = 'experiment_'+'{:02d}'.format(dataset_split_num)  #'experiment'
+
 # predictor     = 'MPPI'
 predictor     = 'ZP'
+
+# for s in {18,25,26,28,29,2,3,12,13}; \
+if exp_type == 0:
+  target_nums = [
+    'test_targets_bop19_WIP_00{:02d}18.json'.format(dataset_split_num),
+    # 'test_targets_bop19_WIP_00{:02d}20.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}25.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}26.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}28.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}29.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}02.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}03.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}12.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}13.json'.format(dataset_split_num),
+    ]
+
+
+# for s in {33,37,38,43,44,45,46,48,49,50,51,52,84}; \
+elif exp_type == 1:
+  target_nums = [
+    'test_targets_bop19_WIP_00{:02d}33.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}37.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}38.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}43.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}44.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}45.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}46.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}48.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}50.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}51.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}52.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}84.json'.format(dataset_split_num),
+  ]
+else:
+  target_nums = [
+    'test_targets_bop19_WIP_00{:02d}53.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}54.json'.format(dataset_split_num),
+    # 'test_targets_bop19_WIP_00{:02d}56.json'.format(dataset_split_num), #out bc of sketchy run
+    'test_targets_bop19_WIP_00{:02d}57.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}59.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}60.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}61.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}66.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}67.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}68.json'.format(dataset_split_num),
+    # 'test_targets_bop19_WIP_00{:02d}74.json'.format(dataset_split_num), #very sketchy run, bc of mppi controller
+    'test_targets_bop19_WIP_00{:02d}79.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}80.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}87.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}88.json'.format(dataset_split_num),
+    'test_targets_bop19_WIP_00{:02d}91.json'.format(dataset_split_num),
+  ]
+  
 
 # Folder with pose results to be evaluated.
 results_path = os.path.join(datasets_path,dataset_name,'results') #r'/home/pmvanderburg/noetic-husky/datasets/bop_datasets/pose_results'
