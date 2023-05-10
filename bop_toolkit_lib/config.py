@@ -27,20 +27,39 @@ dataset_name = 'husky'
 #dataset_name = 'husky_devel'
 # dataset_split = 'test' # os.environ['split_type']
 # exp_type = 0
-exp_type = 1
-# exp_type = 2
-dataset_split_num = 0
+# exp_type = 1
+exp_type = 2
+
+
+#dataset_split_num = 0
+#dataset_split_num = 1
+#dataset_split_num = 2
+#dataset_split_num = 3
+dataset_split_num = 4
+#dataset_split_num = 5
+#dataset_split_num = 6
+#dataset_split_num = 7
+#dataset_split_num = 8
+# dataset_split_num = 10
+# dataset_split_num = 11
+# dataset_split_num = 12
+# dataset_split_num = 13
 # dataset_split_num = 14
+# dataset_split_num = 15
+# dataset_split_num = 16
+# dataset_split_num = 17
+# dataset_split_num = 18
 
 dataset_split = 'experiment_'+'{:02d}'.format(dataset_split_num)  #'experiment'
 
-# predictor     = 'MPPI'
-predictor     = 'ZP'
+predictor     = 'MPPI'
+# predictor     = 'ZP'
 
+'''
 # for s in {18,25,26,28,29,2,3,12,13}; \
 if exp_type == 0:
   target_nums = [
-    'test_targets_bop19_WIP_00{:02d}18.json'.format(dataset_split_num),
+    # 'test_targets_bop19_WIP_00{:02d}18.json'.format(dataset_split_num),
     # 'test_targets_bop19_WIP_00{:02d}20.json'.format(dataset_split_num),
     'test_targets_bop19_WIP_00{:02d}25.json'.format(dataset_split_num),
     'test_targets_bop19_WIP_00{:02d}26.json'.format(dataset_split_num),
@@ -48,7 +67,7 @@ if exp_type == 0:
     'test_targets_bop19_WIP_00{:02d}29.json'.format(dataset_split_num),
     'test_targets_bop19_WIP_00{:02d}02.json'.format(dataset_split_num),
     'test_targets_bop19_WIP_00{:02d}03.json'.format(dataset_split_num),
-    'test_targets_bop19_WIP_00{:02d}12.json'.format(dataset_split_num),
+    # 'test_targets_bop19_WIP_00{:02d}12.json'.format(dataset_split_num),
     'test_targets_bop19_WIP_00{:02d}13.json'.format(dataset_split_num),
     ]
 
@@ -58,11 +77,11 @@ elif exp_type == 1:
   target_nums = [
     'test_targets_bop19_WIP_00{:02d}33.json'.format(dataset_split_num),
     'test_targets_bop19_WIP_00{:02d}37.json'.format(dataset_split_num),
-    'test_targets_bop19_WIP_00{:02d}38.json'.format(dataset_split_num),
+    #'test_targets_bop19_WIP_00{:02d}38.json'.format(dataset_split_num),
     'test_targets_bop19_WIP_00{:02d}43.json'.format(dataset_split_num),
     'test_targets_bop19_WIP_00{:02d}44.json'.format(dataset_split_num),
     'test_targets_bop19_WIP_00{:02d}45.json'.format(dataset_split_num),
-    'test_targets_bop19_WIP_00{:02d}46.json'.format(dataset_split_num),
+    # 'test_targets_bop19_WIP_00{:02d}46.json'.format(dataset_split_num),
     'test_targets_bop19_WIP_00{:02d}48.json'.format(dataset_split_num),
     'test_targets_bop19_WIP_00{:02d}50.json'.format(dataset_split_num),
     'test_targets_bop19_WIP_00{:02d}51.json'.format(dataset_split_num),
@@ -88,6 +107,7 @@ else:
     'test_targets_bop19_WIP_00{:02d}88.json'.format(dataset_split_num),
     'test_targets_bop19_WIP_00{:02d}91.json'.format(dataset_split_num),
   ]
+  '''
   
 
 # Folder with pose results to be evaluated.

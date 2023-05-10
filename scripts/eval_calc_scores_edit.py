@@ -78,7 +78,7 @@ p = {
     # r'zebrapose_husky_{}_obj07_30-91_20230426_{}/error=add_ntop=1'.format(config.dataset_split,config.predictor)
     # r'zebrapose_husky_{}_obj07_exp0_{}/error=add_ntop=1'.format(config.dataset_split,config.predictor)
     # r'zebrapose_husky_{}_obj07_exp1_{}/error=add_ntop=1'.format(config.dataset_split,config.predictor)
-    r'zebrapose_husky_{}_obj07_exp2_{}/error=add_ntop=1'.format(config.dataset_split,config.predictor)
+    # r'zebrapose_husky_{}_obj07_exp2_{}/error=add_ntop=1'.format(config.dataset_split,config.predictor)
   ],
 
   # Folder for the calculated pose errors and performance scores.
@@ -89,7 +89,8 @@ p = {
 
   # File with a list of estimation targets to consider. The file is assumed to
   # be stored in the dataset folder.
-  'targets_filenames_{}_{}'.format(config.predictor,config.exp_type): config.target_nums,
+  # 'targets_filenames_{}_{}'.format(config.predictor,config.exp_type): config.target_nums,
+  'targets_filenames_{}_{}'.format(config.predictor,config.exp_type): [],
   'targets_filenames_MPPI': [
     'test_targets_bop19_WIP_010026.json',
     'test_targets_bop19_WIP_010028.json',
@@ -134,7 +135,8 @@ parser.add_argument('--error_dir_paths', default=','.join(p['error_dir_paths']),
 parser.add_argument('--eval_path', default=p['eval_path'])
 parser.add_argument('--datasets_path', default=p['datasets_path'])
 
-parser.add_argument('--split_num', default=config.dataset_split_num)
+parser.add_argument('--split_num', default='3')
+# parser.add_argument('--split_num', default=config.dataset_split_num)
 
 parser.add_argument('--targets_filenames',
                     default=','.join(p['targets_filenames_{}_{}'.format(config.predictor,config.exp_type)]),
@@ -213,8 +215,9 @@ for error_dir_path in p['error_dir_paths']:
   for targets_filename in p['targets_filenames']:
     print('target filename in targets_filenames',targets_filename)    
     scene_num = int(targets_filename.split('_')[4].split('.')[0])
+    targets_filename_split = targets_filename.split("'")[1]
     targets_per_scene = inout.load_json(
-      os.path.join(dp_split['base_path'],'evaluation', targets_filename))
+      os.path.join(dp_split['base_path'],'evaluation', targets_filename_split))
     targets[scene_num] = targets_per_scene
     scene_ids.append(scene_num)
 

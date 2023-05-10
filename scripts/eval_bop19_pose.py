@@ -41,8 +41,9 @@ p = {
       },
       'vsd_taus': list(np.arange(0.05, 0.51, 0.05)),
       'vsd_normalized_by_diameter': False,
-      'correct_th': [[th] for th in np.arange(0.02, 0.101, 0.01)]
+      'correct_th': [[th] for th in np.arange(0.02, 0.101, 0.01)] # correct one
       # 'correct_th': [[th] for th in np.arange(0.05, 0.101, 0.025)]
+      # 'correct_th': [[th] for th in np.arange(0.1, 0.101, 0.025)] # for testing
     },
     # {
       # 'n_top': -1,
@@ -72,30 +73,82 @@ p = {
   # stored in folder p['results_path']). See docs/bop_challenge_2019.md for a
   # description of the format. Example results can be found at:
   # https://bop.felk.cvut.cz/media/data/bop_sample_results/bop_challenge_2019/
-  'result_filenames': [
-    # 'zebrapose_husky_experiment_obj07_28_29.csv',
-    # 'zebrapose_husky_experiment_obj07_28_29_20230419_2.csv',
-    # 'zebrapose_husky_experiment0_obj07_26-32_20230421_{}.csv'.format(config.predictor)
-    # 'zebrapose_husky_experiment08_obj07_33-38_20230425_{}.csv'.format(config.predictor),
-    # 'zebrapose_husky_experiment18_obj07_29-43_20230425_{}.csv'.format(config.predictor)
-    # 'zebrapose_husky_{}_obj07_30-74_20230426_{}.csv'.format(config.dataset_split,config.predictor),
-    # 'zebrapose_husky_experiment_13_obj07_30-74_20230426_ZP.csv',
-    # 'zebrapose_husky_experiment_14_obj07_30-91_20230426_ZP.csv',
     # 'zebrapose_husky_experiment_{:02d}_obj07_exp2_{}.csv'.format(config.dataset_split_num,config.predictor),    
-    'zebrapose_husky_experiment_{:02d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_{:02d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_0{:01d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_1{:01d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
     # 'zebrapose_husky_experiment_{:02d}_obj07_exp0_{}.csv'.format(config.dataset_split_num,config.predictor),    
     # 'zebrapose_husky_experiment_{:02d}_obj07_exp1_{}.csv'.format(config.dataset_split_num,config.predictor),
+  'result_filenames': [
     # 'zebrapose_husky_experiment_00_obj07_exp2_ZP.csv',
+    # 'zebrapose_husky_experiment_01_obj07_exp2_ZP.csv',
+    # 'zebrapose_husky_experiment_01_obj07_exp2_ZP.csv',
+    # 
+    # 'zebrapose_husky_experiment_09_obj07_exp2_ZP.csv',
+    # 'zebrapose_husky_experiment_19_obj07_exp2_ZP.csv',
+    # 
+    # 'zebrapose_husky_experiment_00_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_01_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_10_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    'zebrapose_husky_experiment_11_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    'zebrapose_husky_experiment_12_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    'zebrapose_husky_experiment_13_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    'zebrapose_husky_experiment_14_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_15_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    'zebrapose_husky_experiment_16_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    'zebrapose_husky_experiment_17_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    'zebrapose_husky_experiment_18_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 
+    # 'zebrapose_husky_experiment_00_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_00_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_10_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 
+    # 'zebrapose_husky_experiment_01_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_02_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_03_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_04_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_05_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_06_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_07_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_08_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_11_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_12_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_13_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_14_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_15_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_16_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_17_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_18_obj07_exp{}_ZP.csv'.format(config.exp_type),
+  ],
+    # 'zebrapose_husky_experiment_00_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_01_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_02_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_03_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_04_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_05_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_06_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_07_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_08_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_10_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_11_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_12_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_13_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_14_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_15_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_16_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_17_obj07_exp0_ZP.csv',
+    # 'zebrapose_husky_experiment_18_obj07_exp0_ZP.csv',
     # 'zebrapose_husky_experiment_02_obj07_exp2_ZP.csv',
     # 'zebrapose_husky_experiment_12_obj07_exp2_ZP.csv',
     # 'zebrapose_husky_experiment_03_obj07_exp2_ZP.csv',
     # 'zebrapose_husky_experiment_13_obj07_exp2_ZP.csv',
-    
+    # 
     # 'zebrapose_husky_experiment13_obj07_30-74_20230426_ZP.csv'
-  ],
 
   # 'calc_errors': False,
   'calc_errors': True,
+  # 'calc_metrics': False,
+  'calc_metrics': True,
 
   # Folder with results to be evaluated.
   'results_path': config.results_path,
@@ -105,11 +158,13 @@ p = {
 
   # File with a list of estimation targets to consider. The file is assumed to
   # be stored in the dataset folder.
-  # 'targets_filenames': [
+  'targets_filenames': [
     # 'test_targets_bop19_WIP_000028.json',
     # 'test_targets_bop19_WIP_000029.json'
-  # ]
+  ]
   # 'targets_filename': 'test_targets_bop19.json',
+
+  
 }
 ################################################################################
 
@@ -123,15 +178,15 @@ parser.add_argument('--result_filenames',
                     help='Comma-separated names of files with results.')
 parser.add_argument('--results_path', default=p['results_path'])
 parser.add_argument('--eval_path', default=p['eval_path'])
-# parser.add_argument('--targets_filenames',
-                    # default=','.join(p['targets_filenames']),
-                    # help='Comma-separated names of files with results.')
+parser.add_argument('--targets_filenames',
+                    default=','.join(p['targets_filenames']),
+                    help='Comma-separated names of files with results.')
                     #  default=p['targets_filenames'])
 args = parser.parse_args()
 
 p['renderer_type'] = str(args.renderer_type)
 p['result_filenames'] = args.result_filenames.split(',')
-# p['targets_filenames'] = args.targets_filenames.split(',')
+p['targets_filenames'] = args.targets_filenames.split(',')
 p['results_path'] = str(args.results_path)
 p['eval_path'] = str(args.eval_path)
 # p['targets_filename'] = str(args.targets_filename)
@@ -141,7 +196,7 @@ p['eval_path'] = str(args.eval_path)
 for result_filename in p['result_filenames']:
 
   misc.log('===========')
-  misc.log('EVALUATING: {}'.format(result_filename))
+  misc.log('EVALUATING: {}/{}'.format(p['results_path'],result_filename))
   misc.log('===========')
 
   time_start = time.time()
@@ -155,12 +210,64 @@ for result_filename in p['result_filenames']:
   result_name = os.path.splitext(os.path.basename(result_filename))[0]
   dataset = str(result_name.split('_')[1].split('-')[0])
   split_num = result_name.split('_')[3]
+  exp_type = result_name.split('_')[5]
   # Calculate the average estimation time per image.
   # ests = inout.load_bop_results(
     # os.path.join(p['results_path'], result_filename), version='bop19')
   ests = inout.load_bop_results(
     os.path.join(p['results_path'], result_filename), version='husky23')
   
+  if p['predictor']=='ZP':
+    if exp_type == 'exp0':
+      p['targets_filenames'] = ['test_targets_bop19_WIP_00{:02d}25.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}26.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}28.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}29.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}02.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}03.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}13.json'.format(int(split_num))]
+      # 'test_targets_bop19_WIP_00{:02d}18.json'.format(split_num),
+      # 'test_targets_bop19_WIP_00{:02d}12.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}20.json'.format(split_num),
+    elif exp_type == 'exp1':
+      p['targets_filenames'] = ['test_targets_bop19_WIP_00{:02d}33.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}37.json'.format(int(split_num)),
+      #'test_targets_bop19_WIP_00{:02d}38.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}43.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}44.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}45.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}46.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}48.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}50.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}51.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}52.json'.format(int(split_num)),
+      'test_targets_bop19_WIP_00{:02d}84.json'.format(int(split_num))]
+    elif exp_type == 'exp2':
+      p['targets_filenames'] = ['test_targets_bop19_WIP_00{:02d}61.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}53.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}54.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}57.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}59.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}60.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}66.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}67.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}68.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}79.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}80.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}87.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}88.json'.format(int(split_num)),
+      # 'test_targets_bop19_WIP_00{:02d}91.json'.format(int(split_num))
+      ]
+      # 'test_targets_bop19_WIP_00{:02d}74.json'.format(int(split_num)), #very sketchy run, bc of mppi controller
+      # 'test_targets_bop19_WIP_00{:02d}56.json'.format(int(split_num)), #out bc of sketchy run
+  else:
+    if exp_type == 'exp0':
+      p['targets_filenames'] = ['test_targets_bop19_WIP_010025.json']
+    elif exp_type == 'exp1':
+      p['targets_filenames'] = ['test_targets_bop19_WIP_010033.json']
+    elif exp_type == 'exp2':
+      p['targets_filenames'] = ['test_targets_bop19_WIP_010061.json']
+
   times_total = {}
   times_2DDet = {}
   times_PnP = {}
@@ -171,9 +278,9 @@ for result_filename in p['result_filenames']:
       # All estimation times must be provided.
       times_available = False
       # break
-      raise ValueError(
-          'The running time for scene {} and image {} is not the same for '
-          'all estimates.'.format(est['scene_id'], est['im_id']))
+      # raise ValueError(
+          # 'The running time for scene {} and image {} is not the same for '
+          # 'all estimates.'.format(est['scene_id'], est['im_id']))
     elif result_key in times_total:
       if abs(times_total[result_key] - est['time'][2]) > 0.001:
         raise ValueError(
@@ -191,6 +298,9 @@ for result_filename in p['result_filenames']:
   else:
     average_total_time_per_image = -1.0
 
+  target_string = '{}'.format(p['targets_filenames'])
+  target_string = target_string.split('[')
+  target_string = target_string[1].split(']')[0]
   # Evaluate the pose estimates.
   for error in p['errors']:
     '''
@@ -221,6 +331,7 @@ for result_filename in p['result_filenames']:
       '--results_path={}'.format(p['results_path']),
       '--eval_path={}'.format(p['eval_path']),
       # '--targets_filenames={}'.format(targets_filename),
+      '--targets_filenames={}'.format(target_string),
       '--max_sym_disc_step={}'.format(p['max_sym_disc_step']),
       '--skip_missing=1',
       '--split_num={}'.format(split_num),
@@ -261,6 +372,8 @@ for result_filename in p['result_filenames']:
     mIoU = []
     score = []
 
+
+
     # Calculate performance scores.
     for error_sign, error_dir_path in error_dir_paths.items():
       for correct_th in error['correct_th']:
@@ -280,15 +393,17 @@ for result_filename in p['result_filenames']:
           '--error_dir_paths={}'.format(error_dir_path),
           '--eval_path={}'.format(p['eval_path']),
           # '--targets_filenames={}'.format(p['targets_filenames']),
+          '--targets_filenames={}'.format(target_string),
           '--visib_gt_min={}'.format(p['visib_gt_min']),
           '--split_num={}'.format(split_num),
         ]
         calc_scores_cmd += ['--correct_th_{}={}'.format(
           error['type'], ','.join(map(str, correct_th)))]
 
-        misc.log('Running: ' + ' '.join(calc_scores_cmd))
-        if subprocess.call(calc_scores_cmd) != 0:
-          raise RuntimeError('Calculation of scores failed.')
+        if p['calc_metrics']:
+          misc.log('Running: ' + ' '.join(calc_scores_cmd))
+          if subprocess.call(calc_scores_cmd) != 0:
+            raise RuntimeError('Calculation of scores failed.')
 
         # Path to file with calculated scores.
         score_sign = misc.get_score_signature(correct_th, p['visib_gt_min'])
@@ -314,11 +429,11 @@ for result_filename in p['result_filenames']:
     misc.log('mIoU: {}'.format(average_IoU[error['type']]))
 
   time_total = time.time() - time_start
-  misc.log('Evaluation of {} took {}s.'.format(result_filename, time_total))
+  misc.log('Evaluation of {}/{} took {}s.'.format(p['results_path'],result_filename, time_total))
 
   # Calculate the final scores.
   final_scores = {}
-  final_scores['__config_number__'] = split_to_config_name.convert(split_num)
+  final_scores['__config_number__'] = split_to_config_name.convert(split_num, config.exp_type)
   for error in p['errors']:
     final_scores['bop19_average_recall_{}'.format(error['type'])] =\
       average_recalls[error['type']]
@@ -327,13 +442,14 @@ for result_filename in p['result_filenames']:
   final_scores['bop19_average_recall'] = np.mean([
     average_recalls['add']]) #, average_recalls['mssd'], average_recalls['mspd']])
 
-  # Average estimation time per image.
-  final_scores['bop19_average_time_per_image'] = average_total_time_per_image
-  final_scores['bop19_average_pnp_time_per_image'] = average_pnp_time_per_image
-  final_scores['bop19_average_2D_detect_time_per_image'] = average_2ddet_time_per_image
+  if p['predictor']=='ZP':
+    # Average estimation time per image.
+    final_scores['bop19_average_time_per_image'] = average_total_time_per_image
+    final_scores['bop19_average_pnp_time_per_image'] = average_pnp_time_per_image
+    final_scores['bop19_average_2D_detect_time_per_image'] = average_2ddet_time_per_image
 
-  # final_scores['husky23_mean_score_config_{}'.format(config.dataset_split_num)] = average_score[error['type']]
-  # final_scores['husky23_mean_IoU_config_{}'.format(config.dataset_split_num)] = average_IoU[error['type']]
+  # final_scores['husky23_mean_score_config_{}'.format(config.int(split_num))] = average_score[error['type']]
+  # final_scores['husky23_mean_IoU_config_{}'.format(config.int(split_num))] = average_IoU[error['type']]
   final_scores['husky23_mean_score'] = average_score[error['type']]
   final_scores['husky23_mean_IoU'] = average_IoU[error['type']]
 

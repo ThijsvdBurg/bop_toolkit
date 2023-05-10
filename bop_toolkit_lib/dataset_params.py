@@ -396,6 +396,7 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None, predic
       'experiment_06': None,  # Use function get_present_scene_ids().
       'experiment_07': None,  # Use function get_present_scene_ids().
       'experiment_08': None,  # Use function get_present_scene_ids().
+      'experiment_09': None,  # Use function get_present_scene_ids().
       'experiment_10': None,  # Use function get_present_scene_ids().
       'experiment_11': None,  # Use function get_present_scene_ids().
       'experiment_12': None,  # Use function get_present_scene_ids().
@@ -405,6 +406,7 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None, predic
       'experiment_16': None,  # Use function get_present_scene_ids().
       'experiment_17': None,  # Use function get_present_scene_ids().
       'experiment_18': None,  # Use function get_present_scene_ids().
+      'experiment_19': None,  # Use function get_present_scene_ids().
     }[split]
     p['im_size'] = (1280, 720)
 
@@ -499,6 +501,7 @@ def get_present_scene_ids(dp_split):
                 if os.path.isdir(d)]
   print('scene_dirs',scene_dirs)
   scene_ids = [int(os.path.basename(scene_dir)) for scene_dir in scene_dirs]
+  # scene_ids = [int('010061') for scene_dir in scene_dirs]
   scene_ids = sorted(scene_ids)
   print('get_present_scene_ids',scene_ids)
   return scene_ids

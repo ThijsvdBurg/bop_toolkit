@@ -65,10 +65,41 @@ p = {
     # 'zebrapose_husky_experiment_01_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
     # 'zebrapose_husky_experiment_02_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
     # 'zebrapose_husky_experiment_03_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_04_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_14_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_04_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_14_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_00_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
+    # 
+    # 'zebrapose_husky_experiment_01_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_02_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_03_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_04_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_05_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_06_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_07_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_08_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),        
+    # 'zebrapose_husky_experiment_10_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
+    'zebrapose_husky_experiment_11_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
+    'zebrapose_husky_experiment_12_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
+    'zebrapose_husky_experiment_13_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
+    'zebrapose_husky_experiment_14_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    'zebrapose_husky_experiment_15_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
+    'zebrapose_husky_experiment_16_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    'zebrapose_husky_experiment_17_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
+    'zebrapose_husky_experiment_18_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_02_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_12_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_03_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_13_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_04_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_14_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_05_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_15_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_06_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_16_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_07_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_17_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_08_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_18_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_01_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_11_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
     # 'zebrapose_husky_experiment_07_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
     # 'zebrapose_husky_experiment_13_obj07_30-74_20230426_ZP.csv',
     # 'zebrapose_husky_experiment_14_obj07_30-91_20230426_ZP.csv',
@@ -92,7 +123,8 @@ p = {
 }
 ################################################################################
 
-csv_path=r'/home/pmvanderburg/noetic-husky/bop_ros_ws/src/Husky_scripts/performance_metrics.csv'
+# csv_path=r'/home/pmvanderburg/noetic-husky/bop_ros_ws/src/Husky_scripts/performance_metrics.csv'
+csv_path=r'/home/pmvanderburg/noetic-husky/bop_ros_ws/src/Husky_scripts/data_visualization/plot_scripts/existing_file_exp{}.csv'.format(config.exp_type)
   # Load the CSV file into a pandas dataframe
 df = pd.read_csv(csv_path)
 

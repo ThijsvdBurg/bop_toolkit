@@ -41,7 +41,7 @@ def convert(config_encoding, exp_type):
   else:
     # pnp_init=0
     # config_name = 'Ours + 100 RANSAC/PnP iterations'
-    config_name = 'Ours + ' + str(pnp_iters) + ' RPnP'
+    config_name = 'Ours + ' + init_src + ' bbox ' + str(pnp_iters) + ' RPnP'
 
   return config_name
 

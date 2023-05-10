@@ -306,7 +306,7 @@ def load_bop_results(path, version='bop19'):
       line_id = 0
       for line in f:
         line_id += 1
-        if line_id == 1 and header in line:
+        if line_id == 1: # and header in line:
           continue
         else:
           elems = line.split(',')
@@ -314,6 +314,7 @@ def load_bop_results(path, version='bop19'):
             raise ValueError(
               'A line does not have 14 comma-sep. elements: {}'.format(line))
 
+          
           result = {
             'scene_id': int(elems[0]),
             'obj_id': int(elems[1]),

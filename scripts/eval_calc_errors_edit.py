@@ -71,7 +71,7 @@ p = {
   # ],
   'result_filenames': [
     # 'zebrapose_husky_experiment_{:02d}_obj07_exp2_{}.csv'.format(config.dataset_split_num,config.predictor),    
-    'zebrapose_husky_experiment_{:02d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num+i,config.exp_type,config.predictor),    
+    'zebrapose_husky_experiment_{:02d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
   ],
 
   # Folder with results to be evaluated.
@@ -82,10 +82,10 @@ p = {
 
   # Folder containing the BOP datasets.
   'datasets_path': config.datasets_path,
-  'dataset_split': str('experiment_'+str(config.dataset_split_num+i)),
+  'dataset_split': str('experiment_'+str(config.dataset_split_num)),
   # 'predictor': config.predictor,
   # 'exp_type': config.exp_type,
-  'targets_filenames_{}_{}'.format(config.predictor,config.exp_type): config.target_nums,
+  'targets_filenames_{}_{}'.format(config.predictor,config.exp_type):[], #config.target_nums,
 
   'targets_filenames_MPPI': [
     'test_targets_bop19_WIP_010026.json',
@@ -273,10 +273,16 @@ for result_filename in p['result_filenames']:
   # Load the estimation targets.
   targets = {}
   for targets_filename in p['targets_filenames']:
-    print('target filename in targets_filenames',targets_filename)
+    # print('target filename in targets_filenames',targets_filename)
+    # scene_num = int(targets_filename.split('_')[4].split('.')[0])
+    # targets_per_scene = inout.load_json(
+      # os.path.join(dp_split['base_path'],'evaluation', targets_filename))
+    print('target filename in targets_filenames',targets_filename)    
     scene_num = int(targets_filename.split('_')[4].split('.')[0])
+    targets_filename_split = targets_filename.split("'")[1]
     targets_per_scene = inout.load_json(
-      os.path.join(dp_split['base_path'],'evaluation', targets_filename))
+      os.path.join(dp_split['base_path'],'evaluation', targets_filename_split))
+    
     targets[scene_num] = targets_per_scene
 
   # Organize the targets by scene, image and object.
