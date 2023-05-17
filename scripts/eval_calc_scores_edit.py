@@ -197,8 +197,13 @@ for error_dir_path in p['error_dir_paths']:
     err_type, method, dataset))
 
   # Load dataset parameters.
+  if config.predictor == 'ZPbaseline':
+    split_predictor = 'ZP'
+  else:
+    split_predictor = config.predictor
+
   dp_split = dataset_params.get_split_params(
-    p['datasets_path'], dataset, split, split_type, predictor=config.predictor)
+    p['datasets_path'], dataset, split, split_type, predictor=split_predictor)
 
   dp_split['scene_ids'] = dataset_params.get_present_scene_ids(dp_split)
 
@@ -241,6 +246,7 @@ for error_dir_path in p['error_dir_paths']:
 
   # Go through the test scenes and match estimated poses to GT poses.
   # ----------------------------------------------------------------------------
+  scene_scores = {}
   matches = []  # Stores info about the matching pose estimate for each GT pose.
   for scene_id, scene_targets in targets_org.items():
     misc.log('Processing scene {} of {}...'.format(scene_id, dataset))
@@ -296,12 +302,23 @@ for error_dir_path in p['error_dir_paths']:
     scene_errs = inout.load_json(scene_errs_path, keys_to_int=True)
 
     # Normalize the errors by the object diameter.
+    # errs={}
+    # idx = 0
+    # errs['errors']=err
+
+    scene_scores_list = []
     if err_type in p['normalized_by_diameter']:
       for err in scene_errs:
         diameter = float(models_info[err['obj_id']]['diameter'])
+        scene_scores_list.append(err['score'])
+        # idx+=1
         for gt_id in err['errors'].keys():
           err['errors'][gt_id] = [e / diameter for e in err['errors'][gt_id]]
+          # errs['errors'][gt_id] = [e for e in err['errors'][gt_id]]
           
+    # scene_scores[scene_id] = sum(scene_scores_list) / len(scene_errs)
+    scene_scores[scene_id] = sum(scene_scores_list)
+    # list(scene_errs[i].values()
 
     # Normalize the errors by the image width.
     if err_type in p['normalized_by_im_width']:
@@ -319,7 +336,7 @@ for error_dir_path in p['error_dir_paths']:
   # ----------------------------------------------------------------------------
   # 6D object localization scores (SiSo if n_top = 1).
   scores = score.calc_localization_scores(
-    scene_ids, dp_model['obj_ids'], matches, n_top)
+    scene_ids, dp_model['obj_ids'], matches, n_top, scene_scores)
 
   # Save scores.
   scores_path = p['out_scores_tpath'].format(

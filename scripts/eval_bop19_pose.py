@@ -41,9 +41,9 @@ p = {
       },
       'vsd_taus': list(np.arange(0.05, 0.51, 0.05)),
       'vsd_normalized_by_diameter': False,
-      'correct_th': [[th] for th in np.arange(0.02, 0.101, 0.01)] # correct one
+      # 'correct_th': [[th] for th in np.arange(0.02, 0.101, 0.01)] # correct one
       # 'correct_th': [[th] for th in np.arange(0.05, 0.101, 0.025)]
-      # 'correct_th': [[th] for th in np.arange(0.1, 0.101, 0.025)] # for testing
+      'correct_th': [[th] for th in np.arange(0.1, 0.101, 0.025)] # for testing
     },
     # {
       # 'n_top': -1,
@@ -73,52 +73,27 @@ p = {
   # stored in folder p['results_path']). See docs/bop_challenge_2019.md for a
   # description of the format. Example results can be found at:
   # https://bop.felk.cvut.cz/media/data/bop_sample_results/bop_challenge_2019/
-    # 'zebrapose_husky_experiment_{:02d}_obj07_exp2_{}.csv'.format(config.dataset_split_num,config.predictor),    
-    # 'zebrapose_husky_experiment_{:02d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_0{:01d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_1{:01d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_{:02d}_obj07_exp0_{}.csv'.format(config.dataset_split_num,config.predictor),    
-    # 'zebrapose_husky_experiment_{:02d}_obj07_exp1_{}.csv'.format(config.dataset_split_num,config.predictor),
   'result_filenames': [
     # 'zebrapose_husky_experiment_00_obj07_exp2_ZP.csv',
-    # 'zebrapose_husky_experiment_01_obj07_exp2_ZP.csv',
-    # 'zebrapose_husky_experiment_01_obj07_exp2_ZP.csv',
-    # 
-    # 'zebrapose_husky_experiment_09_obj07_exp2_ZP.csv',
-    # 'zebrapose_husky_experiment_19_obj07_exp2_ZP.csv',
-    # 
-    # 'zebrapose_husky_experiment_00_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
     # 'zebrapose_husky_experiment_01_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
-    # 'zebrapose_husky_experiment_10_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_02_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_03_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_04_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_05_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_06_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_07_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_08_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_09_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
     'zebrapose_husky_experiment_11_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
     'zebrapose_husky_experiment_12_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
     'zebrapose_husky_experiment_13_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
     'zebrapose_husky_experiment_14_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
-    # 'zebrapose_husky_experiment_15_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    'zebrapose_husky_experiment_15_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
     'zebrapose_husky_experiment_16_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
     'zebrapose_husky_experiment_17_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
     'zebrapose_husky_experiment_18_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
-    # 
-    # 'zebrapose_husky_experiment_00_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_00_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_10_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 
-    # 'zebrapose_husky_experiment_01_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_02_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_03_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_04_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_05_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_06_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_07_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_08_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_11_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_12_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_13_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_14_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_15_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_16_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_17_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_18_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    'zebrapose_husky_experiment_19_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    'zebrapose_husky_experiment_15_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
   ],
     # 'zebrapose_husky_experiment_00_obj07_exp0_ZP.csv',
     # 'zebrapose_husky_experiment_01_obj07_exp0_ZP.csv',
@@ -168,7 +143,6 @@ p = {
 }
 ################################################################################
 
-
 # Command line arguments.
 # ------------------------------------------------------------------------------
 parser = argparse.ArgumentParser()
@@ -217,56 +191,62 @@ for result_filename in p['result_filenames']:
   ests = inout.load_bop_results(
     os.path.join(p['results_path'], result_filename), version='husky23')
   
-  if p['predictor']=='ZP':
-    if exp_type == 'exp0':
-      p['targets_filenames'] = ['test_targets_bop19_WIP_00{:02d}25.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}26.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}28.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}29.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}02.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}03.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}13.json'.format(int(split_num))]
-      # 'test_targets_bop19_WIP_00{:02d}18.json'.format(split_num),
-      # 'test_targets_bop19_WIP_00{:02d}12.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}20.json'.format(split_num),
-    elif exp_type == 'exp1':
-      p['targets_filenames'] = ['test_targets_bop19_WIP_00{:02d}33.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}37.json'.format(int(split_num)),
-      #'test_targets_bop19_WIP_00{:02d}38.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}43.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}44.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}45.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}46.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}48.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}50.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}51.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}52.json'.format(int(split_num)),
-      'test_targets_bop19_WIP_00{:02d}84.json'.format(int(split_num))]
-    elif exp_type == 'exp2':
-      p['targets_filenames'] = ['test_targets_bop19_WIP_00{:02d}61.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}53.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}54.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}57.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}59.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}60.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}66.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}67.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}68.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}79.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}80.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}87.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}88.json'.format(int(split_num)),
-      # 'test_targets_bop19_WIP_00{:02d}91.json'.format(int(split_num))
-      ]
-      # 'test_targets_bop19_WIP_00{:02d}74.json'.format(int(split_num)), #very sketchy run, bc of mppi controller
-      # 'test_targets_bop19_WIP_00{:02d}56.json'.format(int(split_num)), #out bc of sketchy run
+  split_num_str = '{:02d}'.format(int(split_num))
+  if p['predictor']=='ZP' or p['predictor']=='ZPbaseline':
+    seq_encoding = int(str(0)+split_num_str)
   else:
-    if exp_type == 'exp0':
-      p['targets_filenames'] = ['test_targets_bop19_WIP_010025.json']
-    elif exp_type == 'exp1':
-      p['targets_filenames'] = ['test_targets_bop19_WIP_010033.json']
-    elif exp_type == 'exp2':
-      p['targets_filenames'] = ['test_targets_bop19_WIP_010061.json']
+    seq_encoding = int(str(1)+split_num_str)
+  if exp_type == 'exp0':
+    p['targets_filenames'] = ['test_targets_bop19_WIP_0{:03d}25.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}26.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}28.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}29.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}02.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}03.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}13.json'.format(seq_encoding)]
+    # 'test_targets_bop19_WIP_0{:03d}18.json'.format(split_num),
+    # 'test_targets_bop19_WIP_0{:03d}12.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}20.json'.format(split_num),
+  elif exp_type == 'exp1':
+    p['targets_filenames'] = ['test_targets_bop19_WIP_0{:03d}33.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}37.json'.format(seq_encoding),
+    #'test_targets_bop19_WIP_0{:03d}38.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}43.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}44.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}45.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}46.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}48.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}50.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}51.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}52.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}84.json'.format(seq_encoding)]
+  elif exp_type == 'exp2':
+    p['targets_filenames'] = [
+    'test_targets_bop19_WIP_0{:03d}59.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}61.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}67.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}78.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}79.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}91.json'.format(seq_encoding)
+    # 'test_targets_bop19_WIP_0{:03d}54.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}57.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}60.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}66.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}68.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}80.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}87.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}88.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}53.json'.format(seq_encoding),
+    ]
+    # 'test_targets_bop19_WIP_0{:03d}74.json'.format(seq_encoding), #very sketchy run, bc of mppi controller
+    # 'test_targets_bop19_WIP_0{:03d}56.json'.format(seq_encoding), #out bc of sketchy run
+  # else:
+  #   if exp_type == 'exp0':
+  #     p['targets_filenames'] = ['test_targets_bop19_WIP_010025.json']
+  #   elif exp_type == 'exp1':
+  #     p['targets_filenames'] = ['test_targets_bop19_WIP_010033.json']
+  #   elif exp_type == 'exp2':
+  #     p['targets_filenames'] = ['test_targets_bop19_WIP_010061.json']
 
   times_total = {}
   times_2DDet = {}
@@ -287,6 +267,8 @@ for result_filename in p['result_filenames']:
           'The running time for scene {} and image {} is not the same for '
           'all estimates.'.format(est['scene_id'], est['im_id']))
     else:
+      if config.predictor=='ZPbaseline':
+        est['time'][2]+=55
       times_total[result_key] = est['time'][2] # ms to sec
       times_2DDet[result_key] = est['time'][0] # ms to sec
       times_PnP[result_key] = est['time'][1] # ms to sec
@@ -297,6 +279,8 @@ for result_filename in p['result_filenames']:
     average_2ddet_time_per_image = np.mean(list(times_2DDet.values()))
   else:
     average_total_time_per_image = -1.0
+    average_pnp_time_per_image = -1.0
+    average_2ddet_time_per_image = -1.0
 
   target_string = '{}'.format(p['targets_filenames'])
   target_string = target_string.split('[')
@@ -433,7 +417,7 @@ for result_filename in p['result_filenames']:
 
   # Calculate the final scores.
   final_scores = {}
-  final_scores['__config_number__'] = split_to_config_name.convert(split_num, config.exp_type)
+  final_scores['__config_number__'],final_scores['__pnp_iters__'] = split_to_config_name.convert('{:03d}'.format(seq_encoding), config.exp_type)
   for error in p['errors']:
     final_scores['bop19_average_recall_{}'.format(error['type'])] =\
       average_recalls[error['type']]
@@ -442,12 +426,12 @@ for result_filename in p['result_filenames']:
   final_scores['bop19_average_recall'] = np.mean([
     average_recalls['add']]) #, average_recalls['mssd'], average_recalls['mspd']])
 
-  if p['predictor']=='ZP':
+  # if p['predictor']=='ZP':
     # Average estimation time per image.
-    final_scores['bop19_average_time_per_image'] = average_total_time_per_image
-    final_scores['bop19_average_pnp_time_per_image'] = average_pnp_time_per_image
-    final_scores['bop19_average_2D_detect_time_per_image'] = average_2ddet_time_per_image
-
+  final_scores['bop19_average_time_per_image'] = average_total_time_per_image
+  final_scores['bop19_average_pnp_time_per_image'] = average_pnp_time_per_image
+  final_scores['bop19_average_2D_detect_time_per_image'] = average_2ddet_time_per_image
+    
   # final_scores['husky23_mean_score_config_{}'.format(config.int(split_num))] = average_score[error['type']]
   # final_scores['husky23_mean_IoU_config_{}'.format(config.int(split_num))] = average_IoU[error['type']]
   final_scores['husky23_mean_score'] = average_score[error['type']]

@@ -59,7 +59,7 @@ def calc_recall(tp_count, targets_count):
     return tp_count / float(targets_count)
 
 
-def calc_localization_scores(scene_ids, obj_ids, matches, n_top, do_print=True):
+def calc_localization_scores(scene_ids, obj_ids, matches, n_top, acc_scene_score, do_print=True):
   """Calculates performance scores for the 6D object localization task.
 
   References:
@@ -99,6 +99,7 @@ def calc_localization_scores(scene_ids, obj_ids, matches, n_top, do_print=True):
       obj_tars[obj_id] += count
       scene_tars[scene_id] += count
 
+  scene_count={}
   scene_errs = obj_insts.copy()
   for scene_id, scene_insts in obj_insts.items():
     print('scene_id',scene_id)
@@ -106,6 +107,7 @@ def calc_localization_scores(scene_ids, obj_ids, matches, n_top, do_print=True):
     for i in range(0,len(obj_insts[scene_id])):
       scene_errs[scene_id][errorcount] = 1000
       errorcount+=1
+    scene_count[scene_id] = errorcount
     # if errorcount==len(obj_insts[scene_id]):
       # errorcount=0
 
@@ -134,14 +136,25 @@ def calc_localization_scores(scene_ids, obj_ids, matches, n_top, do_print=True):
     # m_count+=1
 
   mean_scene_errors = {}
+  acc_score = 0
+  acc_count = 0
+  # for i in scene_ids:
+    # mean_scene_errors[i] = float(np.mean(list(scene_errs[i].values())).squeeze())
+  # mean_scene_errors = {}
   for i in scene_ids:
-    mean_scene_errors[i] = float(np.mean(list(scene_errs[i].values())).squeeze())
+    mean_scene_errors[i] = float(acc_scene_score[i]/scene_count[i])
+    acc_score+= acc_scene_score[i]
+    acc_count+= scene_count[i]
+    # mean_scene_errors[i] = float(np.mean(list(scene_errs[i].values())).squeeze())
+  mean_config_error = float(acc_score/acc_count)
 
+  # print('mean_config_error',mean_config_error)
+  # print('mean_scene_errors',mean_scene_errors)
   mIoU = float(np.mean(obj_iou))
-  print(mIoU)
-  mean_score = float(np.mean(obj_scores))
+  # print(mIoU)
+  # mean_score = float(np.mean(obj_scores))
 
-  print('mean_scene_errors',mean_scene_errors, mean_score)
+  # print('mean_scene_errors',mean_scene_errors, mean_score)
 
   # Total recall.
   recall = calc_recall(tps, tars)
@@ -152,11 +165,15 @@ def calc_localization_scores(scene_ids, obj_ids, matches, n_top, do_print=True):
     obj_recalls[i] = calc_recall(obj_tps[i], obj_tars[i])
   mean_obj_recall = float(np.mean(list(obj_recalls.values())).squeeze())
 
-  # Recall per scene.
+  # Recall and abs error per scene.
   scene_recalls = {}
+  scene_ADDs = {}
   for i in scene_ids:
     scene_recalls[i] = float(calc_recall(scene_tps[i], scene_tars[i]))
+    scene_ADDs[i] = float(acc_scene_score[i] / len(scene_errs[i]))
   mean_scene_recall = float(np.mean(list(scene_recalls.values())).squeeze())
+
+  # mean_abs_ADD = np.sum(acc_scene_score) / np.sum(len(scene_errs)
 
   # IoU per scene
 
@@ -173,11 +190,12 @@ def calc_localization_scores(scene_ids, obj_ids, matches, n_top, do_print=True):
     'mean_obj_recall': float(mean_obj_recall),
     'scene_recalls': scene_recalls,
     'mean_scene_recall': float(mean_scene_recall),
+    'mean_scene_errors': mean_scene_errors,
     'gt_count': len(matches),
     'targets_count': int(tars),
     'tp_count': int(tps),
     '2D bbox IoU': float(mIoU),
-    'mean abs score': float(mean_score)
+    'mean abs score': float(mean_config_error)
   }
 
   if do_print:

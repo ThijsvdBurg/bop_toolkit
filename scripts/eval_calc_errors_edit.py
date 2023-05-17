@@ -154,6 +154,9 @@ p['datasets_path'] = str(args.datasets_path)
 p['targets_filenames'] = str(args.targets_filenames).split(',')
 p['out_errors_tpath'] = str(args.out_errors_tpath)
 
+if p['predictor'] == 'ZPbaseline':
+  p['predictor'] = 'ZP'
+
 # p['targets_filenames'] = [
     # experiment type 0
     # 'test_targets_bop19_WIP_00{}55.json'.format(args.split_num), # delete alltogether?

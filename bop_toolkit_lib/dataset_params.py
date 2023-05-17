@@ -143,7 +143,7 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
   return p
 
 
-def get_split_params(datasets_path, dataset_name, split, split_type=None, predictor='ZP'):
+def get_split_params(datasets_path, dataset_name, split, split_type=None, predictor='ZP', exp_type=2):
   """Returns parameters (camera params, paths etc.) for the specified dataset.
 
   :param datasets_path: Path to a folder with datasets.
@@ -158,6 +158,7 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None, predic
     'name': dataset_name,
     'split': split,
     'split_type': split_type,
+    'exp_type': 'exp'+str(exp_type),
     'base_path': join(datasets_path, dataset_name),
 
     'depth_range': None,
@@ -419,8 +420,11 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None, predic
     raise ValueError('Unknown BOP dataset ({}).'.format(dataset_name))
 
   base_path = join(datasets_path, dataset_name)
-  split_path = join(base_path, split.replace('_',''), predictor)
+  # split_path = join(base_path, split.replace('_',''), predictor)
+  split_path = join(base_path, split.replace('_',''), predictor, p['exp_type'])
+  
   # print('split path is:',split_path)
+  
   if split_type is not None:
     if split_type == 'pbr':
       p['scene_ids'] = list(range(50))

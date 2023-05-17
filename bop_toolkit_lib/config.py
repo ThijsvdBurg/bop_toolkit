@@ -30,6 +30,9 @@ dataset_name = 'husky'
 # exp_type = 1
 exp_type = 2
 
+# predictor     = 'MPPI'
+# predictor     = 'ZP'
+predictor     = 'ZPbaseline'
 
 #dataset_split_num = 0
 #dataset_split_num = 1
@@ -52,8 +55,6 @@ dataset_split_num = 4
 
 dataset_split = 'experiment_'+'{:02d}'.format(dataset_split_num)  #'experiment'
 
-predictor     = 'MPPI'
-# predictor     = 'ZP'
 
 '''
 # for s in {18,25,26,28,29,2,3,12,13}; \
@@ -115,6 +116,10 @@ results_path = os.path.join(datasets_path,dataset_name,'results') #r'/home/pmvan
 
 # Folder for the calculated pose errors and performance scores.
 eval_path = os.path.join(datasets_path,dataset_name,'evaluation') # r'/home/pmvanderburg/noetic-husky/datasets/bop_datasets/evaluation'
+
+# bag_path='/home/pmvanderburg/6dof_pose_experiments/20230503_pushing_experiments'
+# bag_path='/home/pmvanderburg/6dof_pose_experiments/20230510_pushing_experiments'
+bag_path='/media/pmvanderburg/T7/bagfiles/20230510_pushing_experiments'
 
 ######## Extended ########
 

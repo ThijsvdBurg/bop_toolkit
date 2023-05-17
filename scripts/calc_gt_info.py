@@ -29,7 +29,8 @@ p = {
 
   # Dataset split. Options: 'train', 'val', 'test'.
   #'dataset_split': 'test',
-  'dataset_split': config.dataset_split,
+  # 'dataset_split': config.dataset_split,
+  'exp_type': config.exp_type,
 
   # Dataset split type. None = default. See dataset_params.py for options.
   'dataset_split_type': None,
@@ -71,9 +72,11 @@ p = {
 
 # for split in ['04','14']: #'00','01','02','03','04','05','06','07','08','10','11','12','13','14','15','16','17','18']:
 # for split in ['00','01','02','03','04','05','06','07','08','10','11','12','13','14','15','16','17','18']:
+for split in ['09','01','02','03','04','05','06','07','08','19','11','12','13','14','15','16','17','18']:
 # for split in ['00','01','02','03','04','05','06','07','08']:
 # for split in ['10','11','12','13','14','15','16','17','18']:
-for split in ['11','12','13','14','16','17','18']:
+# for split in ['11','12','13','14','15','16','17','18']:
+# for split in ['11']:
 
   dataset_split = 'experiment_'+str(split)
   # if p['vis_visibility_masks']:
@@ -82,7 +85,7 @@ for split in ['11','12','13','14','16','17','18']:
 
   # Load dataset parameters.
   dp_split = dataset_params.get_split_params(
-    p['datasets_path'], p['dataset'], dataset_split, p['dataset_split_type'], predictor=p['predictor'])
+    p['datasets_path'], p['dataset'], dataset_split, p['dataset_split_type'], predictor=p['predictor'], exp_type=p['exp_type'])
     # p['datasets_path'], p['dataset'], p['dataset_split'], p['dataset_split_type'], predictor=p['predictor'])
 
   model_type = None
