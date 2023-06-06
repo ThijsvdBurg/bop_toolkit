@@ -19,16 +19,16 @@ from bop_toolkit_lib import misc
 ################################################################################
 p = {
   # See dataset_params.py for options.
-  'dataset': 'tudl',
+  'dataset': 'husky',
 
   # Dataset split. Options: 'train', 'test'.
-  'dataset_split': 'train',
+  'dataset_split': 'test_small',
 
   # Dataset split type. Options: 'synt', 'real', None = default. See dataset_params.py for options.
-  'dataset_split_type': 'pbr',
+  'dataset_split_type': 'real',
 
   # bbox type. Options: 'modal', 'amodal'.
-  'bbox_type': 'amodal',
+  'bbox_type': 'modal',
 
   # Folder containing the BOP datasets.
   'datasets_path': config.datasets_path,
@@ -44,7 +44,12 @@ bbox_type = p['bbox_type']
 
 dp_split = dataset_params.get_split_params(datasets_path, dataset_name, split, split_type=split_type)
 dp_model = dataset_params.get_model_params(datasets_path, dataset_name)
-
+### PMB DEBUG ###
+print("dp_split['split_path']",dp_split['split_path'])
+scene_ids = dataset_params.get_present_scene_ids(dp_split)
+dp_split['scene_ids'] = scene_ids
+print('dp_split',dp_split)
+#################
 complete_split = split
 if dp_split['split_type'] is not None:
     complete_split += '_' + dp_split['split_type']

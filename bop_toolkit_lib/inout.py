@@ -343,6 +343,52 @@ def load_bop_results(path, version='bop19'):
           # print(result['bbox'].shape)
 
           results.append(result)
+  elif version == 'husky23_baseline':
+    # header = 'scene_id,obj_id,pnp_init,pnpiters,im_id,gt_stamp,pred_stamp,img_stamp,score,R,t,azimuth,altitude,bbox,bbox_stamp,time'
+    # header = '\ufeffscene_id,obj_id,pnp_init,pnpiters,im_id,gt_stamp,pred_stamp,img_stamp,score,R,t,azimuth,altitude,bbox,bbox_stamp,time,Unnamed: 16\n'
+    header = 'scene_id,obj_id,pnp_init,pnpiters,im_id,gt_stamp,pred_stamp,img_stamp,score,R,t,azimuth,altitude,bbox,bbox_stamp,time,Unnamed: 16\n'
+    with open(path, 'r') as f:
+      line_id = 0
+      for line in f:
+        line_id += 1
+        if line_id == 1: # and header in line:
+          continue
+        else:
+          elems = line.split(',')
+          if len(elems) != 16:
+            raise ValueError(
+              'A line does not have 14 comma-sep. elements: {}'.format(line))
+
+          
+          result = {
+            'scene_id': int(elems[0]),
+            'obj_id': int(elems[1]),
+            'pnp_init': str(elems[2]),
+            'pnp_iters': int(elems[3]),
+            'im_id': int(elems[4]),
+            'score': float(elems[8]),
+            'R': np.array(
+              list(map(float, elems[9].split())), np.float).reshape((3, 3)),
+            't': np.array(
+              list(map(float, elems[10].split())), np.float).reshape((3, 1)),
+            'azimuth': float(elems[11]),
+            'altitude': float(elems[12]),
+            'gt_stamp': str(elems[5]),
+            'pred_stamp': str(elems[6]),
+            'image_stamp': str(elems[7]),
+            'bbox_stamp': str(elems[14]),
+            'bbox': np.array(
+              list(map(float, elems[13].split())), np.float),
+              # list(map(float, elems[8].split())), np.float).reshape((4, 1)),
+            'time': np.array(
+              list(map(float, elems[15].split())), np.float).reshape((3, 1)),
+               #float(elems[15])
+            }
+
+          # print(result['bbox'].shape)
+
+          results.append(result)
+  
   elif version == 'mppi23':
     header = 'scene_id,obj_id,im_id,gt_stamp,pred_stamp,score,R,t,time'
     with open(path, 'r') as f:

@@ -118,6 +118,8 @@ def calc_localization_scores(scene_ids, obj_ids, matches, n_top, acc_scene_score
   scene_tps = {i: 0 for i in scene_ids}  # True positives per scene.
   obj_scores = []
   obj_iou = []
+  obj_trans = []
+  obj_rot = []
   # m_count = 0
   for m in matches:
     # print(m_count)
@@ -128,6 +130,8 @@ def calc_localization_scores(scene_ids, obj_ids, matches, n_top, acc_scene_score
       obj_scores.append(m['score'])
       scene_errs[m['scene_id']][m['im_id']] = m['score']
       obj_iou.append(m['IoU'])
+      obj_trans.append(m['trans'][0])
+      obj_rot.append(m['rot'][0])
       # scene_errs[m['scene_id']][m['im_id'],1] = m['IoU']
       # scene_errs[m['scene_id']][m['im_id'],2] = m['score']
       # [m['obj_id']][m_count] = 
@@ -151,6 +155,8 @@ def calc_localization_scores(scene_ids, obj_ids, matches, n_top, acc_scene_score
   # print('mean_config_error',mean_config_error)
   # print('mean_scene_errors',mean_scene_errors)
   mIoU = float(np.mean(obj_iou))
+  mTrans = float(np.mean(obj_trans))
+  mRot = float(np.mean(obj_rot))
   # print(mIoU)
   # mean_score = float(np.mean(obj_scores))
 
@@ -195,6 +201,8 @@ def calc_localization_scores(scene_ids, obj_ids, matches, n_top, acc_scene_score
     'targets_count': int(tars),
     'tp_count': int(tps),
     '2D bbox IoU': float(mIoU),
+    'translational error (mm)': float(mTrans),
+    'rotational error (deg)': float(mRot),
     'mean abs score': float(mean_config_error)
   }
 

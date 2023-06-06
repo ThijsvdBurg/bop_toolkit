@@ -80,20 +80,27 @@ p = {
     # 'zebrapose_husky_experiment_03_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
     # 'zebrapose_husky_experiment_04_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
     # 'zebrapose_husky_experiment_05_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_05_obj07_exp{}_{}_retry.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_05_obj07_exp{}_{}_retry2.csv'.format(config.exp_type, config.predictor),
     # 'zebrapose_husky_experiment_06_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
     # 'zebrapose_husky_experiment_07_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
     # 'zebrapose_husky_experiment_08_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
     # 'zebrapose_husky_experiment_09_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
-    'zebrapose_husky_experiment_11_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
-    'zebrapose_husky_experiment_12_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
-    'zebrapose_husky_experiment_13_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
-    'zebrapose_husky_experiment_14_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
-    'zebrapose_husky_experiment_15_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
-    'zebrapose_husky_experiment_16_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
-    'zebrapose_husky_experiment_17_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
-    'zebrapose_husky_experiment_18_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
-    'zebrapose_husky_experiment_19_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
-    'zebrapose_husky_experiment_15_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_11_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_12_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_13_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_14_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_15_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_11_obj07_exp2_ZPbaseline.csv'.format(config.exp_type, config.predictor),
+    'zebrapose_husky_experiment_12_obj07_exp2_ZPbaseline.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_13_obj07_exp2_ZPbaseline.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_14_obj07_exp2_ZPbaseline.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_15_obj07_exp2_ZPbaseline.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_16_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_17_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_18_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_19_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
+    # 'zebrapose_husky_experiment_15_obj07_exp{}_{}.csv'.format(config.exp_type, config.predictor),
   ],
     # 'zebrapose_husky_experiment_00_obj07_exp0_ZP.csv',
     # 'zebrapose_husky_experiment_01_obj07_exp0_ZP.csv',
@@ -189,6 +196,7 @@ for result_filename in p['result_filenames']:
   # ests = inout.load_bop_results(
     # os.path.join(p['results_path'], result_filename), version='bop19')
   ests = inout.load_bop_results(
+    # os.path.join(p['results_path'], result_filename), version='husky23_baseline')
     os.path.join(p['results_path'], result_filename), version='husky23')
   
   split_num_str = '{:02d}'.format(int(split_num))
@@ -197,16 +205,24 @@ for result_filename in p['result_filenames']:
   else:
     seq_encoding = int(str(1)+split_num_str)
   if exp_type == 'exp0':
-    p['targets_filenames'] = ['test_targets_bop19_WIP_0{:03d}25.json'.format(seq_encoding),
+    p['targets_filenames'] = [
+    # [
+    # 'test_targets_bop19_WIP_0{:03d}59.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}61.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}67.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}78.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}79.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}91.json'.format(seq_encoding)]
+    'test_targets_bop19_WIP_0{:03d}25.json'.format(seq_encoding),
     'test_targets_bop19_WIP_0{:03d}26.json'.format(seq_encoding),
     'test_targets_bop19_WIP_0{:03d}28.json'.format(seq_encoding),
     'test_targets_bop19_WIP_0{:03d}29.json'.format(seq_encoding),
-    'test_targets_bop19_WIP_0{:03d}02.json'.format(seq_encoding),
-    'test_targets_bop19_WIP_0{:03d}03.json'.format(seq_encoding),
-    'test_targets_bop19_WIP_0{:03d}13.json'.format(seq_encoding)]
-    # 'test_targets_bop19_WIP_0{:03d}18.json'.format(split_num),
-    # 'test_targets_bop19_WIP_0{:03d}12.json'.format(seq_encoding),
-    # 'test_targets_bop19_WIP_0{:03d}20.json'.format(split_num),
+    # 'test_targets_bop19_WIP_0{:03d}02.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}03.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}13.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}18.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}12.json'.format(seq_encoding),
+    'test_targets_bop19_WIP_0{:03d}20.json'.format(seq_encoding)]
   elif exp_type == 'exp1':
     p['targets_filenames'] = ['test_targets_bop19_WIP_0{:03d}33.json'.format(seq_encoding),
     'test_targets_bop19_WIP_0{:03d}37.json'.format(seq_encoding),
@@ -226,7 +242,7 @@ for result_filename in p['result_filenames']:
     'test_targets_bop19_WIP_0{:03d}61.json'.format(seq_encoding),
     'test_targets_bop19_WIP_0{:03d}67.json'.format(seq_encoding),
     'test_targets_bop19_WIP_0{:03d}78.json'.format(seq_encoding),
-    'test_targets_bop19_WIP_0{:03d}79.json'.format(seq_encoding),
+    # 'test_targets_bop19_WIP_0{:03d}79.json'.format(seq_encoding),
     'test_targets_bop19_WIP_0{:03d}91.json'.format(seq_encoding)
     # 'test_targets_bop19_WIP_0{:03d}54.json'.format(seq_encoding),
     # 'test_targets_bop19_WIP_0{:03d}57.json'.format(seq_encoding),
@@ -281,6 +297,7 @@ for result_filename in p['result_filenames']:
     average_total_time_per_image = -1.0
     average_pnp_time_per_image = -1.0
     average_2ddet_time_per_image = -1.0
+
 
   target_string = '{}'.format(p['targets_filenames'])
   target_string = target_string.split('[')
@@ -355,6 +372,8 @@ for result_filename in p['result_filenames']:
     recalls = []
     mIoU = []
     score = []
+    transerrs = []
+    roterrs = []
 
 
 
@@ -402,11 +421,16 @@ for result_filename in p['result_filenames']:
         recalls.append(scores['recall'])
         mIoU.append(scores['2D bbox IoU'])
         score.append(scores['mean abs score'])
+        transerrs.append(scores['translational error (mm)'])
+        roterrs.append(scores['rotational error (deg)'])
 
-    average_recalls[error['type']] = np.mean(recalls)
     average_score[error['type']] = np.mean(score)
     average_IoU[error['type']] = np.mean(mIoU)
+    average_recalls[error['type']] = np.mean(recalls)
 
+    average_translational_error = np.mean(transerrs)
+    average_rotational_error = np.mean(roterrs)
+    
     misc.log('Recall scores per threshold: {}'.format(' '.join(map(str, recalls))))
     misc.log('AUC of ADD 0.1d: {}'.format(average_recalls[error['type']]))
     misc.log('Mean abs ADD: {}'.format(average_score[error['type']]))
@@ -431,6 +455,9 @@ for result_filename in p['result_filenames']:
   final_scores['bop19_average_time_per_image'] = average_total_time_per_image
   final_scores['bop19_average_pnp_time_per_image'] = average_pnp_time_per_image
   final_scores['bop19_average_2D_detect_time_per_image'] = average_2ddet_time_per_image
+
+  final_scores['bop19_mean_translational_error'] = average_translational_error
+  final_scores['bop19_mean_rotational_error'] = average_rotational_error
     
   # final_scores['husky23_mean_score_config_{}'.format(config.int(split_num))] = average_score[error['type']]
   # final_scores['husky23_mean_IoU_config_{}'.format(config.int(split_num))] = average_IoU[error['type']]

@@ -203,7 +203,7 @@ for error_dir_path in p['error_dir_paths']:
     split_predictor = config.predictor
 
   dp_split = dataset_params.get_split_params(
-    p['datasets_path'], dataset, split, split_type, predictor=split_predictor)
+    p['datasets_path'], dataset, split, split_type, predictor=split_predictor, exp_type=config.exp_type)
 
   dp_split['scene_ids'] = dataset_params.get_present_scene_ids(dp_split)
 

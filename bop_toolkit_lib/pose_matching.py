@@ -89,7 +89,10 @@ def match_poses(errs, error_ths, max_ests_count=0, gt_valid_mask=None):
         'azimuth':errs_sorted[best_gt_id]['azimuth'],
         'altitude':errs_sorted[best_gt_id]['altitude'],
         'pnp_init':errs_sorted[best_gt_id]['pnp_init'],
-        'pnp_iters':errs_sorted[best_gt_id]['pnp_iters']
+        'pnp_iters':errs_sorted[best_gt_id]['pnp_iters'],
+        'trans':errs_sorted[best_gt_id]['trans'],
+        'rot':errs_sorted[best_gt_id]['rot'],
+        
       })
 
   return matches
@@ -143,6 +146,8 @@ def match_poses_scene(scene_id, scene_gt, scene_gt_valid, scene_errs,
         'altitude':     0,
         'pnp_init':     -1,
         'pnp_iters':    -1,
+        'trans':        -1,
+        'rot':          -1,
           
         'valid': scene_gt_valid[im_id][gt_id],
       })
@@ -170,6 +175,8 @@ def match_poses_scene(scene_id, scene_gt, scene_gt_valid, scene_errs,
           g['altitude'] = m['altitude'],
           g['pnp_init'] = m['pnp_init'],
           g['pnp_iters'] = m['pnp_iters']
+          g['trans'] = m['trans']
+          g['rot'] = m['rot']
               
 
     scene_matches += im_matches

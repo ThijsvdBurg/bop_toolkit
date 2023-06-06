@@ -67,11 +67,11 @@ p = {
     # 'zebrapose_husky_experiment0_obj07_26-32_20230421_MPPI.csv',
   # ],
   # 'result_filenames_ZP': [
-    # 'zebrapose_husky_experiment_{:02d}_obj07_exp2_ZP.csv'.format(config.dataset_split_num),    
+    # 'zebrapose_husky_experiment_{:02d}_obj07_exp2_ZP.csv'.format(config.dataset_split_num),
   # ],
   'result_filenames': [
-    # 'zebrapose_husky_experiment_{:02d}_obj07_exp2_{}.csv'.format(config.dataset_split_num,config.predictor),    
-    'zebrapose_husky_experiment_{:02d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_{:02d}_obj07_exp2_{}.csv'.format(config.dataset_split_num,config.predictor),
+    'zebrapose_husky_experiment_{:02d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
   ],
 
   # Folder with results to be evaluated.
@@ -94,7 +94,7 @@ p = {
     'test_targets_bop19_WIP_010030.json',
     'test_targets_bop19_WIP_010032.json',
     'test_targets_bop19_WIP_010031.json',
-  ], 
+  ],
 
   # Template of path to the output file with calculated errors.
   'out_errors_tpath': os.path.join(
@@ -236,7 +236,7 @@ for result_filename in p['result_filenames']:
   method = str(result_info[0])
   dataset_info = result_info[1].split('_')
   dataset = str(dataset_info[0])
-  split = str(result_info[2]) +'_'+ str (result_info[3]) # 'test' 
+  split = str(result_info[2]) +'_'+ str (result_info[3]) # 'test'
 
   split_type = str(dataset_info[2]) if len(dataset_info) > 2 else None
   split_type_str = ' - ' + split_type if split_type is not None else ''
@@ -246,11 +246,11 @@ for result_filename in p['result_filenames']:
   print('result_info[1]',result_info[1])
   print('dataset_info and split type',dataset_info,split_type)
   ######
-  
+
   # Load dataset parameters.
   model_type = 'eval'
   dp_split = dataset_params.get_split_params(
-    p['datasets_path'], dataset, split, split_type, predictor=p['predictor'])
+    p['datasets_path'], dataset, split, split_type, predictor=p['predictor'], exp_type=config.exp_type)
   dp_model = dataset_params.get_model_params(
     p['datasets_path'], dataset, model_type)
 
@@ -280,12 +280,12 @@ for result_filename in p['result_filenames']:
     # scene_num = int(targets_filename.split('_')[4].split('.')[0])
     # targets_per_scene = inout.load_json(
       # os.path.join(dp_split['base_path'],'evaluation', targets_filename))
-    print('target filename in targets_filenames',targets_filename)    
+    print('target filename in targets_filenames',targets_filename)
     scene_num = int(targets_filename.split('_')[4].split('.')[0])
     targets_filename_split = targets_filename.split("'")[1]
     targets_per_scene = inout.load_json(
       os.path.join(dp_split['base_path'],'evaluation', targets_filename_split))
-    
+
     targets[scene_num] = targets_per_scene
 
   # Organize the targets by scene, image and object.
@@ -308,6 +308,7 @@ for result_filename in p['result_filenames']:
   # Load pose estimates.
   misc.log('Loading pose estimates...')
   ests = inout.load_bop_results( os.path.join(p['results_path'], result_filename), version='husky23' )
+  # ests = inout.load_bop_results( os.path.join(p['results_path'], result_filename), version='husky23_baseline' )
 
   print('length of estimates list is:')
   print(len(ests))
@@ -329,7 +330,7 @@ for result_filename in p['result_filenames']:
       dp_split['scene_camera_tpath'].format(scene_id=scene_id))
     scene_gt = inout.load_scene_gt(dp_split['scene_gt_tpath'].format(
       scene_id=scene_id))
-    
+
     # Load info about the GT poses (e.g. visibility) for the current scene.
     scene_gt_info = inout.load_json(
       dp_split['scene_gt_info_tpath'].format(scene_id=scene_id),
@@ -347,7 +348,7 @@ for result_filename in p['result_filenames']:
 
       # Intrinsic camera matrix.
       K = scene_camera[im_id]['cam_K']
-      
+
       ### PMB debug ###
       # print('K',K)
 
@@ -408,6 +409,8 @@ for result_filename in p['result_filenames']:
 
           errs = {}  # Errors w.r.t. GT poses of the same object class.
           IoUs = {}
+          transerrs = {}
+          roterrs = {}
           for gt_id, gt in enumerate(scene_gt[im_id]):
             if gt['obj_id'] != obj_id:
               continue
@@ -440,9 +443,14 @@ for result_filename in p['result_filenames']:
             if p['error_type'] in ['ad', 'add', 'adi', 'mssd']:
               center_dist = np.linalg.norm(t_e - t_g)
               spheres_overlap = center_dist < models_info[obj_id]['diameter']
+              trans = [pose_error.te(t_e, t_g)] #[center_dist]
+              rot = [pose_error.re(R_e, R_g)]
 
             if p['IoU']:
               IoU = [pose_error.intersection_over_union(bbox_g, bbox_e)]
+              # rot = [pose_error.(bbox_g, bbox_e)]
+              # trans = [pose_error.(bbox_g, bbox_e)]
+
 
             if p['error_type'] == 'vsd':
               if not sphere_projections_overlap:
@@ -515,6 +523,8 @@ for result_filename in p['result_filenames']:
 
             errs[gt_id] = e
             IoUs[gt_id] = IoU
+            transerrs[gt_id] = trans
+            roterrs[gt_id] = rot
 
           # Save the calculated errors.
           scene_errs.append({
@@ -527,13 +537,15 @@ for result_filename in p['result_filenames']:
             'azimuth': azimuth,
             'altitude': alitude,
             'errors': errs,
-            'IoU': IoUs
+            'IoU': IoUs,
+            'trans': transerrs,
+            'rot': roterrs,
           })
           # misc.log(
           # 'error {} , dataset: {}{}, scene: {}, '
           # 'im: {}'.format(
             # errs, dataset, split_type_str, scene_id, im_ind))
-    
+
     ### define error saving functions
 
     def save_errors(_error_sign, _scene_errs):

@@ -19,6 +19,8 @@ from bop_toolkit_lib import misc
 from bop_toolkit_lib import renderer
 from bop_toolkit_lib import visibility
 from pybop_lib.debug_tools import printdebug
+import cv2
+import time
 
 # PARAMETERS.
 ################################################################################
@@ -48,7 +50,7 @@ p = {
 
   # Path template for output images with object masks.
   'vis_mask_visib_tpath': os.path.join(
-    config.output_path, 'vis_gt_visib_delta={delta}',
+    config.output_path, #'vis_gt_visib_delta={delta}',
     'vis_gt_visib_delta={delta}', '{dataset}', '{split}', '{scene_id:06d}',
     '{im_id:06d}_{gt_id:06d}.jpg'),
 
@@ -141,16 +143,23 @@ for scene_id in scene_ids:
       visib_gt = visibility.estimate_visib_mask_gt(
          dist_im, dist_gt, p['delta'], visib_mode='bop19')
 
-      '''
+      # '''
       ##### custom visualisation #####
+      print(max(dist_im),min(dist_im))
       depth_im_vis = visualization.depth_for_vis(depth_gt, 0.2, 1.0)
+      rgb_image = cv2.cvtColor(dist_im, cv2.COLOR_GRAY2RGB)    
+      cv2.imshow('depth2rgb', rgb_image)
+      cv2.waitKey(0)
+      time.sleep(10)
+      
+
       depth_im_vis = np.dstack([depth_im_vis] * 3)
 
-      #visib_gt_vis = visib_gt.astype(np.float)
-      #zero_ch = np.zeros(visib_gt_vis.shape)
-      #visib_gt_vis = np.dstack([zero_ch, visib_gt_vis, zero_ch])
+      visib_gt_vis = visib_gt.astype(np.float)
+      zero_ch = np.zeros(visib_gt_vis.shape)
+      visib_gt_vis = np.dstack([zero_ch, visib_gt_vis, zero_ch])
 
-      #vis = 0.5 * depth_im_vis + 0.5 * visib_gt_vis
+      # vis = 0.5 * depth_im_vis + 0.5 * visib_gt_vis
       vis = 1 * depth_im_vis # + 0 * visib_gt_vis
       #printdebug('vis1',vis)
       vis[vis > 1] = 1
@@ -158,10 +167,10 @@ for scene_id in scene_ids:
       vis_path = p['vis_mask_visib_tpath'].format(
         delta=p['delta'], dataset=p['dataset'], split=p['dataset_split'],
         scene_id=scene_id, im_id=im_id, gt_id=gt_id)
-      print('vis_path:',vis_path)
+      print('visib_vis_path:',vis_path)
       misc.ensure_dir(os.path.dirname(vis_path))
-      inout.save_im(vis_path, vis)
-      '''
+      # inout.save_im(vis_path, vis)
+      # '''
 
 
       # Mask of the object in the GT pose.

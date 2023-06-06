@@ -94,12 +94,14 @@ def depth_for_vis(depth, valid_start=0.2, valid_end=1.0):
 
 def vis_object_poses(
       poses, K, renderer, rgb=None, depth=None, vis_rgb_path=None,
-      vis_depth_diff_path=None, vis_depth_diff_path_debug=None, vis_rgb_resolve_visib=False):
+      vis_depth_diff_path=None, vis_depth_diff_path_debug=None,
+      vis_rgb_resolve_visib=False,vis_iou_path=None):
   """Visualizes 3D object models in specified poses in a single image.
 
   Two visualizations are created:
   1. An RGB visualization (if vis_rgb_path is not None).
   2. A Depth-difference visualization (if vis_depth_diff_path is not None).
+  3. A bbox visualisation (if vis_iou_bbox is not False).
 
   :param poses: List of dictionaries, each with info about one pose:
     - 'obj_id': Object ID.
@@ -120,6 +122,8 @@ def vis_object_poses(
   # Indicators of visualization types.
   vis_rgb = vis_rgb_path is not None
   vis_depth_diff = vis_depth_diff_path is not None
+  vis_iou = vis_iou_path is not None
+
 
   if vis_rgb and rgb is None:
     raise ValueError('RGB visualization triggered but RGB image not provided.')
@@ -132,11 +136,15 @@ def vis_object_poses(
   ren_rgb = None
   ren_rgb_info = None
   ren_depth = None
+  ren_iou_info = None
 
   if vis_rgb:
     im_size = (rgb.shape[1], rgb.shape[0])
     ren_rgb = np.zeros(rgb.shape, np.uint8)
     ren_rgb_info = np.zeros(rgb.shape, np.uint8)
+
+  if vis_iou:
+    ren_iou_info = np.zeros(rgb.shape, np.uint8)
 
   if vis_depth_diff:
     if im_size and im_size != (depth.shape[1], depth.shape[0]):
@@ -198,6 +206,31 @@ def vis_object_poses(
             ren_rgb_info, pose['text_info'], text_loc, color=text_color,
             size=text_size)
 
+    # calculate and render IoU.
+    if vis_iou:
+
+      # Draw 2D bounding box and write text info.
+      # obj_mask = np.sum(m_rgb > 0, axis=2)
+      # ys, xs = obj_mask.nonzero()
+      if len(ys):
+        # bbox_color = model_color
+        # text_color = model_color
+        bbox_gt_color = (0,1.0,0)
+        bbox_est_color = (1.0,0,0)
+        # text_color = (1.0, 1.0, 1.0)
+        # text_size = 11
+
+        ren_iou_info = draw_rect(ren_iou_info, bbox, bbox_gt_color)
+
+        bbox_est = pose['bbox']
+        ren_iou_info = draw_rect(ren_iou_info, bbox_est, bbox_est_color)
+
+        if 'text_info' in pose:
+          text_loc = (bbox[0] + 2, bbox[1])
+          ren_iou_info = write_text_on_image(
+            ren_iou_info, pose['text_info'], text_loc, color=text_color,
+            size=text_size)
+
   # Blend and save the RGB visualization.
   if vis_rgb:
     misc.ensure_dir(os.path.dirname(vis_rgb_path))
@@ -207,6 +240,16 @@ def vis_object_poses(
                  1.0 * ren_rgb_info.astype(np.float32)
     vis_im_rgb[vis_im_rgb > 255] = 255
     inout.save_im(vis_rgb_path, vis_im_rgb.astype(np.uint8), jpg_quality=95)
+
+  # Blend and save the RGB visualization.
+  if vis_iou:
+    misc.ensure_dir(os.path.dirname(vis_iou_path))
+
+    vis_im_iou = 0.5 * rgb.astype(np.float32) + \
+                 0.5 * ren_rgb.astype(np.float32) + \
+                 1.0 * ren_iou_info.astype(np.float32)
+    vis_im_iou[vis_im_iou > 255] = 255
+    inout.save_im(vis_iou_path, vis_im_iou.astype(np.uint8), jpg_quality=95)
 
   # Save the image of depth differences.
   if vis_depth_diff:

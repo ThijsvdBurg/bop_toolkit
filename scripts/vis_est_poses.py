@@ -51,9 +51,16 @@ p = {
     #'/home/pmvanderburg/6dof_pose_experiments/pose_result_bop/husky/zebrapose_husky_test.csv',
     #'/home/pmvanderburg/6dof_pose_experiments/husky_test_20221105_11_44/pose_result_bop/zebrapose_husky_test_20221105_11_44.csv',
     #'/home/pmvanderburg/6dof_pose_experiments/husky_test_obj03_20221108_09_22/pose_result_bop/zebrapose_husky_test_obj03.csv',
-    'zebrapose_husky_experiment0_obj07_18-29_20230420.csv'
+    # 'zebrapose_husky_experiment0_obj07_18-29_20230420.csv'
     #'/home/pmvanderburg/6dof_pose_experiments/pose_result_bop/tudl/zebrapose_tudl_test.csv',
+    # 'zebrapose_husky_experiment_12_obj07_exp2_ZPbaseline.csv',
+    # 'zebrapose_husky_experiment_03_obj07_exp2_ZPbaseline.csv',
+    'zebrapose_husky_experiment_12_obj07_exp2_ZP.csv',
   ],
+
+  # visualise bbox iou
+  'vis_iou': True,
+  # 'vis_iou': False,
 
   # Folder containing the BOP datasets.
   'datasets_path': config.datasets_path,
@@ -67,6 +74,9 @@ p = {
   'vis_depth_diff_tpath': os.path.join(
     '{vis_path}', '{result_name}', '{scene_id:06d}',
     '{vis_name}_depth_diff.jpg'),
+  'vis_iou_tpath': os.path.join(
+    '{vis_path}', '{result_name}', '{scene_id:06d}', '{vis_name}_iou.jpg'),
+  
 }
 ################################################################################
 
@@ -85,12 +95,21 @@ for result_fname in p['result_filenames']:
   method = result_info[0]
   dataset_info = result_info[1].split('-')
   dataset = dataset_info[0]
-  split = result_info[2] # 'test' #dataset_info[1]
+  # split = result_info[2] # 'test' #dataset_info[1]
+  split = str(result_info[2]) +'_'+ str (result_info[3]) # 'test'
+  exp_type = str(result_info[5][3])
+  predictor = str(result_info[6])
+
+  if predictor=='ZPbaseline':
+    dpsplit_predictor='ZP'
+  else:
+    dpsplit_predictor=predictor
+
   split_type = dataset_info[2] if len(dataset_info) > 2 else None
 
   # Load dataset parameters.
   dp_split = dataset_params.get_split_params(
-    p['datasets_path'], dataset, split, split_type)
+    p['datasets_path'], dataset, split, split_type, predictor=dpsplit_predictor,exp_type=exp_type)
 
   model_type = 'eval'
   dp_model = dataset_params.get_model_params(
@@ -223,6 +242,13 @@ for result_fname in p['result_filenames']:
             vis_path=p['vis_path'], result_name=result_name, scene_id=scene_id,
             vis_name=vis_name)
 
+        # Path to the output RGB visualization.
+        vis_iou_path = None
+        if p['vis_iou']:
+          vis_iou_path = p['vis_iou_tpath'].format(
+            vis_path=p['vis_path'], result_name=result_name, scene_id=scene_id,
+            vis_name=vis_name)
+
         # Path to the output depth difference visualization.
         vis_depth_diff_path = None
         if p['vis_depth_diff']:
@@ -234,6 +260,7 @@ for result_fname in p['result_filenames']:
         visualization.vis_object_poses(
           poses=ests_vis, K=K, renderer=ren, rgb=rgb, depth=depth,
           vis_rgb_path=vis_rgb_path, vis_depth_diff_path=vis_depth_diff_path,
-          vis_rgb_resolve_visib=p['vis_rgb_resolve_visib'])
+          vis_rgb_resolve_visib=p['vis_rgb_resolve_visib'],
+          vis_iou_path=vis_iou_path)
 
 misc.log('Done.')
