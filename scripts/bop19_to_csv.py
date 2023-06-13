@@ -60,118 +60,135 @@ p = {
   # description of the format. Example results can be found at:
   # https://bop.felk.cvut.cz/media/data/bop_sample_results/bop_challenge_2019/
   'result_filenames': [
-    # 'zebrapose_husky_experiment_{:02d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_00_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_01_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_02_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_03_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_00_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_{:02d}_obj07_exp{}_{}.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_00_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_01_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_02_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_03_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_00_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
     # 
-    'zebrapose_husky_experiment_01_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_02_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_03_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_04_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
-    'zebrapose_husky_experiment_05_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_06_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
-    'zebrapose_husky_experiment_07_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_08_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),        
-    'zebrapose_husky_experiment_09_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_10_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_11_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_12_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_13_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_14_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
-    'zebrapose_husky_experiment_15_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_16_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
-    'zebrapose_husky_experiment_17_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_18_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
-    'zebrapose_husky_experiment_19_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_02_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_12_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_03_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_13_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_04_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_14_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_05_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_15_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_06_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_16_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_07_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_17_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_08_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_18_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_01_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_11_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
-    # 'zebrapose_husky_experiment_07_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),    
+    # 'zebrapose_husky_experiment_01_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_02_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_03_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_04_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_05_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_06_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_07_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_08_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_09_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # # 'zebrapose_husky_experiment_10_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_11_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_12_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_13_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_14_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_15_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_16_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_17_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_18_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_19_obj07_exp{}_{}.csv'.format(config.exp_type,config.predictor),
+    # # 'zebrapose_husky_experiment_02_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_12_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_03_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_13_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_04_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_14_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_05_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_15_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_06_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_16_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_07_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_17_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_08_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_18_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_01_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_11_obj07_exp1_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
+    # 'zebrapose_husky_experiment_07_obj07_exp0_ZP.csv'.format(config.dataset_split_num,config.exp_type,config.predictor),
     # 'zebrapose_husky_experiment_13_obj07_30-74_20230426_ZP.csv',
     # 'zebrapose_husky_experiment_14_obj07_30-91_20230426_ZP.csv',
   ],
 
 'result_filenames_ZP': [
     # 
-    'zebrapose_husky_experiment_01_obj07_exp{}_ZP.csv'.format(config.exp_type), 
-    'zebrapose_husky_experiment_02_obj07_exp{}_ZP.csv'.format(config.exp_type),    
-    'zebrapose_husky_experiment_03_obj07_exp{}_ZP.csv'.format(config.exp_type),    
-    'zebrapose_husky_experiment_04_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    'zebrapose_husky_experiment_05_obj07_exp{}_ZP.csv'.format(config.exp_type),    
-    'zebrapose_husky_experiment_06_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    'zebrapose_husky_experiment_07_obj07_exp{}_ZP.csv'.format(config.exp_type),    
-    'zebrapose_husky_experiment_08_obj07_exp{}_ZP.csv'.format(config.exp_type),        
-    'zebrapose_husky_experiment_09_obj07_exp{}_ZP.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_10_obj07_exp{}_ZP.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_11_obj07_exp{}_ZP.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_12_obj07_exp{}_ZP.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_13_obj07_exp{}_ZP.csv'.format(config.exp_type),    
+    'zebrapose_husky_experiment_01_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    'zebrapose_husky_experiment_02_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    'zebrapose_husky_experiment_03_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    'zebrapose_husky_experiment_04_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    'zebrapose_husky_experiment_05_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    'zebrapose_husky_experiment_06_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    # 'zebrapose_husky_experiment_07_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    # 'zebrapose_husky_experiment_08_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    # 'zebrapose_husky_experiment_09_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    'zebrapose_husky_experiment_11_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    # 'zebrapose_husky_experiment_12_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    'zebrapose_husky_experiment_13_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    # 'zebrapose_husky_experiment_14_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    'zebrapose_husky_experiment_15_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    # 'zebrapose_husky_experiment_16_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    # 'zebrapose_husky_experiment_17_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    # 'zebrapose_husky_experiment_18_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    # 'zebrapose_husky_experiment_19_obj07_exp{}_ZP_20230609.csv'.format(config.exp_type), 
+    # 'zebrapose_husky_experiment_01_obj07_exp{}_ZP.csv'.format(config.exp_type), 
+    # 'zebrapose_husky_experiment_02_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_03_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_04_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_05_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_06_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_07_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_08_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_09_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # # 'zebrapose_husky_experiment_10_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_11_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_12_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_13_obj07_exp{}_ZP.csv'.format(config.exp_type),
     # 'zebrapose_husky_experiment_14_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_15_obj07_exp{}_ZP.csv'.format(config.exp_type),    
+    # 'zebrapose_husky_experiment_15_obj07_exp{}_ZP.csv'.format(config.exp_type),
     # 'zebrapose_husky_experiment_16_obj07_exp{}_ZP.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_17_obj07_exp{}_ZP.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_18_obj07_exp{}_ZP.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_19_obj07_exp{}_ZP.csv'.format(config.exp_type),    
+    # 'zebrapose_husky_experiment_17_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_18_obj07_exp{}_ZP.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_19_obj07_exp{}_ZP.csv'.format(config.exp_type),
   ],
 'result_filenames_ZPbaseline': [
     # 
     'zebrapose_husky_experiment_01_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type), 
-    'zebrapose_husky_experiment_02_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),    
-    'zebrapose_husky_experiment_03_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),    
+    'zebrapose_husky_experiment_02_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
+    'zebrapose_husky_experiment_03_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
     'zebrapose_husky_experiment_04_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
-    'zebrapose_husky_experiment_05_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),    
+    'zebrapose_husky_experiment_05_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
     'zebrapose_husky_experiment_06_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
-    'zebrapose_husky_experiment_07_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),    
-    'zebrapose_husky_experiment_08_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),        
-    'zebrapose_husky_experiment_09_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_10_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_11_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_12_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_13_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),    
+    'zebrapose_husky_experiment_07_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
+    'zebrapose_husky_experiment_08_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
+    'zebrapose_husky_experiment_09_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_10_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_11_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_12_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_13_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
     # 'zebrapose_husky_experiment_14_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_15_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),    
+    # 'zebrapose_husky_experiment_15_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
     # 'zebrapose_husky_experiment_16_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_17_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_18_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_19_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),    
+    # 'zebrapose_husky_experiment_17_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_18_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_19_obj07_exp{}_ZPbaseline.csv'.format(config.exp_type),
   ],
-
 'result_filenames_MPPI': [
-    # 'zebrapose_husky_experiment_01_obj07_exp{}_MPPI.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_02_obj07_exp{}_MPPI.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_03_obj07_exp{}_MPPI.csv'.format(config.exp_type),    
+    # 'zebrapose_husky_experiment_01_obj07_exp{}_MPPI.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_02_obj07_exp{}_MPPI.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_03_obj07_exp{}_MPPI.csv'.format(config.exp_type),
     'zebrapose_husky_experiment_04_obj07_exp{}_MPPI.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_05_obj07_exp{}_MPPI.csv'.format(config.exp_type),    
+    # 'zebrapose_husky_experiment_05_obj07_exp{}_MPPI.csv'.format(config.exp_type),
     'zebrapose_husky_experiment_06_obj07_exp{}_MPPI.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_07_obj07_exp{}_MPPI.csv'.format(config.exp_type),    
-    'zebrapose_husky_experiment_08_obj07_exp{}_MPPI.csv'.format(config.exp_type),        
-    # 'zebrapose_husky_experiment_09_obj07_exp{}_MPPI.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_10_obj07_exp{}_MPPI.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_11_obj07_exp{}_MPPI.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_12_obj07_exp{}_MPPI.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_13_obj07_exp{}_MPPI.csv'.format(config.exp_type),    
+    # 'zebrapose_husky_experiment_07_obj07_exp{}_MPPI.csv'.format(config.exp_type),
+    'zebrapose_husky_experiment_08_obj07_exp{}_MPPI.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_09_obj07_exp{}_MPPI.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_10_obj07_exp{}_MPPI.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_11_obj07_exp{}_MPPI.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_12_obj07_exp{}_MPPI.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_13_obj07_exp{}_MPPI.csv'.format(config.exp_type),
     # 'zebrapose_husky_experiment_14_obj07_exp{}_MPPI.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_15_obj07_exp{}_MPPI.csv'.format(config.exp_type),    
+    # 'zebrapose_husky_experiment_15_obj07_exp{}_MPPI.csv'.format(config.exp_type),
     # 'zebrapose_husky_experiment_16_obj07_exp{}_MPPI.csv'.format(config.exp_type),
-    # 'zebrapose_husky_experiment_17_obj07_exp{}_MPPI.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_18_obj07_exp{}_MPPI.csv'.format(config.exp_type),    
-    # 'zebrapose_husky_experiment_19_obj07_exp{}_MPPI.csv'.format(config.exp_type),    
+    # 'zebrapose_husky_experiment_17_obj07_exp{}_MPPI.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_18_obj07_exp{}_MPPI.csv'.format(config.exp_type),
+    # 'zebrapose_husky_experiment_19_obj07_exp{}_MPPI.csv'.format(config.exp_type),
   ],
 
   'calc_errors': False,
@@ -199,10 +216,10 @@ csv_path=r'/home/pmvanderburg/noetic-husky/bop_ros_ws/src/Husky_scripts/data_vis
 misc.log('processing '+csv_path)
 # Load the CSV file into a pandas dataframe
 # predictors = ['ZP','MPPI'] # ,'ZPbaseline']
-# predictors = ['ZP'] 
-predictors = ['MPPI']
+predictors = ['ZP'] 
+# predictors = ['MPPI']
 # predictors = ['ZPbaseline'] #,'MPPIbaseline']
-
+date='20230609_exp{}'.format(config.exp_type)
 for i, predictor in enumerate(predictors):
   
   df = pd.read_csv(csv_path)
@@ -229,20 +246,22 @@ for i, predictor in enumerate(predictors):
     # Calculate performance metrics and store in variables
     config = final_scores['__config_number__']
     iters = final_scores['__pnp_iters__']
-    metric_1 = final_scores['bop19_average_recall']
-    metric_2 = final_scores['husky23_mean_score']
-    metric_3 = final_scores['husky23_mean_IoU']
-    metric_4 = final_scores['bop19_average_time_per_image']
-    metric_5 = final_scores['bop19_average_pnp_time_per_image']
+    AUC = final_scores['bop19_average_recall']
+    ADD = final_scores['husky23_mean_score']
+    mIoU = final_scores['husky23_mean_IoU']
+    inference_time = final_scores['bop19_average_time_per_image']
+    pnp_time = final_scores['bop19_average_pnp_time_per_image']
     # print(config)
 
     # Add the performance metrics to the correct cells in the dataframe
     # df.loc[j, 'Method Configuration'] = config+exp_type
     df.loc[j+rows-i, 'Method Configuration'] = config
-    df.loc[j+rows-i, 'AUC of Average Recall of ADD'] = metric_1
-    df.loc[j+rows-i, 'Inference Time'] = metric_4
-    df.loc[j+rows-i, 'RANSAC/PnP mean duration'] = metric_5
     df.loc[j+rows-i, 'RANSAC/PnP Iterations'] = str(iters).split('.')[0]
+    df.loc[j+rows-i, 'RANSAC/PnP mean duration'] = pnp_time
+    df.loc[j+rows-i, 'Inference Time'] = inference_time
+    df.loc[j+rows-i, 'AUC of Average Recall of ADD'] = AUC
+    df.loc[j+rows-i, 'mIoU'] = mIoU
+    df.loc[j+rows-i, 'mADD'] = ADD
     # df = df.sort_index()
     # df.loc[j+3, 'Method Configuration'] = config
     # df.loc[j+3, 'Average Recall'] = metric_1
@@ -250,7 +269,7 @@ for i, predictor in enumerate(predictors):
     j+=1
   
   # Save the updated dataframe back to the original CSV file
-  csv_save_path='existing_file_{}_test.csv'.format(predictor)
+  csv_save_path='existing_file_{}_{}.csv'.format(predictor,date)
   # csv_save_path='existing_file_{}.csv'.format(predictor)
   misc.log('saving csv... '+csv_save_path)
   df.to_csv(csv_save_path, index=False)

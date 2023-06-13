@@ -10,6 +10,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 from bop_toolkit_lib import inout
 from bop_toolkit_lib import misc
+from bop_toolkit_lib import pose_error
+
 from pybop_lib.debug_tools import printdebug
 from pybop_lib.debug_tools import printMaxMin
 from pybop_lib.manipulate_depth import vis_depth
@@ -17,7 +19,7 @@ from pybop_lib.manipulate_depth import vis_depth
 import matplotlib.pyplot as plt
 import math
 
-def draw_rect(im, rect, color=(1.0, 1.0, 1.0)):
+def draw_rect(im, rect, color=(1.0, 1.0, 1.0), width=1):
   """Draws a rectangle on an image.
 
   :param im: ndarray (uint8) on which the rectangle will be drawn.
@@ -32,7 +34,8 @@ def draw_rect(im, rect, color=(1.0, 1.0, 1.0)):
   im_pil = Image.fromarray(im)
   draw = ImageDraw.Draw(im_pil)
   draw.rectangle((rect[0], rect[1], rect[0] + rect[2], rect[1] + rect[3]),
-                 outline=tuple([int(c * 255) for c in color]), fill=None)
+                 outline=tuple([int(c * 255) for c in color]), fill=None, width=width
+                )
   del draw
   return np.asarray(im_pil)
 
@@ -67,7 +70,10 @@ def write_text_on_image(im, txt_list, loc=(3, 0), color=(1.0, 1.0, 1.0),
       txt_tpl = '{}:{' + info['fmt'] + '}'
     else:
       txt_tpl = '{}{' + info['fmt'] + '}'
-    txt = txt_tpl.format(info['name'], info['val'])
+    if not 'iou' in info:
+      txt = txt_tpl.format(info['name'], info['val'])
+    else:
+      txt = txt_tpl.format(info['name'], info['iou'][0])
     draw.text(loc, txt, fill=tuple([int(c * 255) for c in color]), font=font)
     text_width, text_height = font.getsize(txt)
     loc = (loc[0], loc[1] + text_height)
@@ -201,7 +207,8 @@ def vis_object_poses(
         ren_rgb_info = draw_rect(ren_rgb_info, bbox, bbox_color)
 
         if 'text_info' in pose:
-          text_loc = (bbox[0] + 2, bbox[1])
+          #text_loc = (bbox[0] + 2, bbox[1])
+          text_loc = (bbox[0] + 2 + bbox[2], bbox[1])
           ren_rgb_info = write_text_on_image(
             ren_rgb_info, pose['text_info'], text_loc, color=text_color,
             size=text_size)
@@ -219,13 +226,15 @@ def vis_object_poses(
         bbox_est_color = (1.0,0,0)
         # text_color = (1.0, 1.0, 1.0)
         # text_size = 11
-
-        ren_iou_info = draw_rect(ren_iou_info, bbox, bbox_gt_color)
+        bbox_width = 2
+        ren_iou_info = draw_rect(ren_iou_info, bbox, bbox_gt_color, bbox_width)
 
         bbox_est = pose['bbox']
-        ren_iou_info = draw_rect(ren_iou_info, bbox_est, bbox_est_color)
+        ren_iou_info = draw_rect(ren_iou_info, bbox_est, bbox_est_color, bbox_width)
 
+        iou = [pose_error.intersection_over_union(bbox, bbox_est)]
         if 'text_info' in pose:
+          pose['text_info'][0]['iou'] = iou
           text_loc = (bbox[0] + 2, bbox[1])
           ren_iou_info = write_text_on_image(
             ren_iou_info, pose['text_info'], text_loc, color=text_color,

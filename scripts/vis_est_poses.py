@@ -55,8 +55,10 @@ p = {
     #'/home/pmvanderburg/6dof_pose_experiments/pose_result_bop/tudl/zebrapose_tudl_test.csv',
     # 'zebrapose_husky_experiment_12_obj07_exp2_ZPbaseline.csv',
     # 'zebrapose_husky_experiment_03_obj07_exp2_ZPbaseline.csv',
-    'zebrapose_husky_experiment_12_obj07_exp2_ZP.csv',
+    # 'zebrapose_husky_experiment_05_obj07_exp2_ZP.csv',
+    'zebrapose_husky_experiment_05_obj07_exp0_ZP_retry2.csv',
   ],
+  
 
   # visualise bbox iou
   'vis_iou': True,
