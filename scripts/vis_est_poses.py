@@ -78,6 +78,8 @@ p = {
     '{vis_name}_depth_diff.jpg'),
   'vis_iou_tpath': os.path.join(
     '{vis_path}', '{result_name}', '{scene_id:06d}', '{vis_name}_iou.jpg'),
+  'vis_bbox_tpath': os.path.join(
+    '{vis_path}', '{result_name}', '{scene_id:06d}', '{vis_name}_bbox_{no}.jpg'),
   
 }
 ################################################################################
@@ -250,6 +252,9 @@ for result_fname in p['result_filenames']:
           vis_iou_path = p['vis_iou_tpath'].format(
             vis_path=p['vis_path'], result_name=result_name, scene_id=scene_id,
             vis_name=vis_name)
+          vis_bbox_tpath = p['vis_iou_tpath'].format(
+            vis_path=p['vis_path'], result_name=result_name, scene_id=scene_id,
+            vis_name=vis_name)
 
         # Path to the output depth difference visualization.
         vis_depth_diff_path = None
@@ -263,6 +268,6 @@ for result_fname in p['result_filenames']:
           poses=ests_vis, K=K, renderer=ren, rgb=rgb, depth=depth,
           vis_rgb_path=vis_rgb_path, vis_depth_diff_path=vis_depth_diff_path,
           vis_rgb_resolve_visib=p['vis_rgb_resolve_visib'],
-          vis_iou_path=vis_iou_path)
+          vis_iou_path=vis_iou_path, vis_bbox_tpath=vis_bbox_tpath)
 
 misc.log('Done.')

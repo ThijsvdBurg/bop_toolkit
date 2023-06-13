@@ -19,6 +19,40 @@ from pybop_lib.manipulate_depth import vis_depth
 import matplotlib.pyplot as plt
 import math
 
+def draw_bbox(im, bbox, color=(1.0, 1.0, 1.0), width=1):
+  """Renders bbox variations on and from an image.
+
+  :param im: ndarray (uint8) on which the rectangle will be drawn.
+  :param rect: Rectangle defined as [x, y, width, height], where [x, y] is the
+    top-left corner.
+  :param color: Color of the rectangle.
+  :return: Image with drawn rectangle.
+  """
+
+  topleft = [bbox[0],bbox[1]]
+  bottomright = [bbox[0]+bbox[2],bbox[1]+bbox[3]]
+
+  if im.dtype != np.uint8:
+    raise ValueError('The image must be of type uint8.')
+
+  im_pil1 = Image.fromarray(im)
+  im_pil2 = Image.fromarray(im)
+  # im_pil2 = Image.fromarray(im)
+  draw1 = ImageDraw.Draw(im_pil1)
+  draw1.point(xy=(topleft[0],topleft[1]),fill=None)
+  draw1.point(xy=(bottomright[0],bottomright[1]),fill=None)
+  del draw1
+
+  # real bbox
+  draw2 = ImageDraw.Draw(im_pil2)
+  draw2.rectangle((topleft[0],topleft[1], bottomright[0],bottomright[1]),
+                 outline=tuple([int(c * 255) for c in color]), fill=None, width=width
+                )
+  del draw2
+  # return image_bbox_corner_points, image_bbox_rectangle
+  return np.asarray(im_pil1), np.asarray(im_pil2)  
+
+
 def draw_rect(im, rect, color=(1.0, 1.0, 1.0), width=1):
   """Draws a rectangle on an image.
 
@@ -101,7 +135,7 @@ def depth_for_vis(depth, valid_start=0.2, valid_end=1.0):
 def vis_object_poses(
       poses, K, renderer, rgb=None, depth=None, vis_rgb_path=None,
       vis_depth_diff_path=None, vis_depth_diff_path_debug=None,
-      vis_rgb_resolve_visib=False,vis_iou_path=None):
+      vis_rgb_resolve_visib=False,vis_iou_path=None, vis_bbox_tpath=None):
   """Visualizes 3D object models in specified poses in a single image.
 
   Two visualizations are created:
@@ -129,7 +163,8 @@ def vis_object_poses(
   vis_rgb = vis_rgb_path is not None
   vis_depth_diff = vis_depth_diff_path is not None
   vis_iou = vis_iou_path is not None
-
+  if vis_bbox_tpath is not None:
+    vis_bbox = True
 
   if vis_rgb and rgb is None:
     raise ValueError('RGB visualization triggered but RGB image not provided.')
@@ -143,6 +178,10 @@ def vis_object_poses(
   ren_rgb_info = None
   ren_depth = None
   ren_iou_info = None
+  ren_uv = None
+  ren_bbox = None
+  ren_bbox_bbox = None
+  ren_bbox_points = None
 
   if vis_rgb:
     im_size = (rgb.shape[1], rgb.shape[0])
@@ -151,6 +190,13 @@ def vis_object_poses(
 
   if vis_iou:
     ren_iou_info = np.zeros(rgb.shape, np.uint8)
+  if vis_bbox:
+    ren_bbox = np.zeros(rgb.shape, np.uint8)
+    ren_bbox_bbox = np.zeros(rgb.shape, np.uint8)
+    ren_bbox_points = np.zeros(rgb.shape, np.uint8)
+    path0 = vis_bbox_tpath.format(no=0)
+    path1 = vis_bbox_tpath.format(no=1)
+    path2 = vis_bbox_tpath.format(no=2)
 
   if vis_depth_diff:
     if im_size and im_size != (depth.shape[1], depth.shape[0]):
@@ -224,13 +270,15 @@ def vis_object_poses(
         # text_color = model_color
         bbox_gt_color = (0,1.0,0)
         bbox_est_color = (1.0,0,0)
+        white_color = (1,1,1)
         # text_color = (1.0, 1.0, 1.0)
         # text_size = 11
         bbox_width = 2
         ren_iou_info = draw_rect(ren_iou_info, bbox, bbox_gt_color, bbox_width)
-
         bbox_est = pose['bbox']
+        print('bbox_est',bbox_est,'type(bbox_est)',type(bbox_est))
         ren_iou_info = draw_rect(ren_iou_info, bbox_est, bbox_est_color, bbox_width)
+        ren_bbox_points,ren_bbox_bbox = draw_bbox(ren_bbox, bbox_est, white_color, bbox_width)
 
         iou = [pose_error.intersection_over_union(bbox, bbox_est)]
         if 'text_info' in pose:
@@ -259,7 +307,20 @@ def vis_object_poses(
                  1.0 * ren_iou_info.astype(np.float32)
     vis_im_iou[vis_im_iou > 255] = 255
     inout.save_im(vis_iou_path, vis_im_iou.astype(np.uint8), jpg_quality=95)
+  if vis_bbox:
+    misc.ensure_dir(os.path.dirname(path0))
+    misc.ensure_dir(os.path.dirname(path1))
+    # misc.ensure_dir(os.path.dirname(path2))
 
+    vis_im_bbox_0 = 1.0 * rgb.astype(np.float32) + \
+                 1.0 * ren_bbox_points.astype(np.float32)
+    vis_im_bbox_1 = 1.0 * rgb.astype(np.float32) + \
+                 1.0 * ren_bbox_bbox.astype(np.float32)
+                #  0.5 * ren_rgb.astype(np.float32) + \
+    vis_im_bbox_0[vis_im_bbox_0 > 255] = 255
+    inout.save_im(path0, vis_im_bbox_0.astype(np.uint8), jpg_quality=95)
+    vis_im_bbox_1[vis_im_bbox_1 > 255] = 255
+    inout.save_im(path1, vis_im_bbox_1.astype(np.uint8), jpg_quality=95)
   # Save the image of depth differences.
   if vis_depth_diff:
     misc.ensure_dir(os.path.dirname(vis_depth_diff_path))
